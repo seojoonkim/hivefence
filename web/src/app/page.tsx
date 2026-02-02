@@ -1237,7 +1237,7 @@ export default function Home() {
             
             <div className="max-w-2xl mx-auto">
               <Terminal title="install in 30 seconds">
-                <div className="text-green-400">$ npx clawhub install prompt-guard</div>
+                <div className="text-green-400">$ npx clawhub install hivefence</div>
                 <div className="text-zinc-500 mt-3"># or via npm</div>
                 <div className="text-green-400">$ npm install hivefence</div>
                 <div className="text-zinc-500 mt-3"># start protecting immediately</div>
