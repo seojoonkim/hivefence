@@ -933,182 +933,79 @@ const PendingPatternsPreview = () => {
   );
 };
 
+// Simplified Community Panel - shows 5 patterns max, links to /community for full experience
 const CommunityPanel = () => {
-  const { data: session, status } = useSession();
   const [patterns, setPatterns] = useState<Pattern[]>([]);
   const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const [newPattern, setNewPattern] = useState({ pattern: '', category: 'role_override', severity: 3 });
-  const [submitResult, setSubmitResult] = useState<{ success: boolean; message: string } | null>(null);
-
-  const isLoggedIn = status === 'authenticated';
 
   useEffect(() => {
-    fetchPatterns();
+    fetch(`${API_BASE}/threats/pending`)
+      .then(r => r.json())
+      .then(data => setPatterns((data.patterns || []).slice(0, 5)))
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, []);
 
-  const fetchPatterns = async () => {
-    try {
-      const res = await fetch(`${API_BASE}/threats/pending`);
-      const data = await res.json();
-      setPatterns(data.patterns || []);
-    } catch (e) {
-      console.error('Failed to fetch patterns', e);
-    } finally {
-      setLoading(false);
-    }
+  const categoryInfo: Record<string, { icon: string; color: string }> = {
+    role_override: { icon: '🎭', color: 'bg-red-500/20 text-red-400' },
+    fake_system: { icon: '📜', color: 'bg-purple-500/20 text-purple-400' },
+    jailbreak: { icon: '🔓', color: 'bg-orange-500/20 text-orange-400' },
+    data_exfil: { icon: '💾', color: 'bg-blue-500/20 text-blue-400' },
+    social_eng: { icon: '🎩', color: 'bg-pink-500/20 text-pink-400' },
+    code_exec: { icon: '💻', color: 'bg-cyan-500/20 text-cyan-400' },
   };
-
-  const vote = async (id: string, approve: boolean) => {
-    try {
-      await fetch(`${API_BASE}/threats/${id}/vote`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ vote: approve ? 'up' : 'down' }),
-      });
-      fetchPatterns();
-    } catch (e) {
-      console.error('Vote failed', e);
-    }
-  };
-
-  const submitPattern = async () => {
-    if (!newPattern.pattern.trim()) return;
-    setSubmitting(true);
-    setSubmitResult(null);
-    try {
-      const hash = 'sha256:' + Array.from(newPattern.pattern).reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 0).toString(16);
-      const res = await fetch(`${API_BASE}/threats/report`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          patternHash: hash,
-          category: newPattern.category,
-          severity: newPattern.severity,
-          description: newPattern.pattern.slice(0, 100),
-        }),
-      });
-      const data = await res.json();
-      if (data.id) {
-        setSubmitResult({ success: true, message: `Pattern submitted! ID: ${data.id.slice(0, 8)}...` });
-        setNewPattern({ pattern: '', category: 'role_override', severity: 3 });
-        fetchPatterns();
-      } else {
-        setSubmitResult({ success: false, message: data.error || 'Submission failed' });
-      }
-    } catch (e) {
-      setSubmitResult({ success: false, message: 'Network error' });
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const categories = ['role_override', 'fake_system', 'jailbreak', 'data_exfil', 'social_eng', 'code_exec'];
 
   return (
     <div className="rounded-2xl border border-zinc-800 bg-zinc-900/30 overflow-hidden">
       <div className="p-4 sm:p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-mono text-sm text-zinc-400">🗳️ COMMUNITY GOVERNANCE</h3>
-          <div className="flex items-center gap-2">
-            {isLoggedIn ? (
-              <>
-                <span className="text-xs text-green-400">✓ {session?.user?.name || 'GitHub User'}</span>
-                <button onClick={() => signOut()} className="text-xs text-zinc-500 hover:text-zinc-300">Logout</button>
-              </>
-            ) : (
-              <button onClick={() => signIn('github')} className="px-2 py-1 rounded bg-zinc-800 text-xs text-zinc-300 hover:bg-zinc-700 flex items-center gap-1">
-                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                Login
-              </button>
-            )}
-            <button onClick={fetchPatterns} className="text-xs text-amber-400 hover:text-amber-300">↻</button>
-          </div>
+          <a href="/community" className="text-xs text-amber-400 hover:text-amber-300 font-mono">
+            View All →
+          </a>
         </div>
 
-        {/* Pending Patterns */}
-        <div className="mb-6">
-          <div className="text-xs text-zinc-500 mb-3">Pending Patterns ({patterns.length})</div>
-          {loading ? (
-            <div className="text-center text-zinc-500 py-4">Loading...</div>
-          ) : patterns.length === 0 ? (
-            <div className="text-center text-zinc-500 py-4">No pending patterns</div>
-          ) : (
-            <div className="space-y-2 max-h-48 overflow-y-auto">
-              {patterns.map((p) => (
+        <div className="text-xs text-zinc-500 mb-3">Latest Pending Patterns</div>
+        
+        {loading ? (
+          <div className="text-center text-zinc-500 py-4">Loading...</div>
+        ) : patterns.length === 0 ? (
+          <div className="text-center text-zinc-500 py-4">
+            <span className="text-2xl mb-2 block">🐝</span>
+            No pending patterns — the hive is secure!
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {patterns.map((p) => {
+              const info = categoryInfo[p.category] || { icon: '⚠️', color: 'bg-amber-500/20 text-amber-400' };
+              return (
                 <div key={p.id} className="p-3 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-between gap-2">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
-                        p.category === 'jailbreak' ? 'bg-red-500/20 text-red-400' :
-                        p.category === 'fake_system' ? 'bg-purple-500/20 text-purple-400' :
-                        'bg-amber-500/20 text-amber-400'
-                      }`}>{p.category}</span>
+                      <span className="text-sm">{info.icon}</span>
+                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${info.color}`}>
+                        {p.category.replace('_', ' ')}
+                      </span>
                       <span className="text-xs text-zinc-500">Sev: {p.severity}</span>
                     </div>
                     <div className="text-xs text-zinc-400 truncate mt-1">{p.pattern_hash}</div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <button 
-                      onClick={() => isLoggedIn ? vote(p.id, true) : signIn('github')} 
-                      className={`px-2 py-1 rounded text-xs ${isLoggedIn ? 'bg-green-500/10 text-green-400 hover:bg-green-500/20' : 'bg-zinc-800 text-zinc-500 cursor-pointer'}`}
-                      title={isLoggedIn ? 'Approve' : 'Login to vote'}
-                    >
-                      👍 {p.vote_up}
-                    </button>
-                    <button 
-                      onClick={() => isLoggedIn ? vote(p.id, false) : signIn('github')} 
-                      className={`px-2 py-1 rounded text-xs ${isLoggedIn ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-zinc-800 text-zinc-500 cursor-pointer'}`}
-                      title={isLoggedIn ? 'Reject' : 'Login to vote'}
-                    >
-                      👎 {p.vote_down}
-                    </button>
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="text-green-400">👍 {p.vote_up}</span>
+                    <span className="text-red-400">👎 {p.vote_down}</span>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Submit New Pattern */}
-        <div className="border-t border-zinc-800 pt-4">
-          <div className="text-xs text-zinc-500 mb-3">Submit New Pattern</div>
-          <input
-            type="text"
-            value={newPattern.pattern}
-            onChange={(e) => setNewPattern({ ...newPattern, pattern: e.target.value })}
-            placeholder="Enter attack pattern..."
-            className="w-full p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-200 text-sm placeholder:text-zinc-600 focus:outline-none focus:border-amber-500/50 mb-2"
-          />
-          <div className="flex gap-2 mb-2">
-            <select
-              value={newPattern.category}
-              onChange={(e) => setNewPattern({ ...newPattern, category: e.target.value })}
-              className="flex-1 p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs focus:outline-none"
-            >
-              {categories.map((c) => <option key={c} value={c}>{c}</option>)}
-            </select>
-            <select
-              value={newPattern.severity}
-              onChange={(e) => setNewPattern({ ...newPattern, severity: Number(e.target.value) })}
-              className="w-20 p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs focus:outline-none"
-            >
-              {[1,2,3,4,5].map((s) => <option key={s} value={s}>Sev {s}</option>)}
-            </select>
+              );
+            })}
           </div>
-          <button
-            onClick={submitPattern}
-            disabled={!newPattern.pattern.trim() || submitting}
-            className="w-full py-2 rounded-lg bg-amber-500 text-black font-mono text-sm font-bold hover:bg-amber-400 disabled:opacity-50"
-          >
-            {submitting ? 'Submitting...' : '🐝 Submit Pattern'}
-          </button>
-          {submitResult && (
-            <div className={`mt-2 p-2 rounded-lg text-xs ${submitResult.success ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'}`}>
-              {submitResult.message}
-            </div>
-          )}
-        </div>
+        )}
+
+        <a 
+          href="/community" 
+          className="mt-4 block w-full py-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-sm text-center hover:bg-amber-500/20 transition-all"
+        >
+          🗳️ Vote & Submit Patterns →
+        </a>
       </div>
     </div>
   );
