@@ -1,0 +1,11 @@
+name = "hivefence-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "hivefence"
+database_id = "6b8dabea-f2a7-46f9-bc40-d75406b547cf"

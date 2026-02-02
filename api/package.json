@@ -1,0 +1,27 @@
+{
+  "name": "hivefence-api",
+  "version": "0.1.0",
+  "description": "HiveFence Threat Intelligence API",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create hivefence",
+    "db:migrate": "wrangler d1 migrations apply hivefence",
+    "db:migrate:local": "wrangler d1 migrations apply hivefence --local",
+    "test": "echo 'Tests coming soon'"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "security",
+    "ai"
+  ],
+  "author": "Simon Kim",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260131.0",
+    "hono": "^4.0.0",
+    "wrangler": "^4.0.0"
+  }
+}
