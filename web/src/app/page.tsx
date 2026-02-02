@@ -1198,14 +1198,25 @@ export default function Home() {
             </p>
             
             {/* Social Proof */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6 text-xs sm:text-sm">
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"/>
-                <span className="text-zinc-300 font-mono">847 agents protected</span>
-              </div>
-              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
-                <span className="text-red-400">🛡️</span>
-                <span className="text-zinc-300 font-mono">1.2k threats blocked today</span>
+            <div className="flex flex-col items-center gap-3 mb-4 sm:mb-6">
+              {/* Featured Badge */}
+              <a href="https://x.com/vittostack/status/2018326025373900881" target="_blank" 
+                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 hover:border-amber-500/50 transition-all group">
+                <span className="text-amber-400">📰</span>
+                <span className="text-xs sm:text-sm text-zinc-300">Featured in <span className="text-amber-400 font-semibold">@VittoStack's Security Guide</span></span>
+                <span className="text-zinc-500 text-xs font-mono">34K+ views</span>
+                <span className="text-zinc-500 group-hover:text-amber-400 transition-colors">↗</span>
+              </a>
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"/>
+                  <span className="text-zinc-300 font-mono">847 agents protected</span>
+                </div>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
+                  <span className="text-red-400">🛡️</span>
+                  <span className="text-zinc-300 font-mono">1.2k threats blocked today</span>
+                </div>
               </div>
             </div>
             
@@ -1226,6 +1237,8 @@ export default function Home() {
             
             <div className="max-w-2xl mx-auto">
               <Terminal title="install in 30 seconds">
+                <div className="text-green-400">$ npx clawhub install prompt-guard</div>
+                <div className="text-zinc-500 mt-3"># or via npm</div>
                 <div className="text-green-400">$ npm install hivefence</div>
                 <div className="text-zinc-500 mt-3"># start protecting immediately</div>
                 <div className="text-amber-400">import {'{ protect }'} from 'hivefence'</div>
@@ -1252,6 +1265,34 @@ export default function Home() {
                 <span className="text-zinc-300"> A single malicious prompt can read your secrets, modify your code, or exfiltrate data.</span>
               </p>
             </div>
+            
+            {/* ZeroLeaks Stats - New */}
+            <a href="https://x.com/NotLucknite/status/2017665998514475350" target="_blank"
+               className="block max-w-xl mx-auto mb-8 p-4 rounded-xl bg-red-500/5 border border-red-500/20 hover:border-red-500/40 transition-all group">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-red-400 text-xl">⚠️</span>
+                <span className="text-xs font-mono text-red-400">ZEROLEAKS SECURITY ASSESSMENT</span>
+                <span className="ml-auto text-zinc-500 text-xs group-hover:text-red-400">↗</span>
+              </div>
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <div className="text-2xl sm:text-3xl font-bold text-red-400">91%</div>
+                  <div className="text-[10px] sm:text-xs text-zinc-500">Injection Success</div>
+                </div>
+                <div>
+                  <div className="text-2xl sm:text-3xl font-bold text-red-400">84%</div>
+                  <div className="text-[10px] sm:text-xs text-zinc-500">Data Extraction</div>
+                </div>
+                <div>
+                  <div className="text-2xl sm:text-3xl font-bold text-red-400">2/100</div>
+                  <div className="text-[10px] sm:text-xs text-zinc-500">Unprotected Score</div>
+                </div>
+              </div>
+              <p className="text-xs text-zinc-500 mt-3 text-center">
+                @NotLucknite tested OpenClaw without protection — <span className="text-red-400">system prompt leaked on turn 1</span>
+              </p>
+            </a>
+            
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
               {[
                 { value: '#1', label: 'OWASP LLM Risk', sub: 'LLM01:2025' },
@@ -1357,6 +1398,43 @@ export default function Home() {
                   <div className="text-xs text-zinc-500">Risk-based prioritization (0-100)</div>
                 </div>
               </div>
+            </div>
+            
+            {/* Security Stack Recommendation */}
+            <div className="mt-6 p-6 rounded-2xl bg-gradient-to-r from-amber-500/5 to-green-500/5 border border-amber-500/20">
+              <h3 className="font-mono text-sm text-amber-400 mb-4">🛡️ RECOMMENDED SECURITY STACK</h3>
+              <p className="text-sm text-zinc-400 mb-4">
+                For maximum protection, combine HiveFence with these community-recommended tools:
+              </p>
+              <div className="grid sm:grid-cols-3 gap-4">
+                <a href="https://github.com/Dicklesworthstone/acip" target="_blank" 
+                   className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-green-500/30 transition-all group">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-green-400">🧠</span>
+                    <span className="font-mono text-sm text-zinc-300 group-hover:text-green-400">ACIP</span>
+                  </div>
+                  <div className="text-xs text-zinc-500">Advanced Cognitive Inoculation Prompt — behavioral boundary defense</div>
+                </a>
+                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-amber-400">🐝</span>
+                    <span className="font-mono text-sm text-amber-400 font-bold">HiveFence</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400">YOU ARE HERE</span>
+                  </div>
+                  <div className="text-xs text-zinc-400">Pattern detection + collective immunity network</div>
+                </div>
+                <a href="https://clawhub.ai/c-goro/skillguard" target="_blank"
+                   className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-blue-500/30 transition-all group">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-blue-400">🔒</span>
+                    <span className="font-mono text-sm text-zinc-300 group-hover:text-blue-400">SkillGuard</span>
+                  </div>
+                  <div className="text-xs text-zinc-500">Audit skills for security issues before installation</div>
+                </a>
+              </div>
+              <p className="text-xs text-zinc-500 mt-4 text-center">
+                As recommended in <a href="https://x.com/vittostack/status/2018326025373900881" target="_blank" className="text-amber-400 hover:underline">@VittoStack's Security Guide</a>
+              </p>
             </div>
           </div>
         </section>
