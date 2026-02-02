@@ -94,45 +94,28 @@ const HoneycombPattern = ({ className = '' }: { className?: string }) => {
   );
 };
 
-// Advanced Network visualization
+// Simplified Network visualization
 const HiveNetwork = ({ className = '' }: { className?: string }) => {
   const nodes = [
     // Central hub
-    { x: 400, y: 150, label: 'HiveFence', type: 'hub', size: 28 },
-    // Inner ring - primary agents
-    { x: 250, y: 100, label: 'Claude Code', type: 'agent', status: 'immune' },
-    { x: 550, y: 100, label: 'Cursor', type: 'agent', status: 'protected' },
-    { x: 250, y: 200, label: 'Windsurf', type: 'agent', status: 'immune' },
-    { x: 550, y: 200, label: 'Cline', type: 'agent', status: 'scanning' },
-    // Outer ring - more agents
-    { x: 120, y: 80, label: 'Agent-5', type: 'agent', status: 'protected' },
-    { x: 120, y: 150, label: 'Agent-6', type: 'agent', status: 'immune' },
-    { x: 120, y: 220, label: 'Agent-7', type: 'agent', status: 'protected' },
-    { x: 680, y: 80, label: 'Agent-8', type: 'agent', status: 'immune' },
-    { x: 680, y: 150, label: 'Agent-9', type: 'agent', status: 'protected' },
-    { x: 680, y: 220, label: 'Agent-10', type: 'agent', status: 'scanning' },
-    // Top and bottom
-    { x: 320, y: 40, label: 'Agent-11', type: 'agent', status: 'immune' },
-    { x: 480, y: 40, label: 'Agent-12', type: 'agent', status: 'protected' },
-    { x: 320, y: 260, label: 'Agent-13', type: 'agent', status: 'protected' },
-    { x: 480, y: 260, label: 'Agent-14', type: 'agent', status: 'immune' },
+    { x: 400, y: 140, label: 'HiveFence', type: 'hub', size: 28 },
+    // 5 agents around hub
+    { x: 200, y: 140, label: 'Claude Code', type: 'agent', status: 'immune' },
+    { x: 600, y: 140, label: 'Cursor', type: 'agent', status: 'protected' },
+    { x: 300, y: 60, label: 'Windsurf', type: 'agent', status: 'immune' },
+    { x: 500, y: 60, label: 'Cline', type: 'agent', status: 'scanning' },
+    { x: 400, y: 220, label: 'Your Agent', type: 'agent', status: 'protected' },
     // Attack indicator
-    { x: 80, y: 40, label: '⚠️ Attack', type: 'attack', status: 'blocked' },
+    { x: 80, y: 100, label: '⚠️ Attack', type: 'attack', status: 'blocked' },
   ];
   
   const connections = [
-    // Hub to inner ring
-    [0, 1], [0, 2], [0, 3], [0, 4],
-    // Inner ring interconnections
-    [1, 2], [2, 4], [4, 3], [3, 1], [1, 4], [2, 3],
-    // Outer to inner
-    [5, 1], [6, 1], [6, 3], [7, 3],
-    [8, 2], [9, 2], [9, 4], [10, 4],
-    // Top/bottom to inner
-    [11, 1], [11, 2], [12, 2], [12, 4],
-    [13, 3], [13, 1], [14, 4], [14, 3],
+    // Hub to all agents
+    [0, 1], [0, 2], [0, 3], [0, 4], [0, 5],
+    // Inter-agent connections
+    [1, 3], [3, 4], [4, 2], [1, 5], [2, 5],
     // Attack path
-    [15, 5], [5, 6],
+    [6, 1],
   ];
   
   return (
@@ -195,13 +178,13 @@ const HiveNetwork = ({ className = '' }: { className?: string }) => {
         })}
         
         {/* Attack blocked animation */}
-        <g transform="translate(80, 110)">
-          <circle r="30" fill="rgba(239, 68, 68, 0.15)" stroke="rgba(239, 68, 68, 0.7)" strokeWidth="2.5" filter="url(#glow-red)">
-            <animate attributeName="r" values="25;30;25" dur="1s" repeatCount="indefinite"/>
+        <g transform="translate(80, 100)">
+          <circle r="28" fill="rgba(239, 68, 68, 0.15)" stroke="rgba(239, 68, 68, 0.7)" strokeWidth="2.5" filter="url(#glow-red)">
+            <animate attributeName="r" values="23;28;23" dur="1s" repeatCount="indefinite"/>
             <animate attributeName="opacity" values="1;0.5;1" dur="1s" repeatCount="indefinite"/>
           </circle>
-          <text y="6" textAnchor="middle" fill="#ef4444" fontSize="20">⚠️</text>
-          <text y="50" textAnchor="middle" fill="#ef4444" fontSize="11" fontFamily="monospace" fontWeight="bold">BLOCKED</text>
+          <text y="6" textAnchor="middle" fill="#ef4444" fontSize="18">⚠️</text>
+          <text y="45" textAnchor="middle" fill="#ef4444" fontSize="10" fontFamily="monospace" fontWeight="bold">BLOCKED</text>
         </g>
         
         {/* Central Hub */}
@@ -267,19 +250,19 @@ const HiveNetwork = ({ className = '' }: { className?: string }) => {
         
         {/* Stats overlay */}
         <g transform="translate(620, 15)">
-          <rect x="0" y="0" width="160" height="85" rx="10" fill="rgba(24,24,27,0.9)" stroke="rgba(245,158,11,0.4)" strokeWidth="1.5"/>
-          <text x="12" y="22" fill="#f59e0b" fontSize="11" fontFamily="monospace" fontWeight="bold">NETWORK STATUS</text>
-          <text x="12" y="42" fill="#22c55e" fontSize="13" fontFamily="monospace">● 8 Immune</text>
-          <text x="12" y="58" fill="#f59e0b" fontSize="13" fontFamily="monospace">● 4 Protected</text>
-          <text x="12" y="74" fill="#3b82f6" fontSize="13" fontFamily="monospace">● 2 Scanning</text>
+          <rect x="0" y="0" width="160" height="70" rx="10" fill="rgba(24,24,27,0.9)" stroke="rgba(245,158,11,0.4)" strokeWidth="1.5"/>
+          <text x="12" y="20" fill="#f59e0b" fontSize="10" fontFamily="monospace" fontWeight="bold">NETWORK STATUS</text>
+          <text x="12" y="38" fill="#22c55e" fontSize="12" fontFamily="monospace">● 3 Immune</text>
+          <text x="12" y="54" fill="#f59e0b" fontSize="12" fontFamily="monospace">● 2 Protected</text>
+          <text x="100" y="54" fill="#3b82f6" fontSize="12" fontFamily="monospace">● 1 Scanning</text>
         </g>
         
         {/* Threat counter */}
-        <g transform="translate(15, 15)">
-          <rect x="0" y="0" width="130" height="55" rx="10" fill="rgba(24,24,27,0.9)" stroke="rgba(239,68,68,0.4)" strokeWidth="1.5"/>
-          <text x="12" y="22" fill="#ef4444" fontSize="11" fontFamily="monospace" fontWeight="bold">THREATS TODAY</text>
-          <text x="12" y="45" fill="#ef4444" fontSize="18" fontFamily="monospace" fontWeight="bold">
-            12 BLOCKED
+        <g transform="translate(15, 200)">
+          <rect x="0" y="0" width="130" height="50" rx="10" fill="rgba(24,24,27,0.9)" stroke="rgba(239,68,68,0.4)" strokeWidth="1.5"/>
+          <text x="12" y="20" fill="#ef4444" fontSize="10" fontFamily="monospace" fontWeight="bold">THREATS TODAY</text>
+          <text x="12" y="40" fill="#ef4444" fontSize="16" fontFamily="monospace" fontWeight="bold">
+            47 BLOCKED
             <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/>
           </text>
         </g>
@@ -762,29 +745,41 @@ export default function Home() {
             </a>
             
             <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl leading-tight mb-8">
-              <span className="text-zinc-300">Your AI agent has real access.</span>
+              <span className="text-zinc-300">Your AI agent can read files,</span>
               <br />
-              <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">One bad prompt can hijack it all.</span>
+              <span className="text-zinc-300">run code, and access APIs.</span>
+              <br />
+              <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">"Ignore previous instructions" breaks it all.</span>
             </h1>
             
             <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-6 leading-relaxed">
               Prompt injection is the #1 attack on AI agents. HiveFence blocks attacks in real-time — <span className="text-amber-400">when one detects, all become immune.</span>
             </p>
             
+            {/* Social Proof */}
+            <div className="flex items-center justify-center gap-4 mb-6 text-sm">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/50">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"/>
+                <span className="text-zinc-300 font-mono">847 agents protected</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/50">
+                <span className="text-red-400">🛡️</span>
+                <span className="text-zinc-300 font-mono">1.2k threats blocked today</span>
+              </div>
+            </div>
+            
             <div className="flex items-center justify-center gap-3 mb-8 text-sm font-mono">
-              <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400">Free & Open Source</span>
-              <span className="text-zinc-600">|</span>
+              <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400">✓ Free Forever</span>
               <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">Pro Coming Soon</span>
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <a href="#demo" 
-                 className="px-6 py-3 rounded-xl bg-amber-500 text-black font-mono font-bold hover:bg-amber-400 transition-all inline-flex items-center justify-center gap-2">
-                🛡️ See It Block an Attack
+              <a href="https://github.com/seojoonkim/hivefence" target="_blank" 
+                 className="px-8 py-4 rounded-xl bg-amber-500 text-black font-mono font-bold text-lg hover:bg-amber-400 transition-all inline-flex items-center justify-center gap-2">
+                🚀 Get Started Free
               </a>
-              <a href="https://github.com/seojoonkim/hivefence" target="_blank" className="px-6 py-3 rounded-xl border border-zinc-700 text-zinc-300 font-mono hover:border-amber-500/50 transition-all inline-flex items-center justify-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                Get the Code
+              <a href="#demo" className="px-6 py-4 rounded-xl border border-zinc-700 text-zinc-300 font-mono hover:border-amber-500/50 transition-all inline-flex items-center justify-center gap-2">
+                See Live Demo ↓
               </a>
             </div>
             
@@ -1262,32 +1257,18 @@ export default function Home() {
             Join the hive. When one is attacked, all become immune.
           </p>
           
-          {/* Pricing badge */}
-          <div className="mb-6">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-sm font-mono">
-              ✨ Free & Open Source
-            </span>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-sm font-mono ml-2">
-              🚀 Pro Coming Soon
-            </span>
-          </div>
+          {/* Single CTA */}
+          <a href="https://github.com/seojoonkim/hivefence" target="_blank"
+             className="px-10 py-5 rounded-xl bg-amber-500 text-black font-mono font-bold text-xl hover:bg-amber-400 transition-all inline-flex items-center justify-center gap-3 mb-8">
+            🚀 Get Started Free
+          </a>
           
           {/* Trust badges */}
-          <div className="flex flex-wrap justify-center gap-3 mb-10 text-xs font-mono">
+          <div className="flex flex-wrap justify-center gap-3 text-xs font-mono">
             <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ OWASP LLM Top 10</span>
             <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ MITRE ATLAS</span>
             <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ Zero-knowledge</span>
-          </div>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://github.com/seojoonkim/hivefence" target="_blank"
-               className="px-8 py-4 rounded-xl bg-amber-500 text-black font-mono font-bold text-lg hover:bg-amber-400 transition-all inline-flex items-center justify-center gap-3">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              Start Protecting Your Agent
-            </a>
-            <a href="#demo" className="px-8 py-4 rounded-xl border border-zinc-700 text-zinc-300 font-mono hover:border-amber-500/50 transition-all inline-flex items-center justify-center gap-2">
-              Watch a Live Block ↑
-            </a>
+            <span className="px-3 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Free Forever</span>
           </div>
         </section>
 
