@@ -741,16 +741,16 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             HERO
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="pt-32 pb-24 px-6">
+        <section className="pt-20 pb-12 sm:pt-32 sm:pb-24 px-4 sm:px-6">
           <div className="max-w-4xl mx-auto text-center">
             <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank"
-               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-red-500/30 bg-red-500/5 text-red-400 text-xs font-mono mb-8 hover:bg-red-500/10 transition-all">
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+               className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-red-500/30 bg-red-500/5 text-red-400 text-[10px] sm:text-xs font-mono mb-6 sm:mb-8 hover:bg-red-500/10 transition-all">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               OWASP LLM01:2025 — Prompt Injection
-              <span className="text-xs opacity-60">↗</span>
+              <span className="opacity-60">↗</span>
             </a>
             
-            <h1 className="font-display font-black text-[1.7rem] sm:text-4xl md:text-5xl leading-tight mb-8">
+            <h1 className="font-display font-black text-[1.5rem] sm:text-4xl md:text-5xl leading-tight mb-4 sm:mb-8">
               <span className="text-zinc-300">Your AI agent can read files, run code, and access APIs.</span>
               <br />
               <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">"Ignore previous instructions"</span>
@@ -758,33 +758,33 @@ export default function Home() {
               <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">breaks it all.</span>
             </h1>
             
-            <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-6 leading-relaxed">
+            <p className="text-sm sm:text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-4 sm:mb-6 leading-relaxed px-2">
               Prompt injection is the #1 attack on AI agents. HiveFence blocks attacks in real-time — <span className="text-amber-400">when one detects, all become immune.</span>
             </p>
             
             {/* Social Proof */}
-            <div className="flex items-center justify-center gap-4 mb-6 text-sm">
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/50">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"/>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6 text-xs sm:text-sm">
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"/>
                 <span className="text-zinc-300 font-mono">847 agents protected</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800/50">
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
                 <span className="text-red-400">🛡️</span>
                 <span className="text-zinc-300 font-mono">1.2k threats blocked today</span>
               </div>
             </div>
             
-            <div className="flex items-center justify-center gap-3 mb-8 text-sm font-mono">
-              <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400">✓ Free Forever</span>
-              <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">Pro Coming Soon</span>
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8 text-xs sm:text-sm font-mono">
+              <span className="px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400">✓ Free Forever</span>
+              <span className="px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">Pro Coming Soon</span>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8 sm:mb-16 px-4 sm:px-0">
               <a href="https://github.com/seojoonkim/hivefence" target="_blank" 
-                 className="px-8 py-4 rounded-xl bg-amber-500 text-black font-mono font-bold text-lg hover:bg-amber-400 transition-all inline-flex items-center justify-center gap-2">
+                 className="px-6 py-3 sm:px-8 sm:py-4 rounded-xl bg-amber-500 text-black font-mono font-bold text-base sm:text-lg hover:bg-amber-400 transition-all inline-flex items-center justify-center gap-2">
                 🚀 Get Started Free
               </a>
-              <a href="#demo" className="px-6 py-4 rounded-xl border border-zinc-700 text-zinc-300 font-mono hover:border-amber-500/50 transition-all inline-flex items-center justify-center gap-2">
+              <a href="#demo" className="px-5 py-3 sm:px-6 sm:py-4 rounded-xl border border-zinc-700 text-zinc-300 font-mono text-sm sm:text-base hover:border-amber-500/50 transition-all inline-flex items-center justify-center gap-2">
                 See Live Demo ↓
               </a>
             </div>
@@ -803,16 +803,16 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             THREAT CONTEXT
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-20 px-6 border-y border-zinc-800/50">
+        <section className="py-12 sm:py-20 px-4 sm:px-6 border-y border-zinc-800/50">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-sm font-mono text-zinc-500 mb-4">// THE THREAT IS REAL</h2>
-              <p className="text-zinc-400 max-w-xl mx-auto">
+            <div className="text-center mb-6 sm:mb-10">
+              <h2 className="text-xs sm:text-sm font-mono text-zinc-500 mb-3 sm:mb-4">// THE THREAT IS REAL</h2>
+              <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto px-2">
                 AI coding assistants like Claude Code, Cursor, and Windsurf give agents real filesystem access.
                 <span className="text-zinc-300"> A single malicious prompt can read your secrets, modify your code, or exfiltrate data.</span>
               </p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 text-center">
               {[
                 { value: '#1', label: 'OWASP LLM Risk', sub: 'LLM01:2025' },
                 { value: '15+', label: 'Attack Categories', sub: 'MITRE ATLAS' },
@@ -820,9 +820,9 @@ export default function Home() {
                 { value: '4', label: 'Languages', sub: 'EN/KO/JA/ZH' },
               ].map((stat, i) => (
                 <div key={i}>
-                  <div className="text-3xl sm:text-4xl font-display font-bold bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">{stat.value}</div>
-                  <div className="text-sm text-zinc-500 font-mono mt-2">{stat.label}</div>
-                  <div className="text-xs text-zinc-600 font-mono">{stat.sub}</div>
+                  <div className="text-2xl sm:text-4xl font-display font-bold bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">{stat.value}</div>
+                  <div className="text-xs sm:text-sm text-zinc-500 font-mono mt-1 sm:mt-2">{stat.label}</div>
+                  <div className="text-[10px] sm:text-xs text-zinc-600 font-mono">{stat.sub}</div>
                 </div>
               ))}
             </div>
@@ -832,10 +832,10 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             RESEARCH & REFERENCES
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-16 px-6">
+        <section className="py-10 sm:py-16 px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-sm font-mono text-zinc-500 mb-4">// BACKED BY RESEARCH</h2>
+            <div className="text-center mb-6 sm:mb-10">
+              <h2 className="text-xs sm:text-sm font-mono text-zinc-500 mb-3 sm:mb-4">// BACKED BY RESEARCH</h2>
             </div>
             
             <div className="grid md:grid-cols-2 gap-4">
@@ -924,27 +924,28 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             DEMO
             ═══════════════════════════════════════════════════════════════════ */}
-        <section id="demo" className="py-24 px-6 relative bg-zinc-900/20">
-          {/* Floating bees decoration */}
-          <div className="absolute top-20 left-10 opacity-20 animate-bounce" style={{ animationDuration: '3s' }}>
+        <section id="demo" className="py-12 sm:py-24 px-4 sm:px-6 relative bg-zinc-900/20">
+          {/* Floating bees decoration - hidden on mobile */}
+          <div className="hidden sm:block absolute top-20 left-10 opacity-20 animate-bounce" style={{ animationDuration: '3s' }}>
             <BeeIcon size={32} />
           </div>
-          <div className="absolute top-40 right-16 opacity-15 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
+          <div className="hidden sm:block absolute top-40 right-16 opacity-15 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
             <BeeIcon size={24} />
           </div>
-          <div className="absolute bottom-20 left-20 opacity-10 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }}>
+          <div className="hidden sm:block absolute bottom-20 left-20 opacity-10 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }}>
             <BeeIcon size={20} />
           </div>
           
           <div className="max-w-2xl mx-auto relative">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 mb-6">
-                <BeeIcon size={32} className="text-amber-500" />
+            <div className="text-center mb-6 sm:mb-12">
+              <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-amber-500/10 border border-amber-500/30 mb-4 sm:mb-6">
+                <BeeIcon size={24} className="text-amber-500 sm:hidden" />
+                <BeeIcon size={32} className="text-amber-500 hidden sm:block" />
               </div>
-              <h2 className="font-display font-bold text-3xl mb-4">
+              <h2 className="font-display font-bold text-2xl sm:text-3xl mb-3 sm:mb-4">
                 Test the <span className="text-amber-400">Defense</span>
               </h2>
-              <p className="text-zinc-400">Try a prompt injection attack and see HiveFence in action.</p>
+              <p className="text-sm sm:text-base text-zinc-400">Try a prompt injection attack and see HiveFence in action.</p>
             </div>
             <AttackSimulator />
           </div>
@@ -953,13 +954,13 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             WHY
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-24 px-6 bg-zinc-900/30">
+        <section className="py-12 sm:py-24 px-4 sm:px-6 bg-zinc-900/30">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="font-display font-bold text-3xl mb-4">
+            <div className="text-center mb-8 sm:mb-16">
+              <h2 className="font-display font-bold text-xl sm:text-3xl mb-3 sm:mb-4 px-2">
                 What happens when your agent gets <span className="text-red-400">compromised</span>?
               </h2>
-              <p className="text-zinc-400 max-w-xl mx-auto">It's not hypothetical. Prompt injection attacks are happening right now.</p>
+              <p className="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto px-2">It's not hypothetical. Prompt injection attacks are happening right now.</p>
             </div>
             
             <div className="grid md:grid-cols-2 gap-6">
@@ -1031,16 +1032,16 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             HOW IT WORKS
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-24 px-6">
+        <section className="py-12 sm:py-24 px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="font-display font-bold text-3xl mb-4">
+            <div className="text-center mb-8 sm:mb-16">
+              <h2 className="font-display font-bold text-xl sm:text-3xl mb-3 sm:mb-4">
                 How it <span className="text-amber-400">works</span>
               </h2>
-              <p className="text-zinc-400">Three steps to collective immunity</p>
+              <p className="text-sm sm:text-base text-zinc-400">Three steps to collective immunity</p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <div className="grid md:grid-cols-3 gap-4 sm:gap-8 mb-8 sm:mb-16">
               {[
                 { step: '1', icon: '🔍', title: 'Detect', desc: 'Your agent scans incoming prompts against 15+ attack patterns. Threats blocked in <50ms.' },
                 { step: '2', icon: '📡', title: 'Report', desc: 'New attack patterns are hashed and submitted to the HiveFence network. Your data stays private.' },
@@ -1093,11 +1094,11 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             TECHNICAL ARCHITECTURE
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-20 px-6 bg-zinc-900/30">
+        <section className="py-12 sm:py-20 px-4 sm:px-6 bg-zinc-900/30">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-sm font-mono text-zinc-500 mb-4">// TECHNICAL ARCHITECTURE</h2>
-              <p className="text-zinc-400">Built for production-grade security</p>
+            <div className="text-center mb-6 sm:mb-12">
+              <h2 className="text-xs sm:text-sm font-mono text-zinc-500 mb-3 sm:mb-4">// TECHNICAL ARCHITECTURE</h2>
+              <p className="text-sm sm:text-base text-zinc-400">Built for production-grade security</p>
             </div>
             
             {/* Architecture Diagram */}
@@ -1210,13 +1211,13 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             API
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-24 px-6 bg-zinc-900/30 relative">
+        <section className="py-12 sm:py-24 px-4 sm:px-6 bg-zinc-900/30 relative">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                <span className="text-amber-500">⬡</span>
+            <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-8">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                <span className="text-amber-500 text-sm sm:text-base">⬡</span>
               </div>
-              <h2 className="text-sm font-mono text-zinc-500">API ENDPOINTS</h2>
+              <h2 className="text-xs sm:text-sm font-mono text-zinc-500">API ENDPOINTS</h2>
             </div>
             
             <div className="space-y-3">
@@ -1248,43 +1249,43 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             CTA
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-32 px-6 text-center">
-          <HiveLogo className="w-16 h-16 mx-auto mb-8" glow />
-          <h2 className="font-display font-bold text-3xl sm:text-4xl mb-4">
+        <section className="py-16 sm:py-32 px-4 sm:px-6 text-center">
+          <HiveLogo className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 sm:mb-8" glow />
+          <h2 className="font-display font-bold text-xl sm:text-3xl md:text-4xl mb-3 sm:mb-4 px-2">
             Stop hoping your agent won't get attacked.
           </h2>
-          <h3 className="font-display font-bold text-2xl sm:text-3xl mb-6">
+          <h3 className="font-display font-bold text-lg sm:text-2xl md:text-3xl mb-4 sm:mb-6">
             <span className="text-amber-400">Know it won't.</span>
           </h3>
-          <p className="text-zinc-400 mb-4 max-w-lg mx-auto">
+          <p className="text-sm sm:text-base text-zinc-400 mb-3 sm:mb-4 max-w-lg mx-auto px-2">
             Open source. MIT licensed. OWASP-aligned. Add protection in under 5 minutes.
           </p>
-          <p className="text-sm text-zinc-500 mb-8">
+          <p className="text-xs sm:text-sm text-zinc-500 mb-6 sm:mb-8">
             Join the hive. When one is attacked, all become immune.
           </p>
           
           {/* Single CTA */}
           <a href="https://github.com/seojoonkim/hivefence" target="_blank"
-             className="px-10 py-5 rounded-xl bg-amber-500 text-black font-mono font-bold text-xl hover:bg-amber-400 transition-all inline-flex items-center justify-center gap-3 mb-8">
+             className="px-6 py-3 sm:px-10 sm:py-5 rounded-xl bg-amber-500 text-black font-mono font-bold text-base sm:text-xl hover:bg-amber-400 transition-all inline-flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
             🚀 Get Started Free
           </a>
           
           {/* Trust badges */}
-          <div className="flex flex-wrap justify-center gap-3 text-xs font-mono">
-            <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ OWASP LLM Top 10</span>
-            <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ MITRE ATLAS</span>
-            <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ Zero-knowledge</span>
-            <span className="px-3 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Free Forever</span>
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 text-[10px] sm:text-xs font-mono px-2">
+            <span className="px-2 sm:px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ OWASP LLM Top 10</span>
+            <span className="px-2 sm:px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ MITRE ATLAS</span>
+            <span className="px-2 sm:px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ Zero-knowledge</span>
+            <span className="px-2 sm:px-3 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Free Forever</span>
           </div>
         </section>
 
         {/* ═══════════════════════════════════════════════════════════════════
             FOOTER
             ═══════════════════════════════════════════════════════════════════ */}
-        <footer className="py-8 px-6 border-t border-zinc-800/50">
-          <div className="max-w-5xl mx-auto flex items-center justify-between text-sm font-mono text-zinc-500">
+        <footer className="py-6 sm:py-8 px-4 sm:px-6 border-t border-zinc-800/50">
+          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm font-mono text-zinc-500">
             <div className="flex items-center gap-2">
-              <HiveLogo className="w-5 h-5" />
+              <HiveLogo className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>HiveFence v0.1.0</span>
             </div>
             <div>MIT License • <a href="https://github.com/seojoonkim" className="text-amber-500 hover:underline">@seojoonkim</a></div>
