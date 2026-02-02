@@ -94,76 +94,219 @@ const HoneycombPattern = ({ className = '' }: { className?: string }) => {
   );
 };
 
-// Network visualization with bees
-const HiveNetwork = ({ className = '' }: { className?: string }) => (
-  <div className={`relative ${className}`}>
-    <svg className="w-full h-full" viewBox="0 0 400 200" fill="none">
-      {/* Connection lines */}
-      <g stroke="rgba(245, 158, 11, 0.3)" strokeWidth="1" strokeDasharray="4 4">
-        <line x1="100" y1="100" x2="200" y2="60"/>
-        <line x1="100" y1="100" x2="200" y2="140"/>
-        <line x1="200" y1="60" x2="300" y2="100"/>
-        <line x1="200" y1="140" x2="300" y2="100"/>
-        <line x1="200" y1="60" x2="200" y2="140"/>
-      </g>
-      
-      {/* Central hive */}
-      <g transform="translate(185, 85)">
-        <polygon points="15,0 30,8 30,24 15,32 0,24 0,8" fill="rgba(245, 158, 11, 0.2)" stroke="rgba(245, 158, 11, 0.6)" strokeWidth="2"/>
-        <text x="15" y="20" textAnchor="middle" fill="rgba(245, 158, 11, 0.8)" fontSize="12">🐝</text>
-      </g>
-      
-      {/* Agent nodes */}
-      {[
-        { x: 80, y: 85, label: 'Agent 1', status: 'protected' },
-        { x: 280, y: 85, label: 'Agent 2', status: 'protected' },
-        { x: 180, y: 35, label: 'Agent 3', status: 'immune' },
-        { x: 180, y: 135, label: 'Agent 4', status: 'scanning' },
-      ].map((node, i) => (
-        <g key={i} transform={`translate(${node.x}, ${node.y})`}>
-          <circle 
-            r="20" 
-            fill="rgba(24, 24, 27, 0.8)" 
-            stroke={node.status === 'immune' ? 'rgba(34, 197, 94, 0.6)' : node.status === 'scanning' ? 'rgba(59, 130, 246, 0.6)' : 'rgba(245, 158, 11, 0.4)'}
-            strokeWidth="2"
-          />
-          <text y="4" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="10" fontFamily="monospace">{node.label.split(' ')[1]}</text>
-          <circle 
-            r="4" 
-            cx="14" 
-            cy="-14" 
-            fill={node.status === 'immune' ? '#22c55e' : node.status === 'scanning' ? '#3b82f6' : '#f59e0b'}
-            className={node.status === 'scanning' ? 'animate-pulse' : ''}
-          />
+// Advanced Network visualization
+const HiveNetwork = ({ className = '' }: { className?: string }) => {
+  const nodes = [
+    // Central hub
+    { x: 400, y: 150, label: 'HiveFence', type: 'hub', size: 28 },
+    // Inner ring - primary agents
+    { x: 250, y: 100, label: 'Claude Code', type: 'agent', status: 'immune' },
+    { x: 550, y: 100, label: 'Cursor', type: 'agent', status: 'protected' },
+    { x: 250, y: 200, label: 'Windsurf', type: 'agent', status: 'immune' },
+    { x: 550, y: 200, label: 'Cline', type: 'agent', status: 'scanning' },
+    // Outer ring - more agents
+    { x: 120, y: 80, label: 'Agent-5', type: 'agent', status: 'protected' },
+    { x: 120, y: 150, label: 'Agent-6', type: 'agent', status: 'immune' },
+    { x: 120, y: 220, label: 'Agent-7', type: 'agent', status: 'protected' },
+    { x: 680, y: 80, label: 'Agent-8', type: 'agent', status: 'immune' },
+    { x: 680, y: 150, label: 'Agent-9', type: 'agent', status: 'protected' },
+    { x: 680, y: 220, label: 'Agent-10', type: 'agent', status: 'scanning' },
+    // Top and bottom
+    { x: 320, y: 40, label: 'Agent-11', type: 'agent', status: 'immune' },
+    { x: 480, y: 40, label: 'Agent-12', type: 'agent', status: 'protected' },
+    { x: 320, y: 260, label: 'Agent-13', type: 'agent', status: 'protected' },
+    { x: 480, y: 260, label: 'Agent-14', type: 'agent', status: 'immune' },
+    // Attack indicator
+    { x: 80, y: 40, label: '⚠️ Attack', type: 'attack', status: 'blocked' },
+  ];
+  
+  const connections = [
+    // Hub to inner ring
+    [0, 1], [0, 2], [0, 3], [0, 4],
+    // Inner ring interconnections
+    [1, 2], [2, 4], [4, 3], [3, 1], [1, 4], [2, 3],
+    // Outer to inner
+    [5, 1], [6, 1], [6, 3], [7, 3],
+    [8, 2], [9, 2], [9, 4], [10, 4],
+    // Top/bottom to inner
+    [11, 1], [11, 2], [12, 2], [12, 4],
+    [13, 3], [13, 1], [14, 4], [14, 3],
+    // Attack path
+    [15, 5], [5, 6],
+  ];
+  
+  return (
+    <div className={`relative ${className}`}>
+      <svg className="w-full h-full" viewBox="0 0 800 300" fill="none">
+        <defs>
+          {/* Glow filters */}
+          <filter id="glow-amber" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-green" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="glow-red" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          
+          {/* Animated gradient for data flow */}
+          <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0"/>
+            <stop offset="50%" stopColor="#f59e0b" stopOpacity="1"/>
+            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0"/>
+          </linearGradient>
+        </defs>
+        
+        {/* Background grid */}
+        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(245,158,11,0.05)" strokeWidth="1"/>
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#grid)"/>
+        
+        {/* Connection lines */}
+        {connections.map(([from, to], i) => {
+          const n1 = nodes[from];
+          const n2 = nodes[to];
+          const isAttackPath = from === 15 || to === 15;
+          return (
+            <g key={i}>
+              <line 
+                x1={n1.x} y1={n1.y} x2={n2.x} y2={n2.y}
+                stroke={isAttackPath ? 'rgba(239, 68, 68, 0.4)' : 'rgba(245, 158, 11, 0.15)'}
+                strokeWidth={isAttackPath ? 2 : 1}
+                strokeDasharray={isAttackPath ? '4 4' : undefined}
+              />
+              {/* Data flow particles */}
+              {!isAttackPath && i % 3 === 0 && (
+                <circle r="2" fill="#f59e0b" opacity="0.8">
+                  <animateMotion 
+                    dur={`${2 + (i % 3)}s`} 
+                    repeatCount="indefinite" 
+                    path={`M${n1.x},${n1.y} L${n2.x},${n2.y}`}
+                  />
+                </circle>
+              )}
+            </g>
+          );
+        })}
+        
+        {/* Attack blocked animation */}
+        <g transform="translate(80, 40)">
+          <circle r="25" fill="rgba(239, 68, 68, 0.1)" stroke="rgba(239, 68, 68, 0.6)" strokeWidth="2" filter="url(#glow-red)">
+            <animate attributeName="r" values="20;25;20" dur="1s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.5;1" dur="1s" repeatCount="indefinite"/>
+          </circle>
+          <text y="5" textAnchor="middle" fill="#ef4444" fontSize="16">⚠️</text>
+          <text y="45" textAnchor="middle" fill="#ef4444" fontSize="8" fontFamily="monospace">BLOCKED</text>
         </g>
-      ))}
+        
+        {/* Central Hub */}
+        <g transform="translate(400, 150)">
+          {/* Outer hexagon ring */}
+          <polygon 
+            points="0,-35 30,-17 30,17 0,35 -30,17 -30,-17" 
+            fill="none" 
+            stroke="rgba(245, 158, 11, 0.3)" 
+            strokeWidth="1"
+          >
+            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="20s" repeatCount="indefinite"/>
+          </polygon>
+          {/* Inner hexagon */}
+          <polygon 
+            points="0,-25 22,-12 22,12 0,25 -22,12 -22,-12" 
+            fill="rgba(245, 158, 11, 0.2)" 
+            stroke="rgba(245, 158, 11, 0.8)" 
+            strokeWidth="2"
+            filter="url(#glow-amber)"
+          />
+          <text y="5" textAnchor="middle" fill="#f59e0b" fontSize="20">🐝</text>
+        </g>
+        
+        {/* Agent nodes */}
+        {nodes.slice(1, -1).map((node, i) => (
+          <g key={i} transform={`translate(${node.x}, ${node.y})`}>
+            {/* Node glow */}
+            <circle 
+              r="22" 
+              fill={node.status === 'immune' ? 'rgba(34, 197, 94, 0.1)' : node.status === 'scanning' ? 'rgba(59, 130, 246, 0.1)' : 'rgba(245, 158, 11, 0.1)'}
+              filter={node.status === 'immune' ? 'url(#glow-green)' : undefined}
+            />
+            {/* Node circle */}
+            <circle 
+              r="16" 
+              fill="rgba(24, 24, 27, 0.9)" 
+              stroke={node.status === 'immune' ? '#22c55e' : node.status === 'scanning' ? '#3b82f6' : '#f59e0b'}
+              strokeWidth={node.status === 'immune' ? 2 : 1.5}
+              opacity={node.status === 'scanning' ? undefined : 1}
+            >
+              {node.status === 'scanning' && (
+                <animate attributeName="stroke-opacity" values="1;0.4;1" dur="1.5s" repeatCount="indefinite"/>
+              )}
+            </circle>
+            {/* Node label */}
+            <text y="4" textAnchor="middle" fill="rgba(255,255,255,0.9)" fontSize="7" fontFamily="monospace">
+              {node.label.length > 8 ? node.label.slice(0, 8) : node.label}
+            </text>
+            {/* Status indicator */}
+            <circle 
+              r="4" 
+              cx="11" 
+              cy="-11" 
+              fill={node.status === 'immune' ? '#22c55e' : node.status === 'scanning' ? '#3b82f6' : '#f59e0b'}
+            >
+              {node.status === 'scanning' && (
+                <animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite"/>
+              )}
+            </circle>
+          </g>
+        ))}
+        
+        {/* Stats overlay */}
+        <g transform="translate(650, 20)">
+          <rect x="0" y="0" width="130" height="70" rx="8" fill="rgba(24,24,27,0.8)" stroke="rgba(245,158,11,0.3)"/>
+          <text x="10" y="20" fill="#f59e0b" fontSize="9" fontFamily="monospace">NETWORK STATUS</text>
+          <text x="10" y="38" fill="#22c55e" fontSize="10" fontFamily="monospace">● 8 Immune</text>
+          <text x="10" y="52" fill="#f59e0b" fontSize="10" fontFamily="monospace">● 4 Protected</text>
+          <text x="10" y="66" fill="#3b82f6" fontSize="10" fontFamily="monospace">● 2 Scanning</text>
+        </g>
+        
+        {/* Threat counter */}
+        <g transform="translate(20, 20)">
+          <rect x="0" y="0" width="100" height="45" rx="8" fill="rgba(24,24,27,0.8)" stroke="rgba(239,68,68,0.3)"/>
+          <text x="10" y="18" fill="#ef4444" fontSize="9" fontFamily="monospace">THREATS TODAY</text>
+          <text x="10" y="38" fill="#ef4444" fontSize="16" fontFamily="monospace" fontWeight="bold">
+            12 BLOCKED
+            <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/>
+          </text>
+        </g>
+      </svg>
       
-      {/* Data flow particles */}
-      <circle r="3" fill="#f59e0b" className="animate-pulse">
-        <animateMotion dur="2s" repeatCount="indefinite" path="M100,100 L200,60" />
-      </circle>
-      <circle r="3" fill="#22c55e" className="animate-pulse">
-        <animateMotion dur="2.5s" repeatCount="indefinite" path="M200,60 L300,100" />
-      </circle>
-    </svg>
-    
-    {/* Legend */}
-    <div className="absolute bottom-2 left-2 flex gap-4 text-xs font-mono">
-      <div className="flex items-center gap-1">
-        <div className="w-2 h-2 rounded-full bg-amber-500"/>
-        <span className="text-zinc-500">Protected</span>
-      </div>
-      <div className="flex items-center gap-1">
-        <div className="w-2 h-2 rounded-full bg-green-500"/>
-        <span className="text-zinc-500">Immune</span>
-      </div>
-      <div className="flex items-center gap-1">
-        <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"/>
-        <span className="text-zinc-500">Scanning</span>
+      {/* Legend */}
+      <div className="absolute bottom-2 left-2 flex gap-4 text-xs font-mono">
+        <div className="flex items-center gap-1">
+          <div className="w-2 h-2 rounded-full bg-amber-500"/>
+          <span className="text-zinc-500">Protected</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-2 h-2 rounded-full bg-green-500"/>
+          <span className="text-zinc-500">Immune</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"/>
+          <span className="text-zinc-500">Scanning</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"/>
+          <span className="text-zinc-500">Attack</span>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Section divider with honey drip
 const HoneyDivider = () => (
@@ -766,9 +909,9 @@ export default function Home() {
             </div>
             
             {/* Network Visualization */}
-            <div className="mt-12 p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800">
-              <div className="text-xs font-mono text-zinc-500 mb-4 text-center">LIVE NETWORK VISUALIZATION</div>
-              <HiveNetwork className="h-48" />
+            <div className="mt-12 p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 overflow-hidden">
+              <div className="text-xs font-mono text-zinc-500 mb-4 text-center">🐝 LIVE NETWORK VISUALIZATION</div>
+              <HiveNetwork className="h-72 md:h-80" />
             </div>
           </div>
         </section>
