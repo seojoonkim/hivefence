@@ -8,7 +8,7 @@ import { useState, useEffect, useRef } from 'react';
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // ─────────────────────────────────────────────────────────────────────────────
-// LOGO
+// LOGO & BEE VISUALS
 // ─────────────────────────────────────────────────────────────────────────────
 
 const HiveLogo = ({ className = '', glow = false }: { className?: string; glow?: boolean }) => (
@@ -20,6 +20,165 @@ const HiveLogo = ({ className = '', glow = false }: { className?: string; glow?:
       <ellipse cx="24" cy="26" rx="6" ry="8" fill="currentColor" className="text-amber-500"/>
       <circle cx="24" cy="18" r="4" fill="currentColor" className="text-amber-500"/>
       <path d="M18 24h12M18 28h12" stroke="#000" strokeWidth="2"/>
+    </svg>
+  </div>
+);
+
+// Minimal modern bee icon
+const BeeIcon = ({ className = '', size = 24 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none">
+    {/* Wings */}
+    <ellipse cx="8" cy="10" rx="4" ry="6" fill="currentColor" opacity="0.3" className="text-amber-400"/>
+    <ellipse cx="16" cy="10" rx="4" ry="6" fill="currentColor" opacity="0.3" className="text-amber-400"/>
+    {/* Body */}
+    <ellipse cx="12" cy="14" rx="5" ry="7" fill="currentColor" className="text-amber-500"/>
+    {/* Stripes */}
+    <path d="M8 12h8M8 15h8M8 18h8" stroke="#000" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Head */}
+    <circle cx="12" cy="6" r="3" fill="currentColor" className="text-amber-500"/>
+    {/* Antennae */}
+    <path d="M10 4L8 1M14 4L16 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-amber-500"/>
+  </svg>
+);
+
+// Hexagon cell for honeycomb
+const Hexagon = ({ x, y, size = 40, delay = 0, filled = false }: { x: number; y: number; size?: number; delay?: number; filled?: boolean }) => {
+  const points = [];
+  for (let i = 0; i < 6; i++) {
+    const angle = (Math.PI / 3) * i - Math.PI / 6;
+    points.push(`${x + size * Math.cos(angle)},${y + size * Math.sin(angle)}`);
+  }
+  return (
+    <polygon 
+      points={points.join(' ')} 
+      fill={filled ? 'rgba(245, 158, 11, 0.1)' : 'none'}
+      stroke="rgba(245, 158, 11, 0.2)" 
+      strokeWidth="1"
+      style={{ 
+        animation: `hexPulse 3s ease-in-out infinite`,
+        animationDelay: `${delay}ms`
+      }}
+    />
+  );
+};
+
+// Honeycomb background pattern
+const HoneycombPattern = ({ className = '' }: { className?: string }) => {
+  const hexSize = 30;
+  const hexHeight = hexSize * Math.sqrt(3);
+  const hexWidth = hexSize * 2;
+  
+  const hexagons = [];
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 12; col++) {
+      const x = col * hexWidth * 0.75 + 50;
+      const y = row * hexHeight + (col % 2 === 1 ? hexHeight / 2 : 0) + 30;
+      const delay = (row + col) * 100;
+      const filled = Math.random() > 0.7;
+      hexagons.push(<Hexagon key={`${row}-${col}`} x={x} y={y} size={hexSize} delay={delay} filled={filled} />);
+    }
+  }
+  
+  return (
+    <svg className={`absolute inset-0 w-full h-full ${className}`} preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <style>{`
+          @keyframes hexPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+          }
+        `}</style>
+      </defs>
+      {hexagons}
+    </svg>
+  );
+};
+
+// Network visualization with bees
+const HiveNetwork = ({ className = '' }: { className?: string }) => (
+  <div className={`relative ${className}`}>
+    <svg className="w-full h-full" viewBox="0 0 400 200" fill="none">
+      {/* Connection lines */}
+      <g stroke="rgba(245, 158, 11, 0.3)" strokeWidth="1" strokeDasharray="4 4">
+        <line x1="100" y1="100" x2="200" y2="60"/>
+        <line x1="100" y1="100" x2="200" y2="140"/>
+        <line x1="200" y1="60" x2="300" y2="100"/>
+        <line x1="200" y1="140" x2="300" y2="100"/>
+        <line x1="200" y1="60" x2="200" y2="140"/>
+      </g>
+      
+      {/* Central hive */}
+      <g transform="translate(185, 85)">
+        <polygon points="15,0 30,8 30,24 15,32 0,24 0,8" fill="rgba(245, 158, 11, 0.2)" stroke="rgba(245, 158, 11, 0.6)" strokeWidth="2"/>
+        <text x="15" y="20" textAnchor="middle" fill="rgba(245, 158, 11, 0.8)" fontSize="12">🐝</text>
+      </g>
+      
+      {/* Agent nodes */}
+      {[
+        { x: 80, y: 85, label: 'Agent 1', status: 'protected' },
+        { x: 280, y: 85, label: 'Agent 2', status: 'protected' },
+        { x: 180, y: 35, label: 'Agent 3', status: 'immune' },
+        { x: 180, y: 135, label: 'Agent 4', status: 'scanning' },
+      ].map((node, i) => (
+        <g key={i} transform={`translate(${node.x}, ${node.y})`}>
+          <circle 
+            r="20" 
+            fill="rgba(24, 24, 27, 0.8)" 
+            stroke={node.status === 'immune' ? 'rgba(34, 197, 94, 0.6)' : node.status === 'scanning' ? 'rgba(59, 130, 246, 0.6)' : 'rgba(245, 158, 11, 0.4)'}
+            strokeWidth="2"
+          />
+          <text y="4" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="10" fontFamily="monospace">{node.label.split(' ')[1]}</text>
+          <circle 
+            r="4" 
+            cx="14" 
+            cy="-14" 
+            fill={node.status === 'immune' ? '#22c55e' : node.status === 'scanning' ? '#3b82f6' : '#f59e0b'}
+            className={node.status === 'scanning' ? 'animate-pulse' : ''}
+          />
+        </g>
+      ))}
+      
+      {/* Data flow particles */}
+      <circle r="3" fill="#f59e0b" className="animate-pulse">
+        <animateMotion dur="2s" repeatCount="indefinite" path="M100,100 L200,60" />
+      </circle>
+      <circle r="3" fill="#22c55e" className="animate-pulse">
+        <animateMotion dur="2.5s" repeatCount="indefinite" path="M200,60 L300,100" />
+      </circle>
+    </svg>
+    
+    {/* Legend */}
+    <div className="absolute bottom-2 left-2 flex gap-4 text-xs font-mono">
+      <div className="flex items-center gap-1">
+        <div className="w-2 h-2 rounded-full bg-amber-500"/>
+        <span className="text-zinc-500">Protected</span>
+      </div>
+      <div className="flex items-center gap-1">
+        <div className="w-2 h-2 rounded-full bg-green-500"/>
+        <span className="text-zinc-500">Immune</span>
+      </div>
+      <div className="flex items-center gap-1">
+        <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"/>
+        <span className="text-zinc-500">Scanning</span>
+      </div>
+    </div>
+  </div>
+);
+
+// Section divider with honey drip
+const HoneyDivider = () => (
+  <div className="relative h-8 overflow-hidden">
+    <svg className="w-full h-full" viewBox="0 0 1200 32" preserveAspectRatio="none">
+      <path 
+        d="M0,0 H1200 V8 Q1150,8 1100,16 Q1050,24 1000,16 Q950,8 900,8 Q850,8 800,20 Q750,32 700,20 Q650,8 600,8 Q550,8 500,24 Q450,40 400,24 Q350,8 300,8 Q250,8 200,16 Q150,24 100,16 Q50,8 0,8 Z" 
+        fill="url(#honeyGradient)"
+      />
+      <defs>
+        <linearGradient id="honeyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="rgba(245, 158, 11, 0.3)"/>
+          <stop offset="100%" stopColor="rgba(245, 158, 11, 0)"/>
+        </linearGradient>
+      </defs>
     </svg>
   </div>
 );
@@ -419,8 +578,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#0a0a0b] text-zinc-100">
-      {/* Subtle background */}
+      {/* Subtle background with honeycomb */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.05),transparent_50%)]" />
+      <div className="fixed inset-0 opacity-30 pointer-events-none">
+        <HoneycombPattern />
+      </div>
       
       <div className="relative">
         {/* ═══════════════════════════════════════════════════════════════════
@@ -523,9 +685,23 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             DEMO
             ═══════════════════════════════════════════════════════════════════ */}
-        <section id="demo" className="py-24 px-6">
-          <div className="max-w-2xl mx-auto">
+        <section id="demo" className="py-24 px-6 relative">
+          {/* Floating bees decoration */}
+          <div className="absolute top-20 left-10 opacity-20 animate-bounce" style={{ animationDuration: '3s' }}>
+            <BeeIcon size={32} />
+          </div>
+          <div className="absolute top-40 right-16 opacity-15 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
+            <BeeIcon size={24} />
+          </div>
+          <div className="absolute bottom-20 left-20 opacity-10 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }}>
+            <BeeIcon size={20} />
+          </div>
+          
+          <div className="max-w-2xl mx-auto relative">
             <div className="text-center mb-12">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 mb-6">
+                <BeeIcon size={32} className="text-amber-500" />
+              </div>
               <h2 className="font-display font-bold text-3xl mb-4">
                 Test the <span className="text-amber-400">Defense</span>
               </h2>
@@ -596,8 +772,16 @@ export default function Home() {
                 <span className="text-green-400"> Every agent becomes immune.</span>
               </p>
             </div>
+            
+            {/* Network Visualization */}
+            <div className="mt-12 p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800">
+              <div className="text-xs font-mono text-zinc-500 mb-4 text-center">LIVE NETWORK VISUALIZATION</div>
+              <HiveNetwork className="h-48" />
+            </div>
           </div>
         </section>
+        
+        <HoneyDivider />
 
         {/* ═══════════════════════════════════════════════════════════════════
             HOW IT WORKS
@@ -613,16 +797,33 @@ export default function Home() {
             
             <div className="grid md:grid-cols-3 gap-8 mb-16">
               {[
-                { step: '1', title: 'Detect', desc: 'Your agent scans incoming prompts against 15+ attack patterns. Threats blocked in <50ms.' },
-                { step: '2', title: 'Report', desc: 'New attack patterns are hashed and submitted to the HiveFence network. Your data stays private.' },
-                { step: '3', title: 'Immunize', desc: 'Community validates the pattern. Once approved, every connected agent gets the update instantly.' },
+                { step: '1', icon: '🔍', title: 'Detect', desc: 'Your agent scans incoming prompts against 15+ attack patterns. Threats blocked in <50ms.' },
+                { step: '2', icon: '📡', title: 'Report', desc: 'New attack patterns are hashed and submitted to the HiveFence network. Your data stays private.' },
+                { step: '3', icon: '🛡️', title: 'Immunize', desc: 'Community validates the pattern. Once approved, every connected agent gets the update instantly.' },
               ].map((item, i) => (
-                <div key={i} className="text-center">
-                  <div className="w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 font-mono font-bold text-xl flex items-center justify-center mx-auto mb-4">
-                    {item.step}
+                <div key={i} className="text-center group">
+                  <div className="relative w-16 h-16 mx-auto mb-4">
+                    {/* Hexagon background */}
+                    <svg className="absolute inset-0 w-full h-full" viewBox="0 0 64 64">
+                      <polygon 
+                        points="32,2 58,17 58,47 32,62 6,47 6,17" 
+                        fill="rgba(245, 158, 11, 0.1)" 
+                        stroke="rgba(245, 158, 11, 0.4)" 
+                        strokeWidth="2"
+                        className="group-hover:fill-amber-500/20 transition-all"
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center text-2xl">
+                      {item.icon}
+                    </div>
                   </div>
                   <h3 className="font-display font-bold text-lg mb-2">{item.title}</h3>
                   <p className="text-sm text-zinc-400">{item.desc}</p>
+                  {i < 2 && (
+                    <div className="hidden md:block absolute top-8 right-0 translate-x-1/2">
+                      <BeeIcon size={16} className="text-amber-500/50" />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -644,27 +845,42 @@ export default function Home() {
           </div>
         </section>
 
+        <HoneyDivider />
+        
         {/* ═══════════════════════════════════════════════════════════════════
             API
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-24 px-6 bg-zinc-900/30">
+        <section className="py-24 px-6 bg-zinc-900/30 relative">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-sm font-mono text-zinc-500 mb-8">// API ENDPOINTS</h2>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                <span className="text-amber-500">⬡</span>
+              </div>
+              <h2 className="text-sm font-mono text-zinc-500">API ENDPOINTS</h2>
+            </div>
             
             <div className="space-y-3">
               {[
-                { m: 'POST', p: '/api/v1/threats/report', d: 'Submit new threat' },
-                { m: 'GET', p: '/api/v1/threats/pending', d: 'Get pending patterns' },
-                { m: 'POST', p: '/api/v1/threats/:id/vote', d: 'Vote on pattern' },
-                { m: 'GET', p: '/api/v1/threats/latest', d: 'Fetch approved patterns' },
-                { m: 'GET', p: '/api/v1/stats', d: 'Network statistics' },
+                { m: 'POST', p: '/api/v1/threats/report', d: 'Submit new threat', icon: '🐝' },
+                { m: 'GET', p: '/api/v1/threats/pending', d: 'Get pending patterns', icon: '⏳' },
+                { m: 'POST', p: '/api/v1/threats/:id/vote', d: 'Vote on pattern', icon: '🗳️' },
+                { m: 'GET', p: '/api/v1/threats/latest', d: 'Fetch approved patterns', icon: '✅' },
+                { m: 'GET', p: '/api/v1/stats', d: 'Network statistics', icon: '📊' },
               ].map((e, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 font-mono text-sm">
+                <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 font-mono text-sm hover:border-amber-500/30 transition-all group">
+                  <span className="text-lg opacity-50 group-hover:opacity-100 transition-opacity">{e.icon}</span>
                   <span className={`px-2 py-0.5 rounded text-xs font-bold ${e.m === 'POST' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400'}`}>{e.m}</span>
                   <code className="text-amber-400 flex-1">{e.p}</code>
                   <span className="text-zinc-500 text-xs hidden sm:block">{e.d}</span>
                 </div>
               ))}
+            </div>
+            
+            <div className="mt-8 p-4 rounded-xl bg-amber-500/5 border border-amber-500/20 flex items-center gap-3">
+              <BeeIcon size={24} className="text-amber-500 flex-shrink-0" />
+              <p className="text-sm text-zinc-400">
+                <span className="text-amber-400 font-mono">Base URL:</span> https://hivefence-api.seojoon-kim.workers.dev
+              </p>
             </div>
           </div>
         </section>
