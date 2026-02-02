@@ -820,9 +820,101 @@ export default function Home() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════════════════
+            RESEARCH & REFERENCES
+            ═══════════════════════════════════════════════════════════════════ */}
+        <section className="py-16 px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-sm font-mono text-zinc-500 mb-4">// BACKED BY RESEARCH</h2>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-4">
+              {/* OWASP */}
+              <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank"
+                 className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-amber-500/30 transition-all group">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-red-400 font-bold text-sm">⚠️</span>
+                  </div>
+                  <div>
+                    <div className="font-mono text-sm text-zinc-300 group-hover:text-amber-400 transition-colors">OWASP LLM Top 10</div>
+                    <div className="text-xs text-zinc-500 mt-1">LLM01: Prompt Injection ranked #1 risk for LLM applications</div>
+                  </div>
+                </div>
+              </a>
+              
+              {/* MITRE ATLAS */}
+              <a href="https://atlas.mitre.org/techniques/AML.T0051" target="_blank"
+                 className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-amber-500/30 transition-all group">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-blue-400 font-bold text-sm">🛡️</span>
+                  </div>
+                  <div>
+                    <div className="font-mono text-sm text-zinc-300 group-hover:text-amber-400 transition-colors">MITRE ATLAS AML.T0051</div>
+                    <div className="text-xs text-zinc-500 mt-1">Official adversarial ML threat matrix entry for prompt injection</div>
+                  </div>
+                </div>
+              </a>
+              
+              {/* Simon Willison */}
+              <a href="https://simonwillison.net/2023/Apr/14/worst-that-can-happen/" target="_blank"
+                 className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-amber-500/30 transition-all group">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-amber-400 font-bold text-sm">📝</span>
+                  </div>
+                  <div>
+                    <div className="font-mono text-sm text-zinc-300 group-hover:text-amber-400 transition-colors">Simon Willison's Research</div>
+                    <div className="text-xs text-zinc-500 mt-1">"Prompt injection: What's the worst that can happen?"</div>
+                  </div>
+                </div>
+              </a>
+              
+              {/* Anthropic */}
+              <a href="https://www.anthropic.com/research/many-shot-jailbreaking" target="_blank"
+                 className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-amber-500/30 transition-all group">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                    <span className="text-purple-400 font-bold text-sm">🔬</span>
+                  </div>
+                  <div>
+                    <div className="font-mono text-sm text-zinc-300 group-hover:text-amber-400 transition-colors">Anthropic Research</div>
+                    <div className="text-xs text-zinc-500 mt-1">Many-shot jailbreaking and context-based attacks</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            
+            {/* Detection Methods */}
+            <div className="mt-10 p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800">
+              <h3 className="font-mono text-sm text-amber-400 mb-4">DETECTION METHODS</h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                <div className="p-3 rounded-lg bg-zinc-900/50">
+                  <div className="text-zinc-300 font-medium mb-1">🔍 Pattern Matching</div>
+                  <div className="text-xs text-zinc-500">Regex signatures for known attack vectors</div>
+                </div>
+                <div className="p-3 rounded-lg bg-zinc-900/50">
+                  <div className="text-zinc-300 font-medium mb-1">🧬 Semantic Analysis</div>
+                  <div className="text-xs text-zinc-500">Intent classification beyond string matching</div>
+                </div>
+                <div className="p-3 rounded-lg bg-zinc-900/50">
+                  <div className="text-zinc-300 font-medium mb-1">🌍 Multi-language</div>
+                  <div className="text-xs text-zinc-500">EN, KO, JA, ZH attack detection</div>
+                </div>
+                <div className="p-3 rounded-lg bg-zinc-900/50">
+                  <div className="text-zinc-300 font-medium mb-1">📊 Severity Scoring</div>
+                  <div className="text-xs text-zinc-500">Risk-based prioritization (0-100)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════════════════
             DEMO
             ═══════════════════════════════════════════════════════════════════ */}
-        <section id="demo" className="py-24 px-6 relative">
+        <section id="demo" className="py-24 px-6 relative bg-zinc-900/20">
           {/* Floating bees decoration */}
           <div className="absolute top-20 left-10 opacity-20 animate-bounce" style={{ animationDuration: '3s' }}>
             <BeeIcon size={32} />
@@ -978,6 +1070,100 @@ export default function Home() {
               <Feature icon="🔌" title="Works everywhere" desc="REST API. Python. Node. Any framework. 5-minute integration." />
               <Feature icon="📊" title="Grows with the community" desc="More agents = more patterns = better protection for everyone." />
               <Feature icon="🛠️" title="100% open source" desc="MIT licensed. Read the code. Fork it. Make it better." />
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            TECHNICAL ARCHITECTURE
+            ═══════════════════════════════════════════════════════════════════ */}
+        <section className="py-20 px-6 bg-zinc-900/30">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-sm font-mono text-zinc-500 mb-4">// TECHNICAL ARCHITECTURE</h2>
+              <p className="text-zinc-400">Built for production-grade security</p>
+            </div>
+            
+            {/* Architecture Diagram */}
+            <div className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 mb-8">
+              <div className="grid md:grid-cols-5 gap-4 items-center text-center">
+                <div className="p-4 rounded-xl bg-zinc-800/50 border border-zinc-700">
+                  <div className="text-2xl mb-2">📝</div>
+                  <div className="text-xs font-mono text-zinc-400">User Input</div>
+                </div>
+                <div className="text-amber-500 font-mono text-xl hidden md:block">→</div>
+                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30">
+                  <div className="text-2xl mb-2">🐝</div>
+                  <div className="text-xs font-mono text-amber-400">HiveFence</div>
+                  <div className="text-xs text-zinc-500 mt-1">&lt;50ms scan</div>
+                </div>
+                <div className="text-amber-500 font-mono text-xl hidden md:block">→</div>
+                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
+                  <div className="text-2xl mb-2">🤖</div>
+                  <div className="text-xs font-mono text-green-400">Safe Agent</div>
+                </div>
+              </div>
+              
+              {/* Threat Path */}
+              <div className="mt-6 p-4 rounded-xl bg-red-500/5 border border-red-500/20">
+                <div className="flex items-center gap-4 text-sm">
+                  <span className="text-red-400">⚠️ Threat detected?</span>
+                  <span className="text-zinc-500">→</span>
+                  <span className="text-zinc-400">Hash pattern</span>
+                  <span className="text-zinc-500">→</span>
+                  <span className="text-zinc-400">Submit to network</span>
+                  <span className="text-zinc-500">→</span>
+                  <span className="text-green-400">All agents immunized</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Tech Stack */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                <div className="text-orange-400 font-mono text-xs mb-2">EDGE RUNTIME</div>
+                <div className="text-zinc-300 font-medium">Cloudflare Workers</div>
+                <div className="text-xs text-zinc-500 mt-1">Global edge deployment, 300+ locations</div>
+              </div>
+              <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                <div className="text-blue-400 font-mono text-xs mb-2">DATABASE</div>
+                <div className="text-zinc-300 font-medium">Cloudflare D1</div>
+                <div className="text-xs text-zinc-500 mt-1">SQLite at the edge, APAC region</div>
+              </div>
+              <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                <div className="text-green-400 font-mono text-xs mb-2">API FRAMEWORK</div>
+                <div className="text-zinc-300 font-medium">Hono</div>
+                <div className="text-xs text-zinc-500 mt-1">Ultrafast web framework for Workers</div>
+              </div>
+              <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                <div className="text-purple-400 font-mono text-xs mb-2">DETECTION</div>
+                <div className="text-zinc-300 font-medium">Multi-layer Analysis</div>
+                <div className="text-xs text-zinc-500 mt-1">Pattern + Semantic + ML scoring</div>
+              </div>
+            </div>
+            
+            {/* Attack Categories */}
+            <div className="mt-8 p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800">
+              <h3 className="font-mono text-sm text-amber-400 mb-4">DETECTED ATTACK CATEGORIES</h3>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 text-sm font-mono">
+                {[
+                  { code: 'LLM01', name: 'Prompt Injection', severity: 'CRITICAL' },
+                  { code: 'LLM02', name: 'Insecure Output', severity: 'HIGH' },
+                  { code: 'LLM06', name: 'Sensitive Info Disclosure', severity: 'HIGH' },
+                  { code: 'LLM07', name: 'Insecure Plugin Design', severity: 'MEDIUM' },
+                  { code: 'LLM08', name: 'Excessive Agency', severity: 'HIGH' },
+                  { code: 'LLM09', name: 'Overreliance', severity: 'MEDIUM' },
+                ].map((cat, i) => (
+                  <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-zinc-800/50">
+                    <span className="text-zinc-400">{cat.code}: {cat.name}</span>
+                    <span className={`text-xs px-2 py-0.5 rounded ${
+                      cat.severity === 'CRITICAL' ? 'bg-red-500/20 text-red-400' :
+                      cat.severity === 'HIGH' ? 'bg-orange-500/20 text-orange-400' :
+                      'bg-yellow-500/20 text-yellow-400'
+                    }`}>{cat.severity}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
