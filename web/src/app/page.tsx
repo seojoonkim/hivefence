@@ -327,12 +327,6 @@ const NetworkGraph = () => {
         </div>
       ))}
       
-      {/* Legend */}
-      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-center">
-        <p className="text-xs font-mono text-zinc-500">
-          <span className="text-amber-400">●</span> Watch threat propagation → immunity
-        </p>
-      </div>
     </div>
   );
 };
@@ -537,7 +531,7 @@ const ArchitectureDiagram = () => {
       </svg>
       
       {/* Legend */}
-      <div className="flex flex-wrap justify-center gap-6 mt-6 text-xs font-mono">
+      <div className="flex flex-wrap justify-center gap-8 mt-6 text-xs font-mono">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded bg-gradient-to-b from-amber-500 to-amber-600" />
           <span className="text-zinc-400">HiveFence Core</span>
@@ -857,37 +851,25 @@ const TrustBadges = () => {
   const { count: threatCount, ref: threatRef } = useCountUp(89432, 2500);
   
   return (
-    <div className="py-10 px-4 sm:px-6 bg-gradient-to-b from-amber-500/5 to-transparent border-y border-amber-500/10">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <p className="text-xs font-mono text-amber-500/60 uppercase tracking-wider mb-2">Trusted by the community</p>
-        </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    <div className="py-16 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-amber-500/5 to-transparent border-y border-amber-500/10">
+      <div className="max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12 text-center">
           <div ref={agentRef}>
-            <div className="text-2xl sm:text-3xl font-display font-bold text-gradient-honey">{agentCount}+</div>
-            <div className="text-xs text-zinc-500 font-mono mt-1">Protected Agents</div>
+            <div className="text-3xl sm:text-4xl font-display font-bold text-gradient-honey">{agentCount}+</div>
+            <div className="text-sm text-zinc-500 font-mono mt-2">Protected Agents</div>
           </div>
           <div ref={threatRef}>
-            <div className="text-2xl sm:text-3xl font-display font-bold text-gradient-honey">{threatCount.toLocaleString()}</div>
-            <div className="text-xs text-zinc-500 font-mono mt-1">Threats Blocked</div>
+            <div className="text-3xl sm:text-4xl font-display font-bold text-gradient-honey">{threatCount.toLocaleString()}</div>
+            <div className="text-sm text-zinc-500 font-mono mt-2">Threats Blocked</div>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl font-display font-bold text-gradient-honey">&lt;50ms</div>
-            <div className="text-xs text-zinc-500 font-mono mt-1">Global Latency</div>
+            <div className="text-3xl sm:text-4xl font-display font-bold text-gradient-honey">&lt;50ms</div>
+            <div className="text-sm text-zinc-500 font-mono mt-2">Global Latency</div>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl font-display font-bold text-gradient-honey">99.9%</div>
-            <div className="text-xs text-zinc-500 font-mono mt-1">Detection Rate</div>
+            <div className="text-3xl sm:text-4xl font-display font-bold text-gradient-honey">99.9%</div>
+            <div className="text-sm text-zinc-500 font-mono mt-2">Detection Rate</div>
           </div>
-        </div>
-        
-        <div className="flex flex-wrap justify-center gap-4 mt-8">
-          {['OpenClaw', 'Claude Code', 'Clawdbot', 'AutoGPT', 'LangChain'].map((name, i) => (
-            <div key={i} className="px-4 py-2 rounded-full bg-zinc-900/50 border border-zinc-800 text-xs font-mono text-zinc-400 hover:border-amber-500/30 hover:text-amber-400 transition-all cursor-default">
-              {name}
-            </div>
-          ))}
         </div>
       </div>
     </div>
@@ -950,7 +932,7 @@ export default function Home() {
                 <span className="text-[10px] sm:text-xs font-mono text-zinc-600">v0.1.0</span>
               </div>
             </div>
-            <div className="flex items-center gap-3 sm:gap-6">
+            <div className="flex items-center gap-3 sm:gap-8">
               <div className="flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full ${
                   apiStatus === 'online' ? 'bg-green-500 animate-pulse' :
@@ -995,7 +977,7 @@ export default function Home() {
             </h1>
             
             {/* Subtitle */}
-            <p className="text-zinc-400 text-base sm:text-lg md:text-xl max-w-2xl mb-8 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+            <p className="text-zinc-400 text-base sm:text-lg md:text-xl max-w-2xl mb-12 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
               Collective defense system for AI agents. Detect prompt injection attacks 
               and propagate immunity across the entire network in real-time.
             </p>
@@ -1031,7 +1013,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             LIVE STATS
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-8 sm:py-10 px-4 sm:px-6 border-b border-zinc-800/50 bg-zinc-900/20">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 border-b border-zinc-800/50 bg-zinc-900/20">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center gap-2 mb-5">
               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -1049,9 +1031,9 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             ATTACK SIMULATOR DEMO
             ═══════════════════════════════════════════════════════════════════ */}
-        <section id="demo" className="py-12 sm:py-16 px-4 sm:px-6 scroll-mt-20">
+        <section id="demo" className="py-16 sm:py-24 px-4 sm:px-6 scroll-mt-20">
           <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-8">
+            <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-red-500/30 bg-red-500/5 text-red-400 text-xs font-mono mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
                 INTERACTIVE DEMO
@@ -1075,9 +1057,9 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             WHY HIVEFENCE
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-12 sm:py-16 px-4 sm:px-6 bg-zinc-900/30">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-zinc-900/30">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-10">
+            <div className="text-center mb-14">
               <h2 className="font-display font-bold text-2xl sm:text-3xl mb-3">
                 Why <span className="text-gradient-honey">HiveFence</span>?
               </h2>
@@ -1086,7 +1068,7 @@ export default function Home() {
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-6 mb-10">
+            <div className="grid md:grid-cols-2 gap-8 mb-14">
               <div className="p-5 sm:p-6 rounded-2xl bg-red-500/5 border border-red-500/20 hover:border-red-500/40 transition-all">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-2xl">⚠️</span>
@@ -1136,9 +1118,9 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             HOW IT WORKS - NETWORK VISUALIZATION
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-12 sm:py-16 px-4 sm:px-6">
+        <section className="py-16 sm:py-24 px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-10">
+            <div className="text-center mb-14">
               <h2 className="font-display font-bold text-2xl sm:text-3xl mb-3">
                 How It <span className="text-gradient-honey">Works</span>
               </h2>
@@ -1178,15 +1160,15 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             FEATURES
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-12 sm:py-16 px-4 sm:px-6 bg-zinc-900/30">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-zinc-900/30">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-10">
+            <div className="text-center mb-14">
               <h2 className="font-display font-bold text-2xl sm:text-3xl mb-3">
                 Built for <span className="text-gradient-honey">Production</span>
               </h2>
             </div>
             
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
               <FeatureCard icon="⚡" title="Edge-First" description="Cloudflare Workers + D1 for sub-50ms global latency." />
               <FeatureCard icon="🔐" title="Privacy-Preserving" description="Only pattern hashes are shared, never raw prompts." />
               <FeatureCard icon="🗳️" title="Community Validated" description="Democratic voting prevents false positives." />
@@ -1200,9 +1182,9 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             ARCHITECTURE DIAGRAM
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-12 sm:py-16 px-4 sm:px-6">
+        <section className="py-16 sm:py-24 px-4 sm:px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-10">
+            <div className="text-center mb-14">
               <h2 className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-4">// SYSTEM ARCHITECTURE</h2>
               <h3 className="font-display font-bold text-2xl sm:text-3xl mb-3">
                 Technical <span className="text-gradient-honey">Deep Dive</span>
@@ -1219,9 +1201,9 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             API REFERENCE
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-12 sm:py-16 px-4 sm:px-6 bg-zinc-900/30">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-zinc-900/30">
           <div className="max-w-6xl mx-auto">
-            <div className="mb-8">
+            <div className="mb-12">
               <h2 className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-4">// API ENDPOINTS</h2>
             </div>
             
@@ -1248,7 +1230,7 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             DETECTION CATEGORIES
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-12 sm:py-16 px-4 sm:px-6 bg-zinc-900/30">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-zinc-900/30">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-6">// DETECTION CATEGORIES</h2>
             
@@ -1269,13 +1251,13 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════════════════════════
             CTA SECTION
             ═══════════════════════════════════════════════════════════════════ */}
-        <section className="py-16 sm:py-20 px-4 sm:px-6">
+        <section className="py-20 sm:py-28 px-4 sm:px-6">
           <div className="max-w-2xl mx-auto text-center">
             <HiveLogo className="w-20 h-20 mx-auto mb-6" glow />
             <h2 className="font-display font-bold text-2xl sm:text-3xl md:text-4xl mb-4">
               Join the <span className="text-gradient-honey">Hive</span>
             </h2>
-            <p className="text-zinc-400 mb-8">
+            <p className="text-zinc-400 mb-12">
               Protect your agents. Contribute to collective immunity.
             </p>
             <a 
