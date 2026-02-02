@@ -615,21 +615,13 @@ export default function Home() {
             </div>
             
             <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl leading-tight mb-8">
-              <span className="text-zinc-300">Your AI agent has access to</span>
-              <br />
-              <span className="text-zinc-300">files, APIs, and user data.</span>
+              <span className="text-zinc-300">Your AI agent has real access.</span>
               <br />
               <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">One bad prompt can hijack it all.</span>
             </h1>
             
-            <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-6 leading-relaxed">
-              Prompt injection is the #1 attack vector for AI agents with tool access.
-              <br />
-              <span className="text-zinc-300">HiveFence detects attacks in real-time and shares immunity across all connected agents.</span>
-            </p>
-            
-            <p className="text-sm text-amber-400/80 font-mono mb-12">
-              🐝 When one agent gets attacked, every agent becomes immune.
+            <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+              Prompt injection is the #1 attack on AI agents. HiveFence blocks attacks in real-time — <span className="text-amber-400">when one detects, all become immune.</span>
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
