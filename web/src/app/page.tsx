@@ -699,8 +699,10 @@ const AttackSimulator = () => {
 
 const Feature = ({ icon, title, desc }: { icon: string; title: string; desc: string }) => (
   <div className="p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800 hover:border-amber-500/30 transition-all">
-    <div className="text-3xl mb-4">{icon}</div>
-    <h3 className="font-display font-bold text-lg mb-2">{title}</h3>
+    <div className="flex items-center gap-3 mb-3">
+      <span className="text-2xl">{icon}</span>
+      <h3 className="font-display font-bold text-lg">{title}</h3>
+    </div>
     <p className="text-sm text-zinc-400 leading-relaxed">{desc}</p>
   </div>
 );
