@@ -1094,60 +1094,81 @@ export default function Home() {
             </div>
             
             {/* Architecture Diagram */}
-            <div className="p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 mb-8">
-              <div className="grid md:grid-cols-5 gap-4 items-center text-center">
-                <div className="p-4 rounded-xl bg-zinc-800/50 border border-zinc-700">
-                  <div className="text-2xl mb-2">📝</div>
-                  <div className="text-xs font-mono text-zinc-400">User Input</div>
+            <div className="p-4 sm:p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 mb-8">
+              {/* Flow - Horizontal on desktop, vertical on mobile */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                <div className="p-3 sm:p-4 rounded-xl bg-zinc-800/50 border border-zinc-700 w-full sm:w-auto">
+                  <div className="flex items-center gap-2 justify-center">
+                    <span className="text-xl">📝</span>
+                    <span className="text-sm font-mono text-zinc-400">User Input</span>
+                  </div>
                 </div>
-                <div className="text-amber-500 font-mono text-xl hidden md:block">→</div>
-                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30">
-                  <div className="text-2xl mb-2">🐝</div>
-                  <div className="text-xs font-mono text-amber-400">HiveFence</div>
-                  <div className="text-xs text-zinc-500 mt-1">&lt;50ms scan</div>
+                <div className="text-amber-500 font-mono text-lg rotate-90 sm:rotate-0">→</div>
+                <div className="p-3 sm:p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 w-full sm:w-auto">
+                  <div className="flex items-center gap-2 justify-center">
+                    <span className="text-xl">🐝</span>
+                    <div>
+                      <span className="text-sm font-mono text-amber-400">HiveFence</span>
+                      <span className="text-xs text-zinc-500 ml-2">&lt;50ms</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-amber-500 font-mono text-xl hidden md:block">→</div>
-                <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
-                  <div className="text-2xl mb-2">🤖</div>
-                  <div className="text-xs font-mono text-green-400">Safe Agent</div>
+                <div className="text-amber-500 font-mono text-lg rotate-90 sm:rotate-0">→</div>
+                <div className="p-3 sm:p-4 rounded-xl bg-green-500/10 border border-green-500/30 w-full sm:w-auto">
+                  <div className="flex items-center gap-2 justify-center">
+                    <span className="text-xl">🤖</span>
+                    <span className="text-sm font-mono text-green-400">Safe Agent</span>
+                  </div>
                 </div>
               </div>
               
               {/* Threat Path */}
-              <div className="mt-6 p-4 rounded-xl bg-red-500/5 border border-red-500/20">
-                <div className="flex items-center gap-4 text-sm">
-                  <span className="text-red-400">⚠️ Threat detected?</span>
-                  <span className="text-zinc-500">→</span>
-                  <span className="text-zinc-400">Hash pattern</span>
-                  <span className="text-zinc-500">→</span>
-                  <span className="text-zinc-400">Submit to network</span>
-                  <span className="text-zinc-500">→</span>
-                  <span className="text-green-400">All agents immunized</span>
+              <div className="mt-4 p-3 sm:p-4 rounded-xl bg-red-500/5 border border-red-500/20">
+                <div className="flex flex-wrap items-center justify-center gap-2 text-xs sm:text-sm">
+                  <span className="text-red-400 flex items-center gap-1"><span>⚠️</span> Threat?</span>
+                  <span className="text-zinc-600">→</span>
+                  <span className="text-zinc-400">Hash</span>
+                  <span className="text-zinc-600">→</span>
+                  <span className="text-zinc-400">Submit</span>
+                  <span className="text-zinc-600">→</span>
+                  <span className="text-green-400">All immune</span>
                 </div>
               </div>
             </div>
             
             {/* Tech Stack */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
-                <div className="text-orange-400 font-mono text-xs mb-2">EDGE RUNTIME</div>
-                <div className="text-zinc-300 font-medium">Cloudflare Workers</div>
-                <div className="text-xs text-zinc-500 mt-1">Global edge deployment, 300+ locations</div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              <div className="p-3 sm:p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-orange-400">⚡</span>
+                  <span className="text-orange-400 font-mono text-xs">EDGE</span>
+                </div>
+                <div className="text-zinc-300 text-sm font-medium">Cloudflare Workers</div>
+                <div className="text-xs text-zinc-500 mt-1">300+ locations</div>
               </div>
-              <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
-                <div className="text-blue-400 font-mono text-xs mb-2">DATABASE</div>
-                <div className="text-zinc-300 font-medium">Cloudflare D1</div>
-                <div className="text-xs text-zinc-500 mt-1">SQLite at the edge, APAC region</div>
+              <div className="p-3 sm:p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-blue-400">💾</span>
+                  <span className="text-blue-400 font-mono text-xs">DB</span>
+                </div>
+                <div className="text-zinc-300 text-sm font-medium">Cloudflare D1</div>
+                <div className="text-xs text-zinc-500 mt-1">Edge SQLite</div>
               </div>
-              <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
-                <div className="text-green-400 font-mono text-xs mb-2">API FRAMEWORK</div>
-                <div className="text-zinc-300 font-medium">Hono</div>
-                <div className="text-xs text-zinc-500 mt-1">Ultrafast web framework for Workers</div>
+              <div className="p-3 sm:p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-green-400">🔥</span>
+                  <span className="text-green-400 font-mono text-xs">API</span>
+                </div>
+                <div className="text-zinc-300 text-sm font-medium">Hono</div>
+                <div className="text-xs text-zinc-500 mt-1">Ultrafast framework</div>
               </div>
-              <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
-                <div className="text-purple-400 font-mono text-xs mb-2">DETECTION</div>
-                <div className="text-zinc-300 font-medium">Multi-layer Analysis</div>
-                <div className="text-xs text-zinc-500 mt-1">Pattern + Semantic + ML scoring</div>
+              <div className="p-3 sm:p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-purple-400">🧠</span>
+                  <span className="text-purple-400 font-mono text-xs">DETECT</span>
+                </div>
+                <div className="text-zinc-300 text-sm font-medium">Multi-layer</div>
+                <div className="text-xs text-zinc-500 mt-1">Pattern + ML</div>
               </div>
             </div>
             
