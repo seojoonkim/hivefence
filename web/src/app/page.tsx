@@ -808,6 +808,181 @@ const AttackSimulator = () => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
+// COMMUNITY PANEL - Pattern Voting & Submission
+// ─────────────────────────────────────────────────────────────────────────────
+
+const API_BASE = 'https://hivefence-api.seojoon-kim.workers.dev/api/v1';
+
+interface Pattern {
+  id: string;
+  pattern_hash: string;
+  category: string;
+  severity: number;
+  description: string;
+  vote_up: number;
+  vote_down: number;
+  report_count: number;
+  created_at: string;
+}
+
+const CommunityPanel = () => {
+  const [patterns, setPatterns] = useState<Pattern[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [newPattern, setNewPattern] = useState({ pattern: '', category: 'role_override', severity: 3 });
+  const [submitResult, setSubmitResult] = useState<{ success: boolean; message: string } | null>(null);
+
+  useEffect(() => {
+    fetchPatterns();
+  }, []);
+
+  const fetchPatterns = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/threats/pending`);
+      const data = await res.json();
+      setPatterns(data.patterns || []);
+    } catch (e) {
+      console.error('Failed to fetch patterns', e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const vote = async (id: string, approve: boolean) => {
+    try {
+      await fetch(`${API_BASE}/threats/${id}/vote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ vote: approve ? 'up' : 'down' }),
+      });
+      fetchPatterns();
+    } catch (e) {
+      console.error('Vote failed', e);
+    }
+  };
+
+  const submitPattern = async () => {
+    if (!newPattern.pattern.trim()) return;
+    setSubmitting(true);
+    setSubmitResult(null);
+    try {
+      const hash = 'sha256:' + Array.from(newPattern.pattern).reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 0).toString(16);
+      const res = await fetch(`${API_BASE}/threats/report`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          patternHash: hash,
+          category: newPattern.category,
+          severity: newPattern.severity,
+          description: newPattern.pattern.slice(0, 100),
+        }),
+      });
+      const data = await res.json();
+      if (data.id) {
+        setSubmitResult({ success: true, message: `Pattern submitted! ID: ${data.id.slice(0, 8)}...` });
+        setNewPattern({ pattern: '', category: 'role_override', severity: 3 });
+        fetchPatterns();
+      } else {
+        setSubmitResult({ success: false, message: data.error || 'Submission failed' });
+      }
+    } catch (e) {
+      setSubmitResult({ success: false, message: 'Network error' });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const categories = ['role_override', 'fake_system', 'jailbreak', 'data_exfil', 'social_eng', 'code_exec'];
+
+  return (
+    <div className="rounded-2xl border border-zinc-800 bg-zinc-900/30 overflow-hidden">
+      <div className="p-4 sm:p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-mono text-sm text-zinc-400">🗳️ COMMUNITY GOVERNANCE</h3>
+          <button onClick={fetchPatterns} className="text-xs text-amber-400 hover:text-amber-300">↻ Refresh</button>
+        </div>
+
+        {/* Pending Patterns */}
+        <div className="mb-6">
+          <div className="text-xs text-zinc-500 mb-3">Pending Patterns ({patterns.length})</div>
+          {loading ? (
+            <div className="text-center text-zinc-500 py-4">Loading...</div>
+          ) : patterns.length === 0 ? (
+            <div className="text-center text-zinc-500 py-4">No pending patterns</div>
+          ) : (
+            <div className="space-y-2 max-h-48 overflow-y-auto">
+              {patterns.map((p) => (
+                <div key={p.id} className="p-3 rounded-lg bg-zinc-900 border border-zinc-800 flex items-center justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
+                        p.category === 'jailbreak' ? 'bg-red-500/20 text-red-400' :
+                        p.category === 'fake_system' ? 'bg-purple-500/20 text-purple-400' :
+                        'bg-amber-500/20 text-amber-400'
+                      }`}>{p.category}</span>
+                      <span className="text-xs text-zinc-500">Sev: {p.severity}</span>
+                    </div>
+                    <div className="text-xs text-zinc-400 truncate mt-1">{p.pattern_hash}</div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <button onClick={() => vote(p.id, true)} className="px-2 py-1 rounded bg-green-500/10 text-green-400 text-xs hover:bg-green-500/20">
+                      👍 {p.vote_up}
+                    </button>
+                    <button onClick={() => vote(p.id, false)} className="px-2 py-1 rounded bg-red-500/10 text-red-400 text-xs hover:bg-red-500/20">
+                      👎 {p.vote_down}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Submit New Pattern */}
+        <div className="border-t border-zinc-800 pt-4">
+          <div className="text-xs text-zinc-500 mb-3">Submit New Pattern</div>
+          <input
+            type="text"
+            value={newPattern.pattern}
+            onChange={(e) => setNewPattern({ ...newPattern, pattern: e.target.value })}
+            placeholder="Enter attack pattern..."
+            className="w-full p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-200 text-sm placeholder:text-zinc-600 focus:outline-none focus:border-amber-500/50 mb-2"
+          />
+          <div className="flex gap-2 mb-2">
+            <select
+              value={newPattern.category}
+              onChange={(e) => setNewPattern({ ...newPattern, category: e.target.value })}
+              className="flex-1 p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs focus:outline-none"
+            >
+              {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+            <select
+              value={newPattern.severity}
+              onChange={(e) => setNewPattern({ ...newPattern, severity: Number(e.target.value) })}
+              className="w-20 p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs focus:outline-none"
+            >
+              {[1,2,3,4,5].map((s) => <option key={s} value={s}>Sev {s}</option>)}
+            </select>
+          </div>
+          <button
+            onClick={submitPattern}
+            disabled={!newPattern.pattern.trim() || submitting}
+            className="w-full py-2 rounded-lg bg-amber-500 text-black font-mono text-sm font-bold hover:bg-amber-400 disabled:opacity-50"
+          >
+            {submitting ? 'Submitting...' : '🐝 Submit Pattern'}
+          </button>
+          {submitResult && (
+            <div className={`mt-2 p-2 rounded-lg text-xs ${submitResult.success ? 'bg-green-500/10 text-green-400' : 'bg-red-500/10 text-red-400'}`}>
+              {submitResult.message}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // FEATURE CARD
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -1073,6 +1248,11 @@ export default function Home() {
               <p className="text-sm sm:text-base text-zinc-400">Try a prompt injection attack and see HiveFence in action.</p>
             </div>
             <AttackSimulator />
+            
+            {/* Community Panel */}
+            <div className="mt-8">
+              <CommunityPanel />
+            </div>
           </div>
         </section>
 
