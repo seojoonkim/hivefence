@@ -331,7 +331,7 @@ const HoneyDivider = () => (
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Terminal = ({ children, title = 'terminal' }: { children: React.ReactNode; title?: string }) => (
-  <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 overflow-hidden">
+  <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 overflow-hidden text-left">
     <div className="flex items-center gap-2 px-4 py-3 bg-zinc-900 border-b border-zinc-800">
       <div className="flex gap-1.5">
         <div className="w-3 h-3 rounded-full bg-red-500/80" />
