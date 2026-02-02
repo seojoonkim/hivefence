@@ -744,7 +744,7 @@ export default function Home() {
         <section className="pt-32 pb-24 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" target="_blank"
-               className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-red-500/30 bg-red-500/5 text-red-400 text-sm font-mono mb-8 hover:bg-red-500/10 transition-all">
+               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-red-500/30 bg-red-500/5 text-red-400 text-xs font-mono mb-8 hover:bg-red-500/10 transition-all">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               OWASP LLM01:2025 — Prompt Injection
               <span className="text-xs opacity-60">↗</span>
