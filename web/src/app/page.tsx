@@ -767,9 +767,15 @@ export default function Home() {
               <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">One bad prompt can hijack it all.</span>
             </h1>
             
-            <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+            <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto mb-6 leading-relaxed">
               Prompt injection is the #1 attack on AI agents. HiveFence blocks attacks in real-time — <span className="text-amber-400">when one detects, all become immune.</span>
             </p>
+            
+            <div className="flex items-center justify-center gap-3 mb-8 text-sm font-mono">
+              <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400">Free & Open Source</span>
+              <span className="text-zinc-600">|</span>
+              <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">Pro Coming Soon</span>
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <a href="#demo" 
@@ -1256,11 +1262,21 @@ export default function Home() {
             Join the hive. When one is attacked, all become immune.
           </p>
           
+          {/* Pricing badge */}
+          <div className="mb-6">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-sm font-mono">
+              ✨ Free & Open Source
+            </span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-sm font-mono ml-2">
+              🚀 Pro Coming Soon
+            </span>
+          </div>
+          
           {/* Trust badges */}
-          <div className="flex flex-wrap justify-center gap-4 mb-10 text-xs font-mono">
-            <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ OWASP LLM Top 10 Coverage</span>
-            <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ MITRE ATLAS Aligned</span>
-            <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ Zero-knowledge Privacy</span>
+          <div className="flex flex-wrap justify-center gap-3 mb-10 text-xs font-mono">
+            <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ OWASP LLM Top 10</span>
+            <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ MITRE ATLAS</span>
+            <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ Zero-knowledge</span>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
