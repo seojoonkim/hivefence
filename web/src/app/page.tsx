@@ -195,13 +195,13 @@ const HiveNetwork = ({ className = '' }: { className?: string }) => {
         })}
         
         {/* Attack blocked animation */}
-        <g transform="translate(80, 40)">
-          <circle r="25" fill="rgba(239, 68, 68, 0.1)" stroke="rgba(239, 68, 68, 0.6)" strokeWidth="2" filter="url(#glow-red)">
-            <animate attributeName="r" values="20;25;20" dur="1s" repeatCount="indefinite"/>
+        <g transform="translate(80, 110)">
+          <circle r="30" fill="rgba(239, 68, 68, 0.15)" stroke="rgba(239, 68, 68, 0.7)" strokeWidth="2.5" filter="url(#glow-red)">
+            <animate attributeName="r" values="25;30;25" dur="1s" repeatCount="indefinite"/>
             <animate attributeName="opacity" values="1;0.5;1" dur="1s" repeatCount="indefinite"/>
           </circle>
-          <text y="5" textAnchor="middle" fill="#ef4444" fontSize="16">⚠️</text>
-          <text y="45" textAnchor="middle" fill="#ef4444" fontSize="8" fontFamily="monospace">BLOCKED</text>
+          <text y="6" textAnchor="middle" fill="#ef4444" fontSize="20">⚠️</text>
+          <text y="50" textAnchor="middle" fill="#ef4444" fontSize="11" fontFamily="monospace" fontWeight="bold">BLOCKED</text>
         </g>
         
         {/* Central Hub */}
@@ -231,16 +231,16 @@ const HiveNetwork = ({ className = '' }: { className?: string }) => {
           <g key={i} transform={`translate(${node.x}, ${node.y})`}>
             {/* Node glow */}
             <circle 
-              r="22" 
+              r="28" 
               fill={node.status === 'immune' ? 'rgba(34, 197, 94, 0.1)' : node.status === 'scanning' ? 'rgba(59, 130, 246, 0.1)' : 'rgba(245, 158, 11, 0.1)'}
               filter={node.status === 'immune' ? 'url(#glow-green)' : undefined}
             />
             {/* Node circle */}
             <circle 
-              r="16" 
-              fill="rgba(24, 24, 27, 0.9)" 
+              r="22" 
+              fill="rgba(24, 24, 27, 0.95)" 
               stroke={node.status === 'immune' ? '#22c55e' : node.status === 'scanning' ? '#3b82f6' : '#f59e0b'}
-              strokeWidth={node.status === 'immune' ? 2 : 1.5}
+              strokeWidth={node.status === 'immune' ? 2.5 : 2}
               opacity={node.status === 'scanning' ? undefined : 1}
             >
               {node.status === 'scanning' && (
@@ -248,14 +248,14 @@ const HiveNetwork = ({ className = '' }: { className?: string }) => {
               )}
             </circle>
             {/* Node label */}
-            <text y="4" textAnchor="middle" fill="rgba(255,255,255,0.9)" fontSize="7" fontFamily="monospace">
+            <text y="5" textAnchor="middle" fill="rgba(255,255,255,0.95)" fontSize="10" fontFamily="monospace" fontWeight="500">
               {node.label.length > 8 ? node.label.slice(0, 8) : node.label}
             </text>
             {/* Status indicator */}
             <circle 
-              r="4" 
-              cx="11" 
-              cy="-11" 
+              r="5" 
+              cx="15" 
+              cy="-15" 
               fill={node.status === 'immune' ? '#22c55e' : node.status === 'scanning' ? '#3b82f6' : '#f59e0b'}
             >
               {node.status === 'scanning' && (
@@ -266,19 +266,19 @@ const HiveNetwork = ({ className = '' }: { className?: string }) => {
         ))}
         
         {/* Stats overlay */}
-        <g transform="translate(650, 20)">
-          <rect x="0" y="0" width="130" height="70" rx="8" fill="rgba(24,24,27,0.8)" stroke="rgba(245,158,11,0.3)"/>
-          <text x="10" y="20" fill="#f59e0b" fontSize="9" fontFamily="monospace">NETWORK STATUS</text>
-          <text x="10" y="38" fill="#22c55e" fontSize="10" fontFamily="monospace">● 8 Immune</text>
-          <text x="10" y="52" fill="#f59e0b" fontSize="10" fontFamily="monospace">● 4 Protected</text>
-          <text x="10" y="66" fill="#3b82f6" fontSize="10" fontFamily="monospace">● 2 Scanning</text>
+        <g transform="translate(620, 15)">
+          <rect x="0" y="0" width="160" height="85" rx="10" fill="rgba(24,24,27,0.9)" stroke="rgba(245,158,11,0.4)" strokeWidth="1.5"/>
+          <text x="12" y="22" fill="#f59e0b" fontSize="11" fontFamily="monospace" fontWeight="bold">NETWORK STATUS</text>
+          <text x="12" y="42" fill="#22c55e" fontSize="13" fontFamily="monospace">● 8 Immune</text>
+          <text x="12" y="58" fill="#f59e0b" fontSize="13" fontFamily="monospace">● 4 Protected</text>
+          <text x="12" y="74" fill="#3b82f6" fontSize="13" fontFamily="monospace">● 2 Scanning</text>
         </g>
         
         {/* Threat counter */}
-        <g transform="translate(20, 20)">
-          <rect x="0" y="0" width="100" height="45" rx="8" fill="rgba(24,24,27,0.8)" stroke="rgba(239,68,68,0.3)"/>
-          <text x="10" y="18" fill="#ef4444" fontSize="9" fontFamily="monospace">THREATS TODAY</text>
-          <text x="10" y="38" fill="#ef4444" fontSize="16" fontFamily="monospace" fontWeight="bold">
+        <g transform="translate(15, 15)">
+          <rect x="0" y="0" width="130" height="55" rx="10" fill="rgba(24,24,27,0.9)" stroke="rgba(239,68,68,0.4)" strokeWidth="1.5"/>
+          <text x="12" y="22" fill="#ef4444" fontSize="11" fontFamily="monospace" fontWeight="bold">THREATS TODAY</text>
+          <text x="12" y="45" fill="#ef4444" fontSize="18" fontFamily="monospace" fontWeight="bold">
             12 BLOCKED
             <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/>
           </text>
@@ -911,9 +911,9 @@ export default function Home() {
             </div>
             
             {/* Network Visualization */}
-            <div className="mt-12 p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 overflow-hidden">
-              <div className="text-xs font-mono text-zinc-500 mb-4 text-center">🐝 LIVE NETWORK VISUALIZATION</div>
-              <HiveNetwork className="h-72 md:h-80" />
+            <div className="mt-12 p-4 sm:p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 overflow-hidden">
+              <div className="text-sm font-mono text-zinc-400 mb-4 text-center">🐝 LIVE NETWORK VISUALIZATION</div>
+              <HiveNetwork className="h-80 sm:h-96" />
             </div>
           </div>
         </section>
