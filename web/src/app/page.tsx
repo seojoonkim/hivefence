@@ -41,55 +41,137 @@ const BeeIcon = ({ className = '', size = 24 }: { className?: string; size?: num
   </svg>
 );
 
-// Hexagon cell for honeycomb
-const Hexagon = ({ x, y, size = 40, delay = 0, filled = false }: { x: number; y: number; size?: number; delay?: number; filled?: boolean }) => {
+// Hexagon cell for honeycomb - enhanced version
+const Hexagon = ({ x, y, size = 40, delay = 0, type = 'normal' }: { x: number; y: number; size?: number; delay?: number; type?: 'normal' | 'glow' | 'pulse' | 'shimmer' }) => {
   const points = [];
   for (let i = 0; i < 6; i++) {
     const angle = (Math.PI / 3) * i - Math.PI / 6;
     points.push(`${x + size * Math.cos(angle)},${y + size * Math.sin(angle)}`);
   }
+  
+  const animationName = type === 'glow' ? 'hexGlow' : type === 'shimmer' ? 'hexShimmer' : 'hexPulse';
+  const duration = type === 'glow' ? '4s' : type === 'shimmer' ? '6s' : '3s';
+  const fillColor = type === 'glow' ? 'url(#hexGradient)' : type === 'shimmer' ? 'rgba(245, 158, 11, 0.15)' : 'none';
+  
   return (
-    <polygon 
-      points={points.join(' ')} 
-      fill={filled ? 'rgba(245, 158, 11, 0.1)' : 'none'}
-      stroke="rgba(245, 158, 11, 0.2)" 
-      strokeWidth="1"
-      style={{ 
-        animation: `hexPulse 3s ease-in-out infinite`,
-        animationDelay: `${delay}ms`
-      }}
-    />
+    <g>
+      {type === 'glow' && (
+        <polygon 
+          points={points.join(' ')} 
+          fill="rgba(245, 158, 11, 0.3)"
+          filter="url(#hexBlur)"
+          style={{ 
+            animation: `hexGlow ${duration} ease-in-out infinite`,
+            animationDelay: `${delay}ms`
+          }}
+        />
+      )}
+      <polygon 
+        points={points.join(' ')} 
+        fill={fillColor}
+        stroke="rgba(245, 158, 11, 0.15)" 
+        strokeWidth="1"
+        style={{ 
+          animation: `${animationName} ${duration} ease-in-out infinite`,
+          animationDelay: `${delay}ms`
+        }}
+      />
+    </g>
   );
 };
 
-// Honeycomb background pattern
+// Enhanced Honeycomb background pattern with multiple effects
 const HoneycombPattern = ({ className = '' }: { className?: string }) => {
-  const hexSize = 30;
+  const hexSize = 35;
   const hexHeight = hexSize * Math.sqrt(3);
   const hexWidth = hexSize * 2;
   
   const hexagons = [];
-  for (let row = 0; row < 8; row++) {
-    for (let col = 0; col < 12; col++) {
+  for (let row = 0; row < 12; row++) {
+    for (let col = 0; col < 20; col++) {
       const x = col * hexWidth * 0.75 + 50;
       const y = row * hexHeight + (col % 2 === 1 ? hexHeight / 2 : 0) + 30;
-      const delay = (row + col) * 100;
-      const filled = Math.random() > 0.7;
-      hexagons.push(<Hexagon key={`${row}-${col}`} x={x} y={y} size={hexSize} delay={delay} filled={filled} />);
+      const delay = (row + col) * 80;
+      
+      // Random type selection for variety
+      const rand = Math.random();
+      const type = rand > 0.95 ? 'glow' : rand > 0.85 ? 'shimmer' : 'normal';
+      
+      hexagons.push(<Hexagon key={`${row}-${col}`} x={x} y={y} size={hexSize} delay={delay} type={type} />);
     }
   }
   
   return (
     <svg className={`absolute inset-0 w-full h-full ${className}`} preserveAspectRatio="xMidYMid slice">
       <defs>
+        {/* Blur filter for glow effect */}
+        <filter id="hexBlur" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="4" />
+        </filter>
+        
+        {/* Gradient for special hexagons */}
+        <linearGradient id="hexGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="rgba(245, 158, 11, 0.3)" />
+          <stop offset="50%" stopColor="rgba(245, 158, 11, 0.1)" />
+          <stop offset="100%" stopColor="rgba(245, 158, 11, 0.3)" />
+        </linearGradient>
+        
+        {/* Radial gradient for center glow */}
+        <radialGradient id="centerGlow" cx="50%" cy="30%" r="60%">
+          <stop offset="0%" stopColor="rgba(245, 158, 11, 0.08)" />
+          <stop offset="100%" stopColor="rgba(245, 158, 11, 0)" />
+        </radialGradient>
+        
         <style>{`
           @keyframes hexPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+          }
+          @keyframes hexGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+          }
+          @keyframes hexShimmer {
+            0% { opacity: 0.1; }
+            25% { opacity: 0.4; }
+            50% { opacity: 0.1; }
+            75% { opacity: 0.3; }
+            100% { opacity: 0.1; }
+          }
+          @keyframes floatUp {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
           }
         `}</style>
       </defs>
-      {hexagons}
+      
+      {/* Center ambient glow */}
+      <rect width="100%" height="100%" fill="url(#centerGlow)" />
+      
+      {/* Hexagon grid */}
+      <g style={{ animation: 'floatUp 8s ease-in-out infinite' }}>
+        {hexagons}
+      </g>
+      
+      {/* Animated scan line effect */}
+      <rect 
+        x="0" 
+        y="0" 
+        width="100%" 
+        height="2" 
+        fill="rgba(245, 158, 11, 0.1)"
+        style={{
+          animation: 'scanLine 8s linear infinite',
+        }}
+      />
+      <style>{`
+        @keyframes scanLine {
+          0% { transform: translateY(0); opacity: 0; }
+          10% { opacity: 0.3; }
+          90% { opacity: 0.3; }
+          100% { transform: translateY(100vh); opacity: 0; }
+        }
+      `}</style>
     </svg>
   );
 };
@@ -714,7 +796,7 @@ export default function Home() {
     <main className="min-h-screen bg-[#0a0a0b] text-zinc-100">
       {/* Subtle background with honeycomb */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.05),transparent_50%)]" />
-      <div className="fixed inset-0 opacity-30 pointer-events-none">
+      <div className="fixed inset-0 opacity-40 pointer-events-none">
         <HoneycombPattern />
       </div>
       
