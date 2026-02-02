@@ -744,7 +744,7 @@ export default function Home() {
               <span className="text-xs opacity-60">↗</span>
             </a>
             
-            <h1 className="font-display font-black text-xl sm:text-3xl md:text-5xl leading-tight mb-8">
+            <h1 className="font-display font-black text-2xl sm:text-4xl md:text-5xl leading-tight mb-8">
               <span className="text-zinc-300">Your AI agent can read files, run code, and access APIs.</span>
               <br />
               <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">"Ignore previous instructions"</span>
