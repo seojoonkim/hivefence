@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // HIVEFENCE - CLEAN REDESIGN
@@ -825,12 +826,122 @@ interface Pattern {
   created_at: string;
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// PENDING PATTERNS PREVIEW - Shows on landing
+// ─────────────────────────────────────────────────────────────────────────────
+
+const PendingPatternsPreview = () => {
+  const [patterns, setPatterns] = useState<Pattern[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<{ totalThreats: number; pendingCount: number; approvedCount: number } | null>(null);
+
+  useEffect(() => {
+    Promise.all([
+      fetch(`${API_BASE}/threats/pending`).then(r => r.json()),
+      fetch(`${API_BASE}/stats`).then(r => r.json()),
+    ]).then(([pendingData, statsData]) => {
+      setPatterns((pendingData.patterns || []).slice(0, 3));
+      setStats(statsData);
+    }).catch(console.error).finally(() => setLoading(false));
+  }, []);
+
+  const categoryColors: Record<string, string> = {
+    role_override: 'bg-red-500/20 text-red-400 border-red-500/30',
+    fake_system: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+    jailbreak: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+    data_exfil: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+    social_eng: 'bg-pink-500/20 text-pink-400 border-pink-500/30',
+    code_exec: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
+  };
+
+  const categoryIcons: Record<string, string> = {
+    role_override: '🎭',
+    fake_system: '📜',
+    jailbreak: '🔓',
+    data_exfil: '💾',
+    social_eng: '🎩',
+    code_exec: '💻',
+  };
+
+  if (loading) return null;
+
+  return (
+    <section className="py-8 sm:py-12 px-4 sm:px-6 border-y border-amber-500/10 bg-gradient-to-b from-amber-500/5 to-transparent">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xl">🗳️</span>
+              <h2 className="font-display font-bold text-lg sm:text-xl">Live Community Voting</h2>
+              <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs font-mono animate-pulse">LIVE</span>
+            </div>
+            <p className="text-sm text-zinc-400">Help validate new attack patterns. Your vote shapes collective immunity.</p>
+          </div>
+          {stats && (
+            <div className="flex gap-3 text-xs font-mono">
+              <div className="px-3 py-2 rounded-lg bg-zinc-900/50 border border-zinc-800">
+                <div className="text-amber-400 font-bold text-lg">{stats.pendingCount}</div>
+                <div className="text-zinc-500">Pending</div>
+              </div>
+              <div className="px-3 py-2 rounded-lg bg-zinc-900/50 border border-zinc-800">
+                <div className="text-green-400 font-bold text-lg">{stats.approvedCount}</div>
+                <div className="text-zinc-500">Approved</div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {patterns.length > 0 ? (
+          <div className="grid sm:grid-cols-3 gap-3 mb-6">
+            {patterns.map((p) => (
+              <div key={p.id} className="p-4 rounded-xl bg-zinc-900/70 border border-zinc-800 hover:border-amber-500/30 transition-all group">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-lg">{categoryIcons[p.category] || '⚠️'}</span>
+                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono border ${categoryColors[p.category] || 'bg-zinc-500/20 text-zinc-400 border-zinc-500/30'}`}>
+                    {p.category.replace('_', ' ')}
+                  </span>
+                  <span className="ml-auto text-xs text-zinc-500">Sev {p.severity}</span>
+                </div>
+                <div className="text-xs text-zinc-500 font-mono truncate mb-3" title={p.pattern_hash}>
+                  {p.pattern_hash.slice(0, 24)}...
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-2">
+                    <span className="text-xs text-green-400">👍 {p.vote_up}</span>
+                    <span className="text-xs text-red-400">👎 {p.vote_down}</span>
+                  </div>
+                  <span className="text-[10px] text-zinc-600">{p.report_count} reports</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8 text-zinc-500">
+            <span className="text-2xl mb-2 block">🐝</span>
+            No pending patterns — the hive is secure!
+          </div>
+        )}
+
+        <div className="text-center">
+          <a href="#community" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-sm hover:bg-amber-500/20 transition-all">
+            🗳️ Vote on All Patterns
+            <span className="text-xs opacity-60">↓</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const CommunityPanel = () => {
+  const { data: session, status } = useSession();
   const [patterns, setPatterns] = useState<Pattern[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [newPattern, setNewPattern] = useState({ pattern: '', category: 'role_override', severity: 3 });
   const [submitResult, setSubmitResult] = useState<{ success: boolean; message: string } | null>(null);
+
+  const isLoggedIn = status === 'authenticated';
 
   useEffect(() => {
     fetchPatterns();
@@ -899,7 +1010,20 @@ const CommunityPanel = () => {
       <div className="p-4 sm:p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-mono text-sm text-zinc-400">🗳️ COMMUNITY GOVERNANCE</h3>
-          <button onClick={fetchPatterns} className="text-xs text-amber-400 hover:text-amber-300">↻ Refresh</button>
+          <div className="flex items-center gap-2">
+            {isLoggedIn ? (
+              <>
+                <span className="text-xs text-green-400">✓ {session?.user?.name || 'GitHub User'}</span>
+                <button onClick={() => signOut()} className="text-xs text-zinc-500 hover:text-zinc-300">Logout</button>
+              </>
+            ) : (
+              <button onClick={() => signIn('github')} className="px-2 py-1 rounded bg-zinc-800 text-xs text-zinc-300 hover:bg-zinc-700 flex items-center gap-1">
+                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                Login
+              </button>
+            )}
+            <button onClick={fetchPatterns} className="text-xs text-amber-400 hover:text-amber-300">↻</button>
+          </div>
         </div>
 
         {/* Pending Patterns */}
@@ -925,10 +1049,18 @@ const CommunityPanel = () => {
                     <div className="text-xs text-zinc-400 truncate mt-1">{p.pattern_hash}</div>
                   </div>
                   <div className="flex items-center gap-1">
-                    <button onClick={() => vote(p.id, true)} className="px-2 py-1 rounded bg-green-500/10 text-green-400 text-xs hover:bg-green-500/20">
+                    <button 
+                      onClick={() => isLoggedIn ? vote(p.id, true) : signIn('github')} 
+                      className={`px-2 py-1 rounded text-xs ${isLoggedIn ? 'bg-green-500/10 text-green-400 hover:bg-green-500/20' : 'bg-zinc-800 text-zinc-500 cursor-pointer'}`}
+                      title={isLoggedIn ? 'Approve' : 'Login to vote'}
+                    >
                       👍 {p.vote_up}
                     </button>
-                    <button onClick={() => vote(p.id, false)} className="px-2 py-1 rounded bg-red-500/10 text-red-400 text-xs hover:bg-red-500/20">
+                    <button 
+                      onClick={() => isLoggedIn ? vote(p.id, false) : signIn('github')} 
+                      className={`px-2 py-1 rounded text-xs ${isLoggedIn ? 'bg-red-500/10 text-red-400 hover:bg-red-500/20' : 'bg-zinc-800 text-zinc-500 cursor-pointer'}`}
+                      title={isLoggedIn ? 'Reject' : 'Login to vote'}
+                    >
                       👎 {p.vote_down}
                     </button>
                   </div>
@@ -1028,7 +1160,10 @@ export default function Home() {
               <HiveLogo className="w-8 h-8" />
               <span className="font-display font-bold">HIVEFENCE</span>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 sm:gap-6">
+              <a href="#community" className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-1.5">
+                <span className="hidden sm:inline">🗳️</span> Vote
+              </a>
               <div className="flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full ${apiOnline ? 'bg-green-500' : apiOnline === false ? 'bg-red-500' : 'bg-zinc-500'}`} />
                 <span className="text-xs font-mono text-zinc-500">API</span>
@@ -1099,6 +1234,11 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            LIVE PATTERNS PREVIEW (NEW)
+            ═══════════════════════════════════════════════════════════════════ */}
+        <PendingPatternsPreview />
 
         {/* ═══════════════════════════════════════════════════════════════════
             THREAT CONTEXT
@@ -1250,7 +1390,7 @@ export default function Home() {
             <AttackSimulator />
             
             {/* Community Panel */}
-            <div className="mt-8">
+            <div id="community" className="mt-8 scroll-mt-20">
               <CommunityPanel />
             </div>
           </div>
