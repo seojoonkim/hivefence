@@ -855,7 +855,7 @@ export default function Home() {
     <main className="min-h-screen bg-[#0a0a0b] text-zinc-100">
       {/* Subtle background with honeycomb */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,158,11,0.05),transparent_50%)]" />
-      <div className="fixed inset-0 opacity-40 pointer-events-none">
+      <div className="fixed inset-0 opacity-25 pointer-events-none blur-[0.5px]">
         <HoneycombPattern />
       </div>
       
@@ -891,7 +891,7 @@ export default function Home() {
               <span className="opacity-60">↗</span>
             </a>
             
-            <h1 className="font-display font-black text-[1.5rem] sm:text-4xl md:text-5xl leading-tight mb-4 sm:mb-8">
+            <h1 className="font-display font-black text-[1.6rem] sm:text-4xl md:text-5xl leading-tight mb-4 sm:mb-8">
               <span className="text-zinc-300">Your AI agent can read files, run code, and access APIs.</span>
               <br />
               <span className="bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">"Ignore previous instructions"</span>
