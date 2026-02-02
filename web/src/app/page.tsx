@@ -338,6 +338,228 @@ const NetworkGraph = () => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
+// ARCHITECTURE DIAGRAM - PROFESSIONAL SVG VERSION
+// ─────────────────────────────────────────────────────────────────────────────
+
+const ArchitectureDiagram = () => {
+  const [activeFlow, setActiveFlow] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveFlow(prev => (prev + 1) % 4);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="w-full max-w-4xl mx-auto">
+      <svg viewBox="0 0 800 500" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          {/* Gradients */}
+          <linearGradient id="agentGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#3f3f46" />
+            <stop offset="100%" stopColor="#27272a" />
+          </linearGradient>
+          <linearGradient id="coreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#f59e0b" />
+            <stop offset="100%" stopColor="#d97706" />
+          </linearGradient>
+          <linearGradient id="dbGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="100%" stopColor="#1d4ed8" />
+          </linearGradient>
+          <linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(245, 158, 11, 0)" />
+            <stop offset="50%" stopColor="rgba(245, 158, 11, 1)" />
+            <stop offset="100%" stopColor="rgba(245, 158, 11, 0)" />
+          </linearGradient>
+          
+          {/* Glow filter */}
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          
+          {/* Arrow marker */}
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#f59e0b" />
+          </marker>
+        </defs>
+        
+        {/* Background grid */}
+        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(63, 63, 70, 0.3)" strokeWidth="0.5"/>
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#grid)" opacity="0.5"/>
+        
+        {/* Layer Labels */}
+        <text x="40" y="80" className="font-mono" fill="#71717a" fontSize="11" fontWeight="600">AGENT LAYER</text>
+        <text x="40" y="250" className="font-mono" fill="#71717a" fontSize="11" fontWeight="600">HIVEFENCE CORE</text>
+        <text x="40" y="420" className="font-mono" fill="#71717a" fontSize="11" fontWeight="600">DISTRIBUTION</text>
+        
+        {/* ═══ AGENT LAYER ═══ */}
+        {/* Agent boxes */}
+        {[
+          { x: 120, label: 'Claude Code', icon: '🤖' },
+          { x: 280, label: 'OpenClaw', icon: '🦞' },
+          { x: 440, label: 'Clawdbot', icon: '🐾' },
+          { x: 600, label: 'Custom Agent', icon: '⚡' },
+        ].map((agent, i) => (
+          <g key={i} className="transition-all duration-300">
+            <rect 
+              x={agent.x} y="95" width="120" height="60" rx="8" 
+              fill="url(#agentGrad)" 
+              stroke={activeFlow === 0 && i === 1 ? '#f59e0b' : '#3f3f46'}
+              strokeWidth={activeFlow === 0 && i === 1 ? '2' : '1'}
+              filter={activeFlow === 0 && i === 1 ? 'url(#glow)' : 'none'}
+            />
+            <text x={agent.x + 60} y="120" textAnchor="middle" fill="#fafafa" fontSize="20">{agent.icon}</text>
+            <text x={agent.x + 60} y="143" textAnchor="middle" fill="#a1a1aa" fontSize="10" fontFamily="monospace">{agent.label}</text>
+          </g>
+        ))}
+        
+        {/* ═══ FLOW ARROWS - Agent to API ═══ */}
+        {[180, 340, 500, 660].map((x, i) => (
+          <g key={`down-${i}`}>
+            <line 
+              x1={x} y1="155" x2={x} y2="195" 
+              stroke={activeFlow === 0 ? '#f59e0b' : '#3f3f46'} 
+              strokeWidth="2" 
+              strokeDasharray={activeFlow === 0 ? 'none' : '4,4'}
+              markerEnd={activeFlow === 0 ? 'url(#arrowhead)' : 'none'}
+            />
+            {activeFlow === 0 && (
+              <circle r="4" fill="#f59e0b" filter="url(#glow)">
+                <animate attributeName="cy" from="155" to="195" dur="0.8s" repeatCount="indefinite" />
+                <animate attributeName="cx" values={`${x}`} dur="0.8s" repeatCount="indefinite" />
+              </circle>
+            )}
+          </g>
+        ))}
+        
+        {/* ═══ HIVEFENCE CORE ═══ */}
+        {/* Main API Box */}
+        <rect x="200" y="205" width="400" height="90" rx="12" fill="url(#coreGrad)" filter="url(#glow)" />
+        <text x="400" y="235" textAnchor="middle" fill="#000" fontSize="14" fontWeight="bold" fontFamily="monospace">HIVEFENCE API</text>
+        <text x="400" y="255" textAnchor="middle" fill="rgba(0,0,0,0.6)" fontSize="10" fontFamily="monospace">Cloudflare Workers + Hono</text>
+        
+        {/* Core components */}
+        <rect x="220" y="265" width="90" height="24" rx="4" fill="rgba(0,0,0,0.2)" />
+        <text x="265" y="281" textAnchor="middle" fill="#fff" fontSize="9" fontFamily="monospace">Pattern Matching</text>
+        
+        <rect x="320" y="265" width="70" height="24" rx="4" fill="rgba(0,0,0,0.2)" />
+        <text x="355" y="281" textAnchor="middle" fill="#fff" fontSize="9" fontFamily="monospace">Validation</text>
+        
+        <rect x="400" y="265" width="70" height="24" rx="4" fill="rgba(0,0,0,0.2)" />
+        <text x="435" y="281" textAnchor="middle" fill="#fff" fontSize="9" fontFamily="monospace">Rate Limit</text>
+        
+        <rect x="480" y="265" width="100" height="24" rx="4" fill="rgba(0,0,0,0.2)" />
+        <text x="530" y="281" textAnchor="middle" fill="#fff" fontSize="9" fontFamily="monospace">Community Vote</text>
+        
+        {/* Database */}
+        <rect x="650" y="220" width="100" height="60" rx="8" fill="url(#dbGrad)" />
+        <text x="700" y="245" textAnchor="middle" fill="#fff" fontSize="11" fontWeight="bold" fontFamily="monospace">D1</text>
+        <text x="700" y="262" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="9" fontFamily="monospace">SQLite Edge</text>
+        
+        {/* API to DB connection */}
+        <line x1="600" y1="250" x2="650" y2="250" stroke="#3b82f6" strokeWidth="2" strokeDasharray="4,4" />
+        <circle cx="625" cy="250" r="3" fill="#3b82f6">
+          <animate attributeName="cx" from="600" to="650" dur="1s" repeatCount="indefinite" />
+        </circle>
+        
+        {/* ═══ FLOW ARROWS - API to Distribution ═══ */}
+        <line 
+          x1="400" y1="295" x2="400" y2="340" 
+          stroke={activeFlow >= 2 ? '#f59e0b' : '#3f3f46'} 
+          strokeWidth="2"
+          strokeDasharray={activeFlow >= 2 ? 'none' : '4,4'}
+          markerEnd={activeFlow >= 2 ? 'url(#arrowhead)' : 'none'}
+        />
+        {activeFlow >= 2 && (
+          <circle r="4" fill="#f59e0b" filter="url(#glow)">
+            <animate attributeName="cy" from="295" to="340" dur="0.6s" repeatCount="indefinite" />
+            <animate attributeName="cx" values="400" dur="0.6s" repeatCount="indefinite" />
+          </circle>
+        )}
+        
+        {/* ═══ DISTRIBUTION LAYER ═══ */}
+        {/* CDN/Edge box */}
+        <rect x="250" y="350" width="300" height="50" rx="8" fill="url(#agentGrad)" stroke="#22c55e" strokeWidth="1" />
+        <text x="400" y="370" textAnchor="middle" fill="#22c55e" fontSize="11" fontWeight="bold" fontFamily="monospace">GLOBAL EDGE NETWORK</text>
+        <text x="400" y="388" textAnchor="middle" fill="#71717a" fontSize="10" fontFamily="monospace">Sub-50ms worldwide distribution</text>
+        
+        {/* Distribution arrows */}
+        {[180, 340, 500, 660].map((x, i) => (
+          <g key={`up-${i}`}>
+            <line 
+              x1={x} y1="410" x2={x} y2="440" 
+              stroke={activeFlow === 3 ? '#22c55e' : '#3f3f46'} 
+              strokeWidth="2"
+              strokeDasharray={activeFlow === 3 ? 'none' : '4,4'}
+            />
+          </g>
+        ))}
+        
+        {/* Protected agents */}
+        {[
+          { x: 120, label: 'Agent A', status: 'immune' },
+          { x: 280, label: 'Agent B', status: 'immune' },
+          { x: 440, label: 'Agent C', status: 'immune' },
+          { x: 600, label: 'Agent D', status: 'immune' },
+        ].map((agent, i) => (
+          <g key={`protected-${i}`}>
+            <rect 
+              x={agent.x} y="445" width="120" height="40" rx="8" 
+              fill="url(#agentGrad)"
+              stroke={activeFlow === 3 ? '#22c55e' : '#3f3f46'}
+              strokeWidth={activeFlow === 3 ? '2' : '1'}
+            />
+            <text x={agent.x + 60} y="463" textAnchor="middle" fill="#22c55e" fontSize="9" fontFamily="monospace">✓ PROTECTED</text>
+            <text x={agent.x + 60} y="478" textAnchor="middle" fill="#71717a" fontSize="9" fontFamily="monospace">{agent.label}</text>
+          </g>
+        ))}
+        
+        {/* Flow labels */}
+        <g className="font-mono" fill="#71717a" fontSize="9">
+          <text x="720" y="115" textAnchor="end" fill={activeFlow === 0 ? '#f59e0b' : '#71717a'}>① DETECT</text>
+          <text x="720" y="175" textAnchor="end" fill={activeFlow === 1 ? '#f59e0b' : '#71717a'}>② REPORT</text>
+          <text x="720" y="320" textAnchor="end" fill={activeFlow === 2 ? '#f59e0b' : '#71717a'}>③ VALIDATE</text>
+          <text x="720" y="460" textAnchor="end" fill={activeFlow === 3 ? '#22c55e' : '#71717a'}>④ IMMUNIZE</text>
+        </g>
+        
+        {/* Latency indicator */}
+        <rect x="620" y="365" width="80" height="24" rx="4" fill="rgba(34, 197, 94, 0.1)" stroke="#22c55e" strokeWidth="1" />
+        <text x="660" y="381" textAnchor="middle" fill="#22c55e" fontSize="10" fontFamily="monospace">&lt;50ms</text>
+        
+      </svg>
+      
+      {/* Legend */}
+      <div className="flex flex-wrap justify-center gap-6 mt-6 text-xs font-mono">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded bg-gradient-to-b from-amber-500 to-amber-600" />
+          <span className="text-zinc-400">HiveFence Core</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded bg-gradient-to-b from-blue-500 to-blue-700" />
+          <span className="text-zinc-400">D1 Database</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded border border-green-500 bg-green-500/10" />
+          <span className="text-zinc-400">Edge Network</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-amber-500 animate-pulse" />
+          <span className="text-zinc-400">Data Flow</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
 // ATTACK SIMULATOR WITH SHAKE & PARTICLES
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -976,9 +1198,28 @@ export default function Home() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            API REFERENCE
+            ARCHITECTURE DIAGRAM
             ═══════════════════════════════════════════════════════════════════ */}
         <section className="py-12 sm:py-16 px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-4">// SYSTEM ARCHITECTURE</h2>
+              <h3 className="font-display font-bold text-2xl sm:text-3xl mb-3">
+                Technical <span className="text-gradient-honey">Deep Dive</span>
+              </h3>
+              <p className="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto">
+                Edge-first infrastructure for sub-50ms global threat propagation
+              </p>
+            </div>
+            
+            <ArchitectureDiagram />
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            API REFERENCE
+            ═══════════════════════════════════════════════════════════════════ */}
+        <section className="py-12 sm:py-16 px-4 sm:px-6 bg-zinc-900/30">
           <div className="max-w-6xl mx-auto">
             <div className="mb-8">
               <h2 className="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-4">// API ENDPOINTS</h2>
