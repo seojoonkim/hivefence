@@ -772,8 +772,9 @@ export default function Home() {
               <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">vulnerable.</span>
             </h1>
             
-            <p className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent mb-8">
-              🐝 One detects, all immune.
+            <p className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8">
+              <span className="inline-block mr-2">🐝</span>
+              <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">One detects, all immune.</span>
             </p>
             
             {/* Live Stats */}
@@ -1158,8 +1159,9 @@ export default function Home() {
               </p>
             </div>
             
-            <p className="mt-8 text-2xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">
-              🐝 One detects, all immune.
+            <p className="mt-8 text-2xl font-bold">
+              <span className="inline-block mr-1">🐝</span>
+              <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">One detects, all immune.</span>
             </p>
             
             <div className="mt-6 text-sm text-zinc-500">
@@ -1182,8 +1184,9 @@ export default function Home() {
           <p className="text-zinc-400 mb-4 max-w-lg mx-auto">
             Open source. MIT licensed. OWASP-aligned. Add protection in under 5 minutes.
           </p>
-          <p className="text-xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent mb-8 font-mono">
-            🐝 One detects, all immune.
+          <p className="text-xl font-bold mb-8 font-mono">
+            <span className="inline-block mr-1">🐝</span>
+            <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">One detects, all immune.</span>
           </p>
           
           <a 
