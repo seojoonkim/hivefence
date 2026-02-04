@@ -794,9 +794,15 @@ export default function Home() {
             </div>
             
             {/* Badges */}
-            <div className="flex items-center justify-center gap-3 mb-10 text-sm font-mono">
-              <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400">✓ Free Forever</span>
-              <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">Pro Coming Soon</span>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10 text-sm">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20">
+                <span className="text-green-400 font-bold">✓ Free Tier</span>
+                <span className="text-zinc-400">— Core protection, always free</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20">
+                <span className="text-amber-400 font-bold">Pro Tier</span>
+                <span className="text-zinc-400">— Advanced features, coming soon</span>
+              </div>
             </div>
             
             {/* CTAs */}
@@ -1202,7 +1208,7 @@ export default function Home() {
             <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ OWASP LLM Top 10</span>
             <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ MITRE ATLAS</span>
             <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">✓ Zero-knowledge</span>
-            <span className="px-3 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Free Forever</span>
+            <span className="px-3 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">✓ Free Tier Available</span>
           </div>
         </section>
 
