@@ -1050,7 +1050,7 @@ const PendingPatternsPreview = () => {
   );
 };
 
-// Simplified Community Panel - shows 5 patterns max, links to /community for full experience
+// Simplified Community Panel - shows 5 patterns max, links to /validation for full experience
 const CommunityPanel = () => {
   const [patterns, setPatterns] = useState<Pattern[]>([]);
   const [loading, setLoading] = useState(true);
@@ -1077,7 +1077,7 @@ const CommunityPanel = () => {
       <div className="p-4 sm:p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-mono text-sm text-zinc-400">DISTRIBUTED VALIDATION</h3>
-          <a href="/community" className="text-xs text-amber-400 hover:text-amber-300 font-mono">
+          <a href="/validation" className="text-xs text-amber-400 hover:text-amber-300 font-mono">
             View All →
           </a>
         </div>
@@ -1118,7 +1118,7 @@ const CommunityPanel = () => {
         )}
 
         <a 
-          href="/community" 
+          href="/validation" 
           className="mt-4 block w-full py-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-sm text-center hover:bg-amber-500/20 transition-all"
         >
           Submit & Validate Patterns →
@@ -1539,7 +1539,7 @@ export default function Home() {
               </a>
 
               {/* Community Governance Card */}
-              <a href="/community" id="community" className="group p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-amber-500/5 to-zinc-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all">
+              <a href="/validation" id="community" className="group p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-amber-500/5 to-zinc-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-3xl">🗳️</span>
