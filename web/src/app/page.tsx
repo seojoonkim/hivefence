@@ -759,7 +759,7 @@ const AttackSimulator = () => {
         
         <button id="test-btn" onClick={analyze} disabled={!input.trim() || status === 'scanning'}
           className="w-full py-3 rounded-xl bg-amber-500 text-black font-mono font-bold hover:bg-amber-400 disabled:opacity-50 transition-all">
-          🛡️ Test Defense
+          Test Defense
         </button>
 
         {/* Scanning Animation */}
@@ -1132,10 +1132,10 @@ const CommunityPanel = () => {
 // FEATURE CARD
 // ─────────────────────────────────────────────────────────────────────────────
 
-const Feature = ({ icon, title, desc }: { icon: string; title: string; desc: string }) => (
+const Feature = ({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) => (
   <div className="p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800 hover:border-amber-500/30 transition-all">
     <div className="flex items-center gap-3 mb-3">
-      <span className="text-2xl">{icon}</span>
+      <span className="text-2xl flex items-center justify-center">{icon}</span>
       <h3 className="font-display font-bold text-lg">{title}</h3>
     </div>
     <p className="text-sm text-zinc-400 leading-relaxed">{desc}</p>
@@ -1293,7 +1293,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8 sm:mb-16 px-4 sm:px-0">
               <a href="https://github.com/seojoonkim/hivefence" target="_blank" 
                  className="px-6 py-3 sm:px-8 sm:py-4 rounded-xl bg-amber-500 text-black font-mono font-bold text-base sm:text-lg hover:bg-amber-400 transition-all inline-flex items-center justify-center gap-2">
-                🚀 Get Started Free
+                Get Started Free
               </a>
               <a href="#demo" className="px-5 py-3 sm:px-6 sm:py-4 rounded-xl border border-zinc-700 text-zinc-300 font-mono text-sm sm:text-base hover:border-amber-500/50 transition-all inline-flex items-center justify-center gap-2">
                 See Live Demo ↓
@@ -1695,12 +1695,12 @@ export default function Home() {
             </div>
             
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Feature icon="⚡" title="Edge-first (<50ms)" desc="Cloudflare Workers at 300+ locations. Zero latency impact on your agent." />
-              <Feature icon="🔐" title="Privacy-preserving" desc="Only SHA-256 hashes shared. Zero-knowledge architecture. Your prompts never leave." />
-              <Feature icon="✓" title="Consensus-validated" desc="Distributed validation prevents false positives. Patterns require network consensus before deployment." />
-              <Feature icon="🌍" title="Multi-language" desc="EN, KO, JA, ZH detection. Attacks in any language get caught." />
-              <Feature icon="📊" title="OWASP-aligned" desc="Covers LLM01-LLM09 attack categories from OWASP LLM Top 10." />
-              <Feature icon="🛠️" title="100% open source" desc="MIT licensed. Audit the code. Fork it. Self-host if needed." />
+              <Feature icon={<IconZap className="text-amber-400" size={24} />} title="Edge-first (<50ms)" desc="Cloudflare Workers at 300+ locations. Zero latency impact on your agent." />
+              <Feature icon={<IconLock className="text-amber-400" size={24} />} title="Privacy-preserving" desc="Only SHA-256 hashes shared. Zero-knowledge architecture. Your prompts never leave." />
+              <Feature icon={<IconVote className="text-green-400" size={24} />} title="Consensus-validated" desc="Distributed validation prevents false positives. Patterns require network consensus before deployment." />
+              <Feature icon={<IconGlobe className="text-amber-400" size={24} />} title="Multi-language" desc="EN, KO, JA, ZH detection. Attacks in any language get caught." />
+              <Feature icon={<IconChart className="text-amber-400" size={24} />} title="OWASP-aligned" desc="Covers LLM01-LLM09 attack categories from OWASP LLM Top 10." />
+              <Feature icon={<IconCode className="text-amber-400" size={24} />} title="100% open source" desc="MIT licensed. Audit the code. Fork it. Self-host if needed." />
             </div>
           </div>
         </section>
@@ -1881,7 +1881,7 @@ export default function Home() {
           {/* Single CTA */}
           <a href="https://github.com/seojoonkim/hivefence" target="_blank"
              className="px-6 py-3 sm:px-10 sm:py-5 rounded-xl bg-amber-500 text-black font-mono font-bold text-base sm:text-xl hover:bg-amber-400 transition-all inline-flex items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-8">
-            🚀 Get Started Free
+            Get Started Free
           </a>
           
           {/* Trust badges */}
