@@ -42,6 +42,123 @@ const BeeIcon = ({ className = '', size = 24 }: { className?: string; size?: num
   </svg>
 );
 
+// ─────────────────────────────────────────────────────────────────────────────
+// MODERN SVG ICONS
+// ─────────────────────────────────────────────────────────────────────────────
+
+const IconShield = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    <path d="M9 12l2 2 4-4" className="text-green-400"/>
+  </svg>
+);
+
+const IconRocket = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+    <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+  </svg>
+);
+
+const IconVote = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+    <polyline points="22 4 12 14.01 9 11.01"/>
+  </svg>
+);
+
+const IconAlert = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+    <line x1="12" y1="9" x2="12" y2="13"/>
+    <line x1="12" y1="17" x2="12.01" y2="17"/>
+  </svg>
+);
+
+const IconSearch = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11" cy="11" r="8"/>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </svg>
+);
+
+const IconDna = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M2 15c6.667-6 13.333 0 20-6"/>
+    <path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/>
+    <path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/>
+    <path d="M17 6l-2.5-2.5"/>
+    <path d="M14 8l-1-1"/>
+    <path d="M7 18l2.5 2.5"/>
+    <path d="M3.5 14.5l.5.5"/>
+    <path d="M20 9l.5.5"/>
+    <path d="M6.5 12.5l1 1"/>
+    <path d="M16.5 10.5l1 1"/>
+    <path d="M10 16l1.5 1.5"/>
+  </svg>
+);
+
+const IconGlobe = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </svg>
+);
+
+const IconChart = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="18" y1="20" x2="18" y2="10"/>
+    <line x1="12" y1="20" x2="12" y2="4"/>
+    <line x1="6" y1="20" x2="6" y2="14"/>
+  </svg>
+);
+
+const IconSkull = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="9" cy="12" r="1"/>
+    <circle cx="15" cy="12" r="1"/>
+    <path d="M8 20v2h8v-2"/>
+    <path d="M12.5 17l-.5-1-.5 1h1z"/>
+    <path d="M16 20a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20"/>
+  </svg>
+);
+
+const IconZap = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </svg>
+);
+
+const IconLock = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+  </svg>
+);
+
+const IconBroadcast = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="2"/>
+    <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/>
+  </svg>
+);
+
+const IconCheck = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+);
+
+const IconCode = ({ className = '', size = 20 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="16 18 22 12 16 6"/>
+    <polyline points="8 6 2 12 8 18"/>
+  </svg>
+);
+
 // Hexagon cell for honeycomb - enhanced version
 const Hexagon = ({ x, y, size = 40, delay = 0, type = 'normal' }: { x: number; y: number; size?: number; delay?: number; type?: 'normal' | 'glow' | 'pulse' | 'shimmer' }) => {
   const points = [];
@@ -872,10 +989,10 @@ const PendingPatternsPreview = () => {
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xl">🗳️</span>
-              <h2 className="font-display font-bold text-lg sm:text-xl">Live Community Voting</h2>
+              <h2 className="font-display font-bold text-lg sm:text-xl">Live Pattern Validation</h2>
               <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs font-mono animate-pulse">LIVE</span>
             </div>
-            <p className="text-sm text-zinc-400">Help validate new attack patterns. Your vote shapes collective immunity.</p>
+            <p className="text-sm text-zinc-400">Participate in distributed threat validation. Your input strengthens collective immunity.</p>
           </div>
           {stats && (
             <div className="flex gap-3 text-xs font-mono">
@@ -924,7 +1041,7 @@ const PendingPatternsPreview = () => {
 
         <div className="text-center">
           <a href="#community" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-sm hover:bg-amber-500/20 transition-all">
-            🗳️ Vote on All Patterns
+            Validate Patterns
             <span className="text-xs opacity-60">↓</span>
           </a>
         </div>
@@ -959,7 +1076,7 @@ const CommunityPanel = () => {
     <div className="rounded-2xl border border-zinc-800 bg-zinc-900/30 overflow-hidden">
       <div className="p-4 sm:p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-mono text-sm text-zinc-400">🗳️ COMMUNITY GOVERNANCE</h3>
+          <h3 className="font-mono text-sm text-zinc-400">DISTRIBUTED VALIDATION</h3>
           <a href="/community" className="text-xs text-amber-400 hover:text-amber-300 font-mono">
             View All →
           </a>
@@ -1004,7 +1121,7 @@ const CommunityPanel = () => {
           href="/community" 
           className="mt-4 block w-full py-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-sm text-center hover:bg-amber-500/20 transition-all"
         >
-          🗳️ Vote & Submit Patterns →
+          Submit & Validate Patterns →
         </a>
       </div>
     </div>
@@ -1580,7 +1697,7 @@ export default function Home() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <Feature icon="⚡" title="Edge-first (<50ms)" desc="Cloudflare Workers at 300+ locations. Zero latency impact on your agent." />
               <Feature icon="🔐" title="Privacy-preserving" desc="Only SHA-256 hashes shared. Zero-knowledge architecture. Your prompts never leave." />
-              <Feature icon="🗳️" title="Community-validated" desc="Democratic voting prevents false positives. Patterns require consensus before deployment." />
+              <Feature icon="✓" title="Consensus-validated" desc="Distributed validation prevents false positives. Patterns require network consensus before deployment." />
               <Feature icon="🌍" title="Multi-language" desc="EN, KO, JA, ZH detection. Attacks in any language get caught." />
               <Feature icon="📊" title="OWASP-aligned" desc="Covers LLM01-LLM09 attack categories from OWASP LLM Top 10." />
               <Feature icon="🛠️" title="100% open source" desc="MIT licensed. Audit the code. Fork it. Self-host if needed." />
