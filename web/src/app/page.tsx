@@ -892,7 +892,7 @@ export default function Home() {
               <StatCard value="#1" label="OWASP LLM Risk" sublabel="LLM01:2025" />
               <StatCard value="15+" label="Attack Categories" sublabel="MITRE ATLAS" />
               <StatCard value="<50ms" label="Edge Detection" sublabel="300+ locations" />
-              <StatCard value="4" label="Languages" sublabel="EN/KO/JA/ZH" />
+              <StatCard value="10" label="Languages" sublabel="EN/KO/JA/ZH/RU/ES/DE/FR/PT/VI" />
             </div>
           </div>
         </section>
@@ -1014,7 +1014,7 @@ export default function Home() {
                       <div className="text-[10px] text-zinc-500">Patterns</div>
                     </div>
                     <div className="p-2 rounded-lg bg-zinc-800/50 text-center">
-                      <div className="text-red-400 font-bold text-lg">4</div>
+                      <div className="text-red-400 font-bold text-lg">10</div>
                       <div className="text-[10px] text-zinc-500">Languages</div>
                     </div>
                     <div className="p-2 rounded-lg bg-zinc-800/50 text-center">
