@@ -1058,6 +1058,9 @@ export default function Home() {
               <span className="font-display font-bold">HIVEFENCE</span>
             </div>
             <div className="flex items-center gap-4 sm:gap-6">
+              <a href="#pricing" className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-1.5">
+                <span className="hidden sm:inline">💎</span> Pricing
+              </a>
               <a href="#community" className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-1.5">
                 <span className="hidden sm:inline">🗳️</span> Vote
               </a>
@@ -1662,6 +1665,149 @@ export default function Home() {
               <p className="text-sm text-zinc-400">
                 <span className="text-amber-400 font-mono">Base URL:</span> https://hivefence-api.seojoon-kim.workers.dev
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            PRICING
+            ═══════════════════════════════════════════════════════════════════ */}
+        <section id="pricing" className="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-b from-zinc-900/50 to-transparent">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-10 sm:mb-16">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono mb-4">
+                <span>🐝</span> Simple, transparent pricing
+              </div>
+              <h2 className="font-display font-bold text-2xl sm:text-4xl mb-4">
+                Choose your <span className="text-amber-400">protection level</span>
+              </h2>
+              <p className="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto">
+                Start free. Scale when you need. All plans include collective immunity.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* FREE */}
+              <div className="relative p-6 sm:p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all">
+                <div className="mb-6">
+                  <h3 className="font-display font-bold text-xl mb-2">Free</h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-bold text-zinc-100">$0</span>
+                    <span className="text-zinc-500">/forever</span>
+                  </div>
+                  <p className="text-sm text-zinc-500 mt-2">For indie hackers & side projects</p>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    '349+ attack patterns',
+                    '4 languages (EN/KO/JA/ZH)',
+                    'Community patterns',
+                    '<50ms edge detection',
+                    '1,000 requests/month',
+                    'Community voting',
+                  ].map((f, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-zinc-400">
+                      <span className="text-green-400">✓</span> {f}
+                    </li>
+                  ))}
+                </ul>
+                <a href="https://github.com/seojoonkim/hivefence" target="_blank"
+                   className="block w-full py-3 rounded-xl bg-zinc-800 text-zinc-300 font-mono text-sm text-center hover:bg-zinc-700 transition-all">
+                  Get Started Free
+                </a>
+              </div>
+
+              {/* PRO - Featured */}
+              <div className="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-amber-500/10 to-zinc-900/50 border-2 border-amber-500/50 hover:border-amber-500 transition-all transform md:-translate-y-2">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="px-3 py-1 rounded-full bg-amber-500 text-black text-xs font-bold font-mono">
+                    MOST POPULAR
+                  </span>
+                </div>
+                <div className="mb-6">
+                  <h3 className="font-display font-bold text-xl mb-2 text-amber-400">Pro</h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-bold text-zinc-100">$29</span>
+                    <span className="text-zinc-500">/month</span>
+                  </div>
+                  <p className="text-sm text-zinc-500 mt-2">For teams shipping AI products</p>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    'Everything in Free',
+                    'Unlimited requests',
+                    'Real-time pattern updates',
+                    'Custom detection rules',
+                    'Priority pattern submission',
+                    'Detailed analytics dashboard',
+                    'Slack/Discord alerts',
+                    'Email support (24h)',
+                  ].map((f, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
+                      <span className="text-amber-400">✓</span> {f}
+                    </li>
+                  ))}
+                </ul>
+                <button disabled
+                   className="block w-full py-3 rounded-xl bg-amber-500 text-black font-mono font-bold text-sm text-center opacity-80 cursor-not-allowed">
+                  Coming Soon
+                </button>
+                <p className="text-xs text-zinc-500 text-center mt-2">Join waitlist →</p>
+              </div>
+
+              {/* ENTERPRISE */}
+              <div className="relative p-6 sm:p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-purple-500/30 transition-all">
+                <div className="mb-6">
+                  <h3 className="font-display font-bold text-xl mb-2 text-purple-400">Enterprise</h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-bold text-zinc-100">Custom</span>
+                  </div>
+                  <p className="text-sm text-zinc-500 mt-2">For security-critical deployments</p>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    'Everything in Pro',
+                    'Private threat intel feed',
+                    'On-premise / VPC deployment',
+                    'SSO & SAML',
+                    'SLA guarantee (99.9%)',
+                    'Dedicated support channel',
+                    'Custom integrations',
+                    'Security audit reports',
+                  ].map((f, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-zinc-400">
+                      <span className="text-purple-400">✓</span> {f}
+                    </li>
+                  ))}
+                </ul>
+                <a href="mailto:security@hivefence.com"
+                   className="block w-full py-3 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 font-mono text-sm text-center hover:bg-purple-500/20 transition-all">
+                  Contact Sales
+                </a>
+              </div>
+            </div>
+
+            {/* FAQ */}
+            <div className="mt-12 sm:mt-16 p-6 rounded-2xl bg-zinc-900/30 border border-zinc-800">
+              <h3 className="font-mono text-sm text-zinc-500 mb-4">FREQUENTLY ASKED</h3>
+              <div className="grid sm:grid-cols-2 gap-6 text-sm">
+                <div>
+                  <div className="text-zinc-300 font-medium mb-1">Is the free tier really free forever?</div>
+                  <div className="text-zinc-500">Yes. We're committed to keeping core protection free. The community patterns and detection engine will always be open source.</div>
+                </div>
+                <div>
+                  <div className="text-zinc-300 font-medium mb-1">What happens if I exceed 1,000 requests?</div>
+                  <div className="text-zinc-500">You'll get a friendly warning. We won't cut you off mid-attack. Upgrade to Pro for unlimited protection.</div>
+                </div>
+                <div>
+                  <div className="text-zinc-300 font-medium mb-1">Can I self-host HiveFence?</div>
+                  <div className="text-zinc-500">Absolutely. It's MIT licensed. You'll miss out on community patterns, but the core detection works offline.</div>
+                </div>
+                <div>
+                  <div className="text-zinc-300 font-medium mb-1">How does community validation work?</div>
+                  <div className="text-zinc-500">When a new pattern is reported, trusted agents vote on it. Patterns need consensus before deployment to prevent false positives.</div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
