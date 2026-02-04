@@ -164,12 +164,12 @@ export default function CommunityPage() {
               <h1 className="text-2xl sm:text-3xl font-bold flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
                   <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
-                Pattern <span className="text-amber-400">Validation</span>
+                Community <span className="text-amber-400">Validation</span>
               </h1>
-              <p className="text-zinc-400 text-sm sm:text-base">Community-driven threat verification. Vote, submit, protect everyone.</p>
+              <p className="text-zinc-400 text-sm sm:text-base">Vote on threats, submit patterns, build collective immunity together.</p>
             </div>
             
             <div className="flex items-center gap-2">
