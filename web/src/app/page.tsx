@@ -1115,59 +1115,97 @@ export default function Home() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            COMMUNITY GOVERNANCE
+            PATTERN VALIDATION
             ═══════════════════════════════════════════════════════════════════ */}
         <section className="py-20 px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">
-                Community <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Governance</span>
+                Pattern <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Validation</span>
               </h2>
               <p className="text-zinc-400 max-w-lg mx-auto">
-                Democratic pattern validation. When you detect a new attack, report it. The community votes, everyone becomes immune.
+                Democratic threat validation. When you detect a new attack, report it. The community votes, everyone becomes immune.
               </p>
             </div>
             
             <a href="/validation" className="group block p-8 rounded-2xl bg-gradient-to-br from-amber-500/5 to-zinc-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all">
-              <div className="flex flex-col md:flex-row md:items-center gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-2xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <svg className="w-8 h-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-2xl group-hover:text-amber-400 transition-colors">Consensus Protocol</h3>
-                    <p className="text-sm text-zinc-500">Vote on patterns • Submit threats • Track status</p>
-                  </div>
+              {/* Header */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <svg className="w-7 h-7 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-                
-                <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 md:ml-8">
-                  <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
-                    <div className="text-amber-400 font-bold text-lg">🗳️</div>
-                    <div className="text-xs text-zinc-500">Vote</div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
-                    <div className="text-amber-400 font-bold text-lg">📝</div>
-                    <div className="text-xs text-zinc-500">Submit</div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
-                    <div className="text-amber-400 font-bold text-lg">📊</div>
-                    <div className="text-xs text-zinc-500">Track</div>
-                  </div>
-                  <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
-                    <div className="text-amber-400 font-bold text-lg">🔐</div>
-                    <div className="text-xs text-zinc-500">GitHub SSO</div>
-                  </div>
+                <div>
+                  <h3 className="font-bold text-2xl group-hover:text-amber-400 transition-colors">Validation Dashboard</h3>
+                  <p className="text-sm text-zinc-500">Community-driven threat verification</p>
                 </div>
               </div>
               
-              <div className="flex items-center justify-end mt-6 pt-6 border-t border-zinc-800">
-                <span className="text-amber-400 text-sm font-mono mr-3">Open Governance Dashboard</span>
-                <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 group-hover:translate-x-1 transition-all">
-                  <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
+              {/* Stats Row */}
+              <div className="grid grid-cols-4 gap-3 mb-6">
+                <div className="p-3 rounded-xl bg-zinc-800/50 text-center">
+                  <div className="text-amber-400 font-bold text-xl">12</div>
+                  <div className="text-[10px] text-zinc-500">Pending</div>
+                </div>
+                <div className="p-3 rounded-xl bg-zinc-800/50 text-center">
+                  <div className="text-green-400 font-bold text-xl">347</div>
+                  <div className="text-[10px] text-zinc-500">Approved</div>
+                </div>
+                <div className="p-3 rounded-xl bg-zinc-800/50 text-center">
+                  <div className="text-amber-400 font-bold text-xl">89</div>
+                  <div className="text-[10px] text-zinc-500">Contributors</div>
+                </div>
+                <div className="p-3 rounded-xl bg-zinc-800/50 text-center">
+                  <div className="text-amber-400 font-bold text-xl">24h</div>
+                  <div className="text-[10px] text-zinc-500">Avg. Review</div>
+                </div>
+              </div>
+              
+              {/* Process Flow */}
+              <div className="grid md:grid-cols-4 gap-4 mb-6">
+                <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                  <div className="text-amber-400 text-2xl mb-2">1️⃣</div>
+                  <div className="font-bold text-sm mb-1">Submit</div>
+                  <div className="text-xs text-zinc-500">Report new attack pattern with evidence</div>
+                </div>
+                <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                  <div className="text-amber-400 text-2xl mb-2">2️⃣</div>
+                  <div className="font-bold text-sm mb-1">Review</div>
+                  <div className="text-xs text-zinc-500">Community experts analyze the threat</div>
+                </div>
+                <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                  <div className="text-amber-400 text-2xl mb-2">3️⃣</div>
+                  <div className="font-bold text-sm mb-1">Vote</div>
+                  <div className="text-xs text-zinc-500">Consensus reached via token-weighted voting</div>
+                </div>
+                <div className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800">
+                  <div className="text-green-400 text-2xl mb-2">✅</div>
+                  <div className="font-bold text-sm mb-1">Deploy</div>
+                  <div className="text-xs text-zinc-500">Pattern pushed to all connected agents</div>
+                </div>
+              </div>
+              
+              {/* Features */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                <span className="px-3 py-1.5 rounded-lg text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20">🗳️ Democratic Voting</span>
+                <span className="px-3 py-1.5 rounded-lg text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20">🔐 GitHub SSO</span>
+                <span className="px-3 py-1.5 rounded-lg text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20">📊 Real-time Tracking</span>
+                <span className="px-3 py-1.5 rounded-lg text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20">🏆 Contributor Rewards</span>
+                <span className="px-3 py-1.5 rounded-lg text-xs font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20">⚡ Instant Propagation</span>
+              </div>
+              
+              <div className="flex items-center justify-between pt-6 border-t border-zinc-800">
+                <div className="text-xs text-zinc-500">
+                  <span className="text-green-400">●</span> Live validation in progress
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-amber-400 text-sm font-mono">Open Validation Dashboard</span>
+                  <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 group-hover:translate-x-1 transition-all">
+                    <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </a>
