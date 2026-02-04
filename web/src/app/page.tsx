@@ -1135,13 +1135,13 @@ export default function Home() {
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"/>
                   <span className="text-zinc-300 font-mono">
-                    {stats ? `${formatNumber(stats.agents.active_7d)} agents protected` : '-- agents protected'}
+                    {stats?.agents?.active_7d ? `${formatNumber(stats.agents.active_7d)} agents protected` : '-- agents protected'}
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
                   <span className="text-red-400">🛡️</span>
                   <span className="text-zinc-300 font-mono">
-                    {stats ? `${formatNumber(stats.threats.blocked_30d)} threats blocked (30d)` : '-- threats blocked'}
+                    {stats?.threats?.blocked_30d ? `${formatNumber(stats.threats.blocked_30d)} threats blocked (30d)` : '-- threats blocked'}
                   </span>
                 </div>
               </div>
