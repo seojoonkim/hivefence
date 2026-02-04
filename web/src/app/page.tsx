@@ -989,10 +989,10 @@ const PendingPatternsPreview = () => {
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xl">🗳️</span>
-              <h2 className="font-display font-bold text-lg sm:text-xl">Live Pattern Validation</h2>
+              <h2 className="font-display font-bold text-lg sm:text-xl">Real-time Threat Consensus</h2>
               <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs font-mono animate-pulse">LIVE</span>
             </div>
-            <p className="text-sm text-zinc-400">Participate in distributed threat validation. Your input strengthens collective immunity.</p>
+            <p className="text-sm text-zinc-400">Contribute to the decentralized threat intelligence network. Your signal strengthens collective immunity.</p>
           </div>
           {stats && (
             <div className="flex gap-3 text-xs font-mono">
@@ -1041,7 +1041,7 @@ const PendingPatternsPreview = () => {
 
         <div className="text-center">
           <a href="#community" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-sm hover:bg-amber-500/20 transition-all">
-            Validate Patterns
+            Join Consensus
             <span className="text-xs opacity-60">↓</span>
           </a>
         </div>
@@ -1076,7 +1076,7 @@ const CommunityPanel = () => {
     <div className="rounded-2xl border border-zinc-800 bg-zinc-900/30 overflow-hidden">
       <div className="p-4 sm:p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="font-mono text-sm text-zinc-400">DISTRIBUTED VALIDATION</h3>
+          <h3 className="font-mono text-sm text-zinc-400">THREAT CONSENSUS</h3>
           <a href="/validation" className="text-xs text-amber-400 hover:text-amber-300 font-mono">
             View All →
           </a>
@@ -1121,7 +1121,7 @@ const CommunityPanel = () => {
           href="/validation" 
           className="mt-4 block w-full py-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-sm text-center hover:bg-amber-500/20 transition-all"
         >
-          Submit & Validate Patterns →
+          Participate in Consensus →
         </a>
       </div>
     </div>
@@ -1469,7 +1469,7 @@ export default function Home() {
             <div className="mt-6 p-6 rounded-2xl bg-gradient-to-r from-amber-500/5 to-green-500/5 border border-amber-500/20">
               <h3 className="font-mono text-sm text-amber-400 mb-4">🛡️ RECOMMENDED SECURITY STACK</h3>
               <p className="text-sm text-zinc-400 mb-4">
-                For maximum protection, combine HiveFence with these community-recommended tools:
+                For maximum protection, combine HiveFence with these network-validated tools:
               </p>
               <div className="grid sm:grid-cols-3 gap-4">
                 <a href="https://github.com/Dicklesworthstone/acip" target="_blank" 
@@ -1545,7 +1545,7 @@ export default function Home() {
                     <span className="text-3xl">🗳️</span>
                   </div>
                   <div>
-                    <h3 className="font-display font-bold text-xl group-hover:text-amber-400 transition-colors">Community Governance</h3>
+                    <h3 className="font-display font-bold text-xl group-hover:text-amber-400 transition-colors">Consensus Protocol</h3>
                     <p className="text-sm text-zinc-500">Vote on patterns, submit new threats</p>
                   </div>
                 </div>
