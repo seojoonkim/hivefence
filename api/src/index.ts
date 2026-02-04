@@ -211,9 +211,108 @@ app.get('/api/v1/threats/sync', async (c) => {
   });
 });
 
-// Stats endpoint
+// ===================
+// AGENT TRACKING API
+// ===================
+
+// Agent heartbeat (call on SDK init or periodically)
+app.post('/api/v1/agents/heartbeat', async (c) => {
+  const body = await c.req.json().catch(() => ({}));
+  const clientId = c.req.header('X-Client-ID') || c.req.header('CF-Connecting-IP') || 'anonymous';
+  const clientHash = await sha256(clientId);
+  const version = body.version || c.req.header('X-Client-Version') || 'unknown';
+  const name = body.name || null;
+
+  // Upsert agent
+  const existing = await c.env.DB.prepare(
+    'SELECT id, request_count FROM agents WHERE client_hash = ?'
+  ).bind(clientHash).first();
+
+  if (existing) {
+    await c.env.DB.prepare(`
+      UPDATE agents SET 
+        last_seen = datetime('now'),
+        request_count = request_count + 1,
+        is_active = 1,
+        version = COALESCE(?, version),
+        name = COALESCE(?, name)
+      WHERE id = ?
+    `).bind(version, name, existing.id).run();
+
+    return c.json({ agentId: existing.id, status: 'updated' });
+  } else {
+    const id = crypto.randomUUID();
+    await c.env.DB.prepare(`
+      INSERT INTO agents (id, client_hash, name, version, is_active)
+      VALUES (?, ?, ?, ?, 1)
+    `).bind(id, clientHash, name, version).run();
+
+    return c.json({ agentId: id, status: 'registered' }, 201);
+  }
+});
+
+// Report a blocked threat (call when SDK blocks an attack)
+app.post('/api/v1/threats/blocked', async (c) => {
+  const body = await c.req.json();
+  const { patternHash, category, severity, metadata } = body;
+  
+  if (!category) {
+    return c.json({ error: 'category is required' }, 400);
+  }
+
+  const clientId = c.req.header('X-Client-ID') || c.req.header('CF-Connecting-IP') || 'anonymous';
+  const clientHash = await sha256(clientId);
+  
+  // Find or create agent
+  let agent = await c.env.DB.prepare(
+    'SELECT id FROM agents WHERE client_hash = ?'
+  ).bind(clientHash).first();
+
+  if (!agent) {
+    const agentId = crypto.randomUUID();
+    await c.env.DB.prepare(`
+      INSERT INTO agents (id, client_hash, is_active) VALUES (?, ?, 1)
+    `).bind(agentId, clientHash).run();
+    agent = { id: agentId };
+  }
+
+  // Find pattern if hash provided
+  let patternId = null;
+  if (patternHash) {
+    const pattern = await c.env.DB.prepare(
+      'SELECT id FROM threat_patterns WHERE pattern_hash = ?'
+    ).bind(patternHash).first();
+    patternId = pattern?.id || null;
+  }
+
+  // Insert threat event
+  const eventId = crypto.randomUUID();
+  await c.env.DB.prepare(`
+    INSERT INTO threat_events (id, agent_id, pattern_id, pattern_hash, category, severity, metadata)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `).bind(eventId, agent.id, patternId, patternHash || '', category, severity || 3, JSON.stringify(metadata || {})).run();
+
+  // Update agent threat count
+  await c.env.DB.prepare(
+    'UPDATE agents SET threat_count = threat_count + 1, last_seen = datetime(\'now\') WHERE id = ?'
+  ).bind(agent.id).run();
+
+  // Update daily stats
+  const today = new Date().toISOString().split('T')[0];
+  await c.env.DB.prepare(`
+    INSERT INTO daily_stats (date, threats_blocked) VALUES (?, 1)
+    ON CONFLICT(date) DO UPDATE SET 
+      threats_blocked = threats_blocked + 1,
+      updated_at = datetime('now')
+  `).bind(today).run();
+
+  return c.json({ eventId, status: 'recorded' }, 201);
+});
+
+// Stats endpoint (enhanced)
 app.get('/api/v1/stats', async (c) => {
-  const stats = await c.env.DB.prepare(`
+  // Pattern stats
+  const patternStats = await c.env.DB.prepare(`
     SELECT 
       COUNT(*) as total,
       SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END) as approved,
@@ -223,8 +322,57 @@ app.get('/api/v1/stats', async (c) => {
     FROM threat_patterns
   `).first();
 
+  // Active agents (seen in last 24h)
+  const agentStats = await c.env.DB.prepare(`
+    SELECT 
+      COUNT(*) as total,
+      SUM(CASE WHEN last_seen > datetime('now', '-1 day') THEN 1 ELSE 0 END) as active_24h,
+      SUM(CASE WHEN last_seen > datetime('now', '-7 days') THEN 1 ELSE 0 END) as active_7d
+    FROM agents
+  `).first();
+
+  // Today's threats
+  const today = new Date().toISOString().split('T')[0];
+  const todayStats = await c.env.DB.prepare(
+    'SELECT threats_blocked FROM daily_stats WHERE date = ?'
+  ).bind(today).first();
+
+  // Last 30 days threats
+  const last30Days = await c.env.DB.prepare(`
+    SELECT COALESCE(SUM(threats_blocked), 0) as total
+    FROM daily_stats
+    WHERE date > date('now', '-30 days')
+  `).first();
+
   return c.json({
-    patterns: stats,
+    patterns: patternStats,
+    agents: {
+      total: agentStats?.total || 0,
+      active_24h: agentStats?.active_24h || 0,
+      active_7d: agentStats?.active_7d || 0,
+    },
+    threats: {
+      blocked_today: todayStats?.threats_blocked || 0,
+      blocked_30d: last30Days?.total || 0,
+    },
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// 30-day history endpoint
+app.get('/api/v1/stats/history', async (c) => {
+  const days = parseInt(c.req.query('days') || '30');
+  
+  const history = await c.env.DB.prepare(`
+    SELECT date, agents_active, threats_blocked, patterns_added
+    FROM daily_stats
+    WHERE date > date('now', '-' || ? || ' days')
+    ORDER BY date DESC
+  `).bind(days).all();
+
+  return c.json({
+    history: history.results,
+    days,
     timestamp: new Date().toISOString(),
   });
 });

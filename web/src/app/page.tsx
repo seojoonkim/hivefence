@@ -1029,15 +1029,35 @@ const Feature = ({ icon, title, desc }: { icon: string; title: string; desc: str
 // MAIN PAGE
 // ─────────────────────────────────────────────────────────────────────────────
 
+interface NetworkStats {
+  agents: { total: number; active_24h: number; active_7d: number };
+  threats: { blocked_today: number; blocked_30d: number };
+  patterns: { total: number; approved: number; pending: number };
+}
+
 export default function Home() {
   const [apiOnline, setApiOnline] = useState<boolean | null>(null);
+  const [stats, setStats] = useState<NetworkStats | null>(null);
 
   useEffect(() => {
+    // Check API health
     fetch('https://hivefence-api.seojoon-kim.workers.dev/')
       .then(r => r.json())
       .then(d => setApiOnline(d.status === 'ok'))
       .catch(() => setApiOnline(false));
+
+    // Fetch network stats
+    fetch('https://hivefence-api.seojoon-kim.workers.dev/api/v1/stats')
+      .then(r => r.json())
+      .then(d => setStats(d))
+      .catch(console.error);
   }, []);
+
+  // Format numbers nicely
+  const formatNumber = (n: number) => {
+    if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
+    return n.toString();
+  };
 
   return (
     <main className="min-h-screen bg-[#0a0a0b] text-zinc-100">
@@ -1111,11 +1131,15 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"/>
-                  <span className="text-zinc-300 font-mono">847 agents protected</span>
+                  <span className="text-zinc-300 font-mono">
+                    {stats ? `${formatNumber(stats.agents.active_7d)} agents protected` : '-- agents protected'}
+                  </span>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
                   <span className="text-red-400">🛡️</span>
-                  <span className="text-zinc-300 font-mono">1.2k threats blocked today</span>
+                  <span className="text-zinc-300 font-mono">
+                    {stats ? `${formatNumber(stats.threats.blocked_30d)} threats blocked (30d)` : '-- threats blocked'}
+                  </span>
                 </div>
               </div>
             </div>
