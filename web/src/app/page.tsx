@@ -716,7 +716,7 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <HiveLogo className="w-8 h-8" />
-              <span className="font-bold text-lg bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">HIVEFENCE</span>
+              <span className="font-bold text-lg bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">HiveFence</span>
             </div>
             <div className="flex items-center gap-4 sm:gap-6">
               <div className="flex items-center gap-2">
