@@ -557,30 +557,24 @@ const StepCard = ({
   step, 
   icon, 
   title, 
-  desc,
-  showConnector = false
+  desc
 }: { 
   step: string; 
   icon: string; 
   title: string; 
   desc: string;
-  showConnector?: boolean;
 }) => (
   <div className="relative group">
     <div className="text-center">
       {/* Step number with glow */}
       <div className="relative w-16 h-16 mx-auto mb-4">
         <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500/20 to-yellow-500/20 blur-xl group-hover:blur-2xl transition-all" />
-        <div className="relative w-full h-full rounded-full bg-zinc-900 border border-amber-500/50 flex items-center justify-center text-2xl z-10">
+        <div className="relative w-full h-full rounded-full bg-zinc-900 border border-amber-500/50 flex items-center justify-center text-2xl">
           {icon}
         </div>
-        <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 flex items-center justify-center text-xs font-bold text-black z-20">
+        <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 flex items-center justify-center text-xs font-bold text-black">
           {step}
         </div>
-        {/* Connector line to next step (only if showConnector) */}
-        {showConnector && (
-          <div className="hidden md:block absolute top-1/2 left-full w-[calc(100%+2rem)] h-[2px] bg-gradient-to-r from-amber-500/60 via-amber-500/40 to-amber-500/60 -translate-y-1/2 ml-4" />
-        )}
       </div>
       
       <h3 className="font-bold text-lg text-white mb-2">{title}</h3>
@@ -923,28 +917,39 @@ export default function Home() {
               <p className="text-zinc-400">Three steps to collective immunity</p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-12 relative">
-              <StepCard 
-                step="1" 
-                icon="🔍" 
-                title="Detect" 
-                desc="Your agent scans incoming prompts against 15+ attack patterns. Threats blocked in <50ms."
-                showConnector={true}
-              />
-              <StepCard 
-                step="2" 
-                icon="📡" 
-                title="Report" 
-                desc="New attack patterns are hashed and submitted to the network. Your data stays private."
-                showConnector={true}
-              />
-              <StepCard 
-                step="3" 
-                icon="🛡️" 
-                title="Immunize" 
-                desc="Community validates the pattern. Once approved, every agent gets the update instantly."
-                showConnector={false}
-              />
+            <div className="relative">
+              {/* Connector lines - drawn behind the cards */}
+              <div className="hidden md:flex absolute top-8 left-0 right-0 items-center justify-center pointer-events-none">
+                <div className="w-full max-w-3xl flex items-center px-20">
+                  <div className="flex-1" /> {/* spacer for first circle */}
+                  <div className="flex-[2] h-[2px] bg-gradient-to-r from-amber-500/50 to-amber-500/30" />
+                  <div className="flex-1" /> {/* spacer for middle circle */}
+                  <div className="flex-[2] h-[2px] bg-gradient-to-r from-amber-500/30 to-amber-500/50" />
+                  <div className="flex-1" /> {/* spacer for last circle */}
+                </div>
+              </div>
+              
+              {/* Step cards */}
+              <div className="grid md:grid-cols-3 gap-8 relative z-10">
+                <StepCard 
+                  step="1" 
+                  icon="🔍" 
+                  title="Detect" 
+                  desc="Your agent scans incoming prompts against 15+ attack patterns. Threats blocked in <50ms."
+                />
+                <StepCard 
+                  step="2" 
+                  icon="📡" 
+                  title="Report" 
+                  desc="New attack patterns are hashed and submitted to the network. Your data stays private."
+                />
+                <StepCard 
+                  step="3" 
+                  icon="🛡️" 
+                  title="Immunize" 
+                  desc="Community validates the pattern. Once approved, every agent gets the update instantly."
+                />
+              </div>
             </div>
           </div>
         </section>
