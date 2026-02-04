@@ -1111,17 +1111,8 @@ export default function Home() {
               Prompt injection is the #1 attack on AI agents. HiveFence blocks attacks in real-time.<br /><span className="text-amber-400 font-bold text-lg sm:text-xl">One detects, all immune.</span>
             </p>
             
-            {/* Social Proof */}
+            {/* Live Stats */}
             <div className="flex flex-col items-center gap-3 mb-4 sm:mb-6">
-              {/* Featured Badge */}
-              <a href="https://x.com/vittostack/status/2018326025373900881" target="_blank" 
-                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/30 hover:border-amber-500/50 transition-all group">
-                <span className="text-amber-400">📰</span>
-                <span className="text-xs sm:text-sm text-zinc-300">Featured in <span className="text-amber-400 font-semibold">@VittoStack's Security Guide</span></span>
-                <span className="text-zinc-500 text-xs font-mono">34K+ views</span>
-                <span className="text-zinc-500 group-hover:text-amber-400 transition-colors">↗</span>
-              </a>
-              
               <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"/>
@@ -1350,9 +1341,6 @@ export default function Home() {
                   <div className="text-xs text-zinc-500">Audit skills for security issues before installation</div>
                 </a>
               </div>
-              <p className="text-xs text-zinc-500 mt-4 text-center">
-                As recommended in <a href="https://x.com/vittostack/status/2018326025373900881" target="_blank" className="text-amber-400 hover:underline">@VittoStack's Security Guide</a>
-              </p>
             </div>
           </div>
         </section>
