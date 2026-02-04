@@ -1059,6 +1059,45 @@ export default function Home() {
     return n.toString();
   };
 
+  // Animated counter component
+  const AnimatedCounter = ({ value, duration = 1500 }: { value: number; duration?: number }) => {
+    const [count, setCount] = useState(0);
+    const countRef = useRef(0);
+    
+    useEffect(() => {
+      if (value === 0) {
+        setCount(0);
+        return;
+      }
+      
+      const startTime = Date.now();
+      const startValue = countRef.current;
+      
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function (ease-out)
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const currentValue = Math.floor(startValue + (value - startValue) * easeOut);
+        
+        setCount(currentValue);
+        countRef.current = currentValue;
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          setCount(value);
+          countRef.current = value;
+        }
+      };
+      
+      requestAnimationFrame(animate);
+    }, [value, duration]);
+    
+    return <>{formatNumber(count)}</>;
+  };
+
   return (
     <main className="min-h-screen bg-[#0a0a0b] text-zinc-100">
       {/* Subtle background with honeycomb */}
@@ -1117,13 +1156,13 @@ export default function Home() {
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"/>
                   <span className="text-zinc-300 font-mono">
-                    {stats?.agents?.active_7d ? `${formatNumber(stats.agents.active_7d)} agents protected` : '-- agents protected'}
+                    <AnimatedCounter value={stats?.agents?.active_7d || 0} /> agents protected
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-800/50">
                   <span className="text-red-400">🛡️</span>
                   <span className="text-zinc-300 font-mono">
-                    {stats?.threats?.blocked_30d ? `${formatNumber(stats.threats.blocked_30d)} threats blocked (30d)` : '-- threats blocked'}
+                    <AnimatedCounter value={stats?.threats?.blocked_30d || 0} /> threats blocked (30d)
                   </span>
                 </div>
               </div>
