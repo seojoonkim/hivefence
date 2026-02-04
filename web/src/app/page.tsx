@@ -1686,104 +1686,76 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* FREE */}
-              <div className="relative p-6 sm:p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all">
-                <div className="mb-6">
-                  <h3 className="font-display font-bold text-xl mb-2">Free</h3>
+            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              {/* FREE - Main */}
+              <div className="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-green-500/5 to-zinc-900/50 border-2 border-green-500/30 hover:border-green-500/50 transition-all">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="px-3 py-1 rounded-full bg-green-500 text-black text-xs font-bold font-mono">
+                    FREE FOREVER
+                  </span>
+                </div>
+                <div className="mb-6 mt-2">
+                  <h3 className="font-display font-bold text-xl mb-2 text-green-400">Free</h3>
                   <div className="flex items-baseline gap-1">
                     <span className="text-4xl font-bold text-zinc-100">$0</span>
                     <span className="text-zinc-500">/forever</span>
                   </div>
-                  <p className="text-sm text-zinc-500 mt-2">For indie hackers & side projects</p>
+                  <p className="text-sm text-zinc-500 mt-2">Full protection, no credit card needed</p>
                 </div>
                 <ul className="space-y-3 mb-8">
                   {[
                     '349+ attack patterns',
                     '4 languages (EN/KO/JA/ZH)',
-                    'Community patterns',
+                    'Community patterns & updates',
                     '<50ms edge detection',
-                    '1,000 requests/month',
+                    'Unlimited requests',
                     'Community voting',
+                    'Open source (MIT)',
                   ].map((f, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-zinc-400">
+                    <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
                       <span className="text-green-400">✓</span> {f}
                     </li>
                   ))}
                 </ul>
                 <a href="https://github.com/seojoonkim/hivefence" target="_blank"
-                   className="block w-full py-3 rounded-xl bg-zinc-800 text-zinc-300 font-mono text-sm text-center hover:bg-zinc-700 transition-all">
-                  Get Started Free
+                   className="block w-full py-3 rounded-xl bg-green-500 text-black font-mono font-bold text-sm text-center hover:bg-green-400 transition-all">
+                  🚀 Get Started Free
                 </a>
               </div>
 
-              {/* PRO - Featured */}
-              <div className="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-amber-500/10 to-zinc-900/50 border-2 border-amber-500/50 hover:border-amber-500 transition-all transform md:-translate-y-2">
+              {/* PRO - Coming Soon */}
+              <div className="relative p-6 sm:p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-amber-500/30 transition-all opacity-80">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="px-3 py-1 rounded-full bg-amber-500 text-black text-xs font-bold font-mono">
-                    MOST POPULAR
+                  <span className="px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/50 text-amber-400 text-xs font-bold font-mono">
+                    COMING SOON
                   </span>
                 </div>
-                <div className="mb-6">
+                <div className="mb-6 mt-2">
                   <h3 className="font-display font-bold text-xl mb-2 text-amber-400">Pro</h3>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold text-zinc-100">$29</span>
-                    <span className="text-zinc-500">/month</span>
+                    <span className="text-4xl font-bold text-zinc-400">TBD</span>
                   </div>
-                  <p className="text-sm text-zinc-500 mt-2">For teams shipping AI products</p>
+                  <p className="text-sm text-zinc-500 mt-2">For teams needing advanced features</p>
                 </div>
                 <ul className="space-y-3 mb-8">
                   {[
                     'Everything in Free',
-                    'Unlimited requests',
-                    'Real-time pattern updates',
                     'Custom detection rules',
                     'Priority pattern submission',
                     'Detailed analytics dashboard',
                     'Slack/Discord alerts',
-                    'Email support (24h)',
+                    'Priority support',
+                    'Private threat intel (planned)',
                   ].map((f, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-zinc-300">
-                      <span className="text-amber-400">✓</span> {f}
+                    <li key={i} className="flex items-center gap-2 text-sm text-zinc-500">
+                      <span className="text-amber-400/50">○</span> {f}
                     </li>
                   ))}
                 </ul>
                 <button disabled
-                   className="block w-full py-3 rounded-xl bg-amber-500 text-black font-mono font-bold text-sm text-center opacity-80 cursor-not-allowed">
+                   className="block w-full py-3 rounded-xl bg-zinc-800 text-zinc-500 font-mono text-sm text-center cursor-not-allowed">
                   Coming Soon
                 </button>
-                <p className="text-xs text-zinc-500 text-center mt-2">Join waitlist →</p>
-              </div>
-
-              {/* ENTERPRISE */}
-              <div className="relative p-6 sm:p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-purple-500/30 transition-all">
-                <div className="mb-6">
-                  <h3 className="font-display font-bold text-xl mb-2 text-purple-400">Enterprise</h3>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold text-zinc-100">Custom</span>
-                  </div>
-                  <p className="text-sm text-zinc-500 mt-2">For security-critical deployments</p>
-                </div>
-                <ul className="space-y-3 mb-8">
-                  {[
-                    'Everything in Pro',
-                    'Private threat intel feed',
-                    'On-premise / VPC deployment',
-                    'SSO & SAML',
-                    'SLA guarantee (99.9%)',
-                    'Dedicated support channel',
-                    'Custom integrations',
-                    'Security audit reports',
-                  ].map((f, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-zinc-400">
-                      <span className="text-purple-400">✓</span> {f}
-                    </li>
-                  ))}
-                </ul>
-                <a href="mailto:security@hivefence.com"
-                   className="block w-full py-3 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 font-mono text-sm text-center hover:bg-purple-500/20 transition-all">
-                  Contact Sales
-                </a>
               </div>
             </div>
 
