@@ -253,10 +253,12 @@ const FeatureCard = ({
     <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-500/5 to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     
     <div className="relative">
-      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/5 flex items-center justify-center mb-4">
-        {icon}
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500/20 to-amber-500/5 flex items-center justify-center flex-shrink-0">
+          {icon}
+        </div>
+        <h3 className="font-bold text-lg text-white">{title}</h3>
       </div>
-      <h3 className="font-bold text-lg text-white mb-2">{title}</h3>
       <p className="text-sm text-zinc-400 leading-relaxed">{desc}</p>
     </div>
   </div>
@@ -951,32 +953,32 @@ export default function Home() {
             
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <FeatureCard 
-                icon={<span className="text-2xl">⚡</span>}
+                icon={<svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>}
                 title="Edge-first (<50ms)"
                 desc="Cloudflare Workers at 300+ locations. Zero latency impact on your agent."
               />
               <FeatureCard 
-                icon={<span className="text-2xl">🔒</span>}
+                icon={<svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>}
                 title="Privacy-preserving"
                 desc="Only SHA-256 hashes shared. Zero-knowledge architecture."
               />
               <FeatureCard 
-                icon={<span className="text-2xl">🗳️</span>}
+                icon={<svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
                 title="Consensus-validated"
                 desc="Distributed validation prevents false positives."
               />
               <FeatureCard 
-                icon={<span className="text-2xl">🌍</span>}
+                icon={<svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
                 title="Multi-language"
                 desc="EN, KO, JA, ZH detection. Attacks in any language get caught."
               />
               <FeatureCard 
-                icon={<span className="text-2xl">📊</span>}
+                icon={<svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>}
                 title="OWASP-aligned"
                 desc="Covers LLM01-LLM09 attack categories from OWASP LLM Top 10."
               />
               <FeatureCard 
-                icon={<span className="text-2xl">💻</span>}
+                icon={<svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>}
                 title="100% Open Source"
                 desc="MIT licensed. Audit the code. Fork it. Self-host if needed."
               />
