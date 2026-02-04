@@ -3,14 +3,14 @@
 import { useState, useEffect, useRef } from 'react';
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// HIVEFENCE - SNYK STYLE REDESIGN
-// Dark theme with purple/cyan neon accents
+// HIVEFENCE - SNYK STYLE + HONEYBEE COLORS
+// Dark theme with amber/gold neon accents
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const API_BASE = 'https://hivefence-api.seojoon-kim.workers.dev/api/v1';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// GRID BACKGROUND WITH NOISE
+// GRID BACKGROUND WITH NOISE + AMBER GLOW
 // ─────────────────────────────────────────────────────────────────────────────
 
 const GridBackground = () => (
@@ -28,11 +28,11 @@ const GridBackground = () => (
       <rect width="100%" height="100%" fill="url(#grid)" />
     </svg>
     
-    {/* Purple glow top-left */}
-    <div className="absolute -top-[30%] -left-[20%] w-[70%] h-[70%] rounded-full bg-purple-600/20 blur-[120px]" />
+    {/* Amber glow top-left */}
+    <div className="absolute -top-[30%] -left-[20%] w-[70%] h-[70%] rounded-full bg-amber-500/15 blur-[120px]" />
     
-    {/* Cyan glow top-right */}
-    <div className="absolute -top-[20%] -right-[20%] w-[60%] h-[60%] rounded-full bg-cyan-500/15 blur-[100px]" />
+    {/* Gold glow top-right */}
+    <div className="absolute -top-[20%] -right-[20%] w-[60%] h-[60%] rounded-full bg-yellow-500/10 blur-[100px]" />
     
     {/* Bottom gradient fade */}
     <div className="absolute bottom-0 left-0 right-0 h-[40%] bg-gradient-to-t from-[#0a0a0b] to-transparent" />
@@ -45,48 +45,62 @@ const GridBackground = () => (
 );
 
 // ─────────────────────────────────────────────────────────────────────────────
-// LOGO - Modernized shield with neon glow
+// HIVEFENCE LOGO - Hexagon Shield with Bee
 // ─────────────────────────────────────────────────────────────────────────────
 
 const HiveLogo = ({ className = '', glow = false }: { className?: string; glow?: boolean }) => (
   <div className={`relative ${className}`}>
     {glow && (
-      <div className="absolute inset-0 blur-xl bg-gradient-to-r from-purple-500/40 to-cyan-500/40 animate-pulse" />
+      <div className="absolute inset-0 blur-xl bg-amber-500/40 animate-pulse" />
     )}
     <svg className="relative" viewBox="0 0 48 48" fill="none">
       <defs>
-        <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#a855f7" />
-          <stop offset="100%" stopColor="#22d3ee" />
+        <linearGradient id="honeyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#fbbf24" />
+          <stop offset="100%" stopColor="#f59e0b" />
         </linearGradient>
       </defs>
-      {/* Hexagon shield */}
+      {/* Hexagon */}
       <path 
         d="M24 4L42 14V34L24 44L6 34V14L24 4Z" 
-        stroke="url(#shieldGradient)" 
+        stroke="url(#honeyGradient)" 
         strokeWidth="2" 
         fill="none"
       />
       <path 
         d="M24 12L34 18V30L24 36L14 30V18L24 12Z" 
-        fill="url(#shieldGradient)" 
+        fill="url(#honeyGradient)" 
         opacity="0.2"
       />
-      {/* Check mark */}
-      <path 
-        d="M17 24L22 29L31 19" 
-        stroke="url(#shieldGradient)" 
-        strokeWidth="3" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-        fill="none"
-      />
+      {/* Bee body */}
+      <ellipse cx="24" cy="26" rx="6" ry="8" fill="url(#honeyGradient)" />
+      {/* Bee head */}
+      <circle cx="24" cy="18" r="4" fill="url(#honeyGradient)" />
+      {/* Stripes */}
+      <path d="M18 24h12M18 28h12" stroke="#0a0a0b" strokeWidth="2" />
     </svg>
   </div>
 );
 
+// Bee icon for decorations
+const BeeIcon = ({ className = '', size = 24 }: { className?: string; size?: number }) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none">
+    {/* Wings */}
+    <ellipse cx="8" cy="10" rx="4" ry="6" fill="currentColor" opacity="0.3" className="text-amber-400"/>
+    <ellipse cx="16" cy="10" rx="4" ry="6" fill="currentColor" opacity="0.3" className="text-amber-400"/>
+    {/* Body */}
+    <ellipse cx="12" cy="14" rx="5" ry="7" fill="currentColor" className="text-amber-500"/>
+    {/* Stripes */}
+    <path d="M8 12h8M8 15h8M8 18h8" stroke="#0a0a0b" strokeWidth="1.5" strokeLinecap="round"/>
+    {/* Head */}
+    <circle cx="12" cy="6" r="3" fill="currentColor" className="text-amber-500"/>
+    {/* Antennae */}
+    <path d="M10 4L8 1M14 4L16 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-amber-500"/>
+  </svg>
+);
+
 // ─────────────────────────────────────────────────────────────────────────────
-// ANIMATED NETWORK NODES
+// ANIMATED NETWORK NODES (Hive Network)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const NetworkNodes = ({ className = '' }: { className?: string }) => {
@@ -115,11 +129,11 @@ const NetworkNodes = ({ className = '' }: { className?: string }) => {
             </feMerge>
           </filter>
           
-          {/* Animated gradient for connections */}
+          {/* Honey gradient */}
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#a855f7" stopOpacity="0.3" />
-            <stop offset="50%" stopColor="#22d3ee" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#a855f7" stopOpacity="0.3" />
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.3" />
+            <stop offset="50%" stopColor="#fbbf24" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.3" />
           </linearGradient>
         </defs>
 
@@ -136,7 +150,7 @@ const NetworkNodes = ({ className = '' }: { className?: string }) => {
                 opacity="0.5"
               />
               {/* Animated particle along line */}
-              <circle r="2" fill="#22d3ee" opacity="0.8">
+              <circle r="2" fill="#fbbf24" opacity="0.8">
                 <animateMotion
                   dur={`${3 + i * 0.5}s`}
                   repeatCount="indefinite"
@@ -149,19 +163,17 @@ const NetworkNodes = ({ className = '' }: { className?: string }) => {
 
         {/* Central HiveFence hub */}
         <g transform="translate(350, 130)">
-          <circle r="45" fill="rgba(168, 85, 247, 0.1)" filter="url(#nodeGlow)">
+          <circle r="45" fill="rgba(245, 158, 11, 0.1)" filter="url(#nodeGlow)">
             <animate attributeName="r" values="40;48;40" dur="3s" repeatCount="indefinite" />
           </circle>
-          <circle r="30" fill="#0a0a0b" stroke="url(#shieldGradient)" strokeWidth="2" />
-          <text y="5" textAnchor="middle" fill="#a855f7" fontSize="10" fontFamily="monospace" fontWeight="bold">
-            HiveFence
-          </text>
+          <circle r="30" fill="#0a0a0b" stroke="url(#honeyGradient)" strokeWidth="2" />
+          <text y="5" textAnchor="middle" fill="#f59e0b" fontSize="20">🐝</text>
         </g>
 
         {/* Agent nodes */}
         {nodes.map((node, i) => (
           <g key={i} transform={`translate(${node.x}, ${node.y})`}>
-            <circle r="28" fill="rgba(34, 211, 238, 0.05)" filter="url(#nodeGlow)">
+            <circle r="28" fill="rgba(251, 191, 36, 0.05)" filter="url(#nodeGlow)">
               <animate 
                 attributeName="r" 
                 values="25;30;25" 
@@ -170,7 +182,7 @@ const NetworkNodes = ({ className = '' }: { className?: string }) => {
                 begin={`${node.delay}ms`}
               />
             </circle>
-            <circle r="20" fill="#0a0a0b" stroke="#22d3ee" strokeWidth="1.5" opacity="0.8" />
+            <circle r="20" fill="#0a0a0b" stroke="#f59e0b" strokeWidth="1.5" opacity="0.8" />
             <text y="4" textAnchor="middle" fill="#fff" fontSize="9" fontFamily="monospace" opacity="0.9">
               {node.label}
             </text>
@@ -195,10 +207,10 @@ const NetworkNodes = ({ className = '' }: { className?: string }) => {
 
         {/* Stats overlay */}
         <g transform="translate(550, 20)">
-          <rect x="0" y="0" width="130" height="50" rx="8" fill="rgba(10,10,11,0.9)" stroke="rgba(168,85,247,0.3)" strokeWidth="1" />
-          <text x="10" y="18" fill="#a855f7" fontSize="9" fontFamily="monospace" fontWeight="bold">NETWORK STATUS</text>
+          <rect x="0" y="0" width="130" height="50" rx="8" fill="rgba(10,10,11,0.9)" stroke="rgba(245,158,11,0.3)" strokeWidth="1" />
+          <text x="10" y="18" fill="#f59e0b" fontSize="9" fontFamily="monospace" fontWeight="bold">HIVE STATUS</text>
           <text x="10" y="35" fill="#22c55e" fontSize="10" fontFamily="monospace">● 5 Protected</text>
-          <text x="80" y="35" fill="#22d3ee" fontSize="10" fontFamily="monospace">● Live</text>
+          <text x="80" y="35" fill="#fbbf24" fontSize="10" fontFamily="monospace">● Live</text>
         </g>
       </svg>
     </div>
@@ -230,20 +242,18 @@ const Terminal = ({ children, title = 'terminal' }: { children: React.ReactNode;
 const FeatureCard = ({ 
   icon, 
   title, 
-  desc, 
-  accent = 'purple' 
+  desc 
 }: { 
   icon: React.ReactNode; 
   title: string; 
   desc: string;
-  accent?: 'purple' | 'cyan';
 }) => (
-  <div className={`group relative p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-${accent === 'purple' ? 'purple' : 'cyan'}-500/50 transition-all duration-300`}>
+  <div className="group relative p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-amber-500/50 transition-all duration-300">
     {/* Hover glow effect */}
-    <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${accent === 'purple' ? 'from-purple-500/5 to-cyan-500/5' : 'from-cyan-500/5 to-purple-500/5'} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+    <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-amber-500/5 to-yellow-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     
     <div className="relative">
-      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${accent === 'purple' ? 'from-purple-500/20 to-purple-500/5' : 'from-cyan-500/20 to-cyan-500/5'} flex items-center justify-center mb-4`}>
+      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-500/5 flex items-center justify-center mb-4">
         {icon}
       </div>
       <h3 className="font-bold text-lg text-white mb-2">{title}</h3>
@@ -258,7 +268,7 @@ const FeatureCard = ({
 
 const StatCard = ({ value, label, sublabel }: { value: string; label: string; sublabel?: string }) => (
   <div className="text-center group">
-    <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent group-hover:from-cyan-400 group-hover:to-purple-400 transition-all duration-500">
+    <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 bg-clip-text text-transparent group-hover:from-orange-400 group-hover:to-yellow-400 transition-all duration-500">
       {value}
     </div>
     <div className="text-sm text-zinc-400 font-mono mt-2">{label}</div>
@@ -329,10 +339,10 @@ const AttackSimulator = () => {
     <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 overflow-hidden backdrop-blur-sm">
       <div className="p-6 sm:p-8">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="font-mono text-sm text-zinc-400">ATTACK SIMULATOR</h3>
+          <h3 className="font-mono text-sm text-zinc-400">🐝 ATTACK SIMULATOR</h3>
           <span className={`px-3 py-1 rounded-full text-xs font-mono ${
             status === 'idle' ? 'bg-zinc-800 text-zinc-400' :
-            status === 'scanning' ? 'bg-purple-500/20 text-purple-400 animate-pulse' :
+            status === 'scanning' ? 'bg-amber-500/20 text-amber-400 animate-pulse' :
             status === 'blocked' ? 'bg-red-500/20 text-red-400' :
             'bg-green-500/20 text-green-400'
           }`}>
@@ -344,7 +354,7 @@ const AttackSimulator = () => {
           value={input}
           onChange={(e) => { setInput(e.target.value); setStatus('idle'); setResult(null); }}
           placeholder="Enter a prompt to test..."
-          className="w-full h-32 p-4 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-200 font-mono text-sm placeholder:text-zinc-600 focus:outline-none focus:border-purple-500/50 resize-none mb-4"
+          className="w-full h-32 p-4 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-200 font-mono text-sm placeholder:text-zinc-600 focus:outline-none focus:border-amber-500/50 resize-none mb-4"
         />
         
         <div className="mb-6">
@@ -354,7 +364,7 @@ const AttackSimulator = () => {
               <button 
                 key={i} 
                 onClick={() => { setInput(a.text); setStatus('idle'); setResult(null); }}
-                className="px-3 py-2 rounded-lg text-xs font-mono bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-purple-400 border border-zinc-700 hover:border-purple-500/50 transition-all"
+                className="px-3 py-2 rounded-lg text-xs font-mono bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-amber-400 border border-zinc-700 hover:border-amber-500/50 transition-all"
               >
                 {a.label}
               </button>
@@ -365,7 +375,7 @@ const AttackSimulator = () => {
         <button 
           onClick={analyze} 
           disabled={!input.trim() || status === 'scanning'}
-          className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-mono font-bold hover:from-purple-400 hover:to-cyan-400 disabled:opacity-50 transition-all"
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-mono font-bold hover:from-amber-400 hover:to-yellow-400 disabled:opacity-50 transition-all"
         >
           Test Defense
         </button>
@@ -428,16 +438,16 @@ const StepCard = ({
 }) => (
   <div className="relative group">
     {/* Connector line */}
-    <div className="hidden md:block absolute top-8 left-full w-full h-[2px] bg-gradient-to-r from-purple-500/50 to-cyan-500/50 -translate-x-4" />
+    <div className="hidden md:block absolute top-8 left-full w-full h-[2px] bg-gradient-to-r from-amber-500/50 to-yellow-500/50 -translate-x-4" />
     
     <div className="text-center">
       {/* Step number with glow */}
       <div className="relative w-16 h-16 mx-auto mb-4">
-        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-cyan-500/20 blur-xl group-hover:blur-2xl transition-all" />
-        <div className="relative w-full h-full rounded-full bg-zinc-900 border border-purple-500/50 flex items-center justify-center text-2xl">
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500/20 to-yellow-500/20 blur-xl group-hover:blur-2xl transition-all" />
+        <div className="relative w-full h-full rounded-full bg-zinc-900 border border-amber-500/50 flex items-center justify-center text-2xl">
           {icon}
         </div>
-        <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center text-xs font-bold text-white">
+        <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 flex items-center justify-center text-xs font-bold text-black">
           {step}
         </div>
       </div>
@@ -532,9 +542,9 @@ const CommunityPreview = () => {
         <div className="flex items-center gap-2">
           <span className="text-xl">🗳️</span>
           <span className="font-mono text-sm text-zinc-400">LIVE THREAT CONSENSUS</span>
-          <span className="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-400 text-xs font-mono animate-pulse">LIVE</span>
+          <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs font-mono animate-pulse">LIVE</span>
         </div>
-        <a href="/validation" className="text-xs text-cyan-400 hover:text-cyan-300 font-mono">View All →</a>
+        <a href="/validation" className="text-xs text-amber-400 hover:text-amber-300 font-mono">View All →</a>
       </div>
       
       <div className="space-y-2">
@@ -595,14 +605,14 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <HiveLogo className="w-8 h-8" />
-              <span className="font-bold text-lg bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">HIVEFENCE</span>
+              <span className="font-bold text-lg bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">HIVEFENCE</span>
             </div>
             <div className="flex items-center gap-4 sm:gap-6">
               <div className="flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full ${apiOnline ? 'bg-green-500' : apiOnline === false ? 'bg-red-500' : 'bg-zinc-500'} animate-pulse`} />
                 <span className="text-xs font-mono text-zinc-500">API</span>
               </div>
-              <a href="https://github.com/seojoonkim/hivefence" target="_blank" className="text-sm text-zinc-400 hover:text-purple-400 transition-colors">
+              <a href="https://github.com/seojoonkim/hivefence" target="_blank" className="text-sm text-zinc-400 hover:text-amber-400 transition-colors">
                 GitHub
               </a>
             </div>
@@ -638,8 +648,8 @@ export default function Home() {
               Prompt injection is the #1 attack on AI agents. HiveFence blocks attacks in real-time with collective immunity.
             </p>
             
-            <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent mb-8">
-              One detects, all immune.
+            <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent mb-8">
+              🐝 One detects, all immune.
             </p>
             
             {/* Live Stats */}
@@ -651,7 +661,7 @@ export default function Home() {
                 </span>
               </div>
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-800/50 border border-zinc-700">
-                <span className="text-purple-400">🛡️</span>
+                <span className="text-amber-400">🛡️</span>
                 <span className="text-zinc-300 font-mono">
                   <AnimatedCounter value={stats?.threats?.blocked_30d || 0} /> threats blocked
                 </span>
@@ -661,7 +671,7 @@ export default function Home() {
             {/* Badges */}
             <div className="flex items-center justify-center gap-3 mb-10 text-sm font-mono">
               <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400">✓ Free Forever</span>
-              <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400">Pro Coming Soon</span>
+              <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400">Pro Coming Soon</span>
             </div>
             
             {/* CTAs */}
@@ -669,13 +679,13 @@ export default function Home() {
               <a 
                 href="https://github.com/seojoonkim/hivefence" 
                 target="_blank" 
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-bold text-lg hover:from-purple-400 hover:to-cyan-400 transition-all inline-flex items-center justify-center gap-2 shadow-lg shadow-purple-500/25"
+                className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-bold text-lg hover:from-amber-400 hover:to-yellow-400 transition-all inline-flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25"
               >
-                Get Started Free
+                🐝 Get Started Free
               </a>
               <a 
                 href="#demo" 
-                className="px-6 py-4 rounded-xl border border-zinc-700 text-zinc-300 font-mono hover:border-purple-500/50 hover:text-purple-400 transition-all inline-flex items-center justify-center gap-2"
+                className="px-6 py-4 rounded-xl border border-zinc-700 text-zinc-300 font-mono hover:border-amber-500/50 hover:text-amber-400 transition-all inline-flex items-center justify-center gap-2"
               >
                 Live Demo ↓
               </a>
@@ -684,11 +694,11 @@ export default function Home() {
             {/* Install Terminal */}
             <div className="max-w-2xl mx-auto">
               <Terminal title="install in 30 seconds">
-                <div className="text-cyan-400">$ npx clawhub install hivefence</div>
+                <div className="text-amber-400">$ npx clawhub install hivefence</div>
                 <div className="text-zinc-500 mt-3"># or via npm</div>
-                <div className="text-cyan-400">$ npm install hivefence</div>
+                <div className="text-amber-400">$ npm install hivefence</div>
                 <div className="text-zinc-500 mt-3"># start protecting immediately</div>
-                <div className="text-purple-400">import {'{ protect }'} from 'hivefence'</div>
+                <div className="text-yellow-400">import {'{ protect }'} from 'hivefence'</div>
                 <div className="text-zinc-300 mt-1">const safe = await protect(userInput)</div>
               </Terminal>
             </div>
@@ -709,7 +719,7 @@ export default function Home() {
                 AI coding assistants have real filesystem access. A single malicious prompt can 
                 <span className="text-red-400"> read your secrets</span>,
                 <span className="text-orange-400"> modify your code</span>, or
-                <span className="text-purple-400"> exfiltrate data</span>.
+                <span className="text-amber-400"> exfiltrate data</span>.
               </p>
             </div>
             
@@ -757,10 +767,10 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">
-                Collective <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">Immunity</span>
+                Collective <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Immunity</span>
               </h2>
               <p className="text-zinc-400 max-w-lg mx-auto">
-                When one agent detects an attack, every connected agent becomes immune instantly.
+                When one agent detects an attack, every connected agent becomes immune instantly. 🐝
               </p>
             </div>
             
@@ -777,7 +787,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4">
-                How it <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">Works</span>
+                How it <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Works</span>
               </h2>
               <p className="text-zinc-400">Three steps to collective immunity</p>
             </div>
@@ -812,7 +822,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">
-                Try it <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">Now</span>
+                Try it <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Now</span>
               </h2>
               <p className="text-zinc-400">Test our defense against real attack patterns</p>
             </div>
@@ -828,7 +838,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold mb-4">
-                Built for <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">Production</span>
+                Built for <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Production</span>
               </h2>
               <p className="text-zinc-400">Enterprise-grade security for AI agents</p>
             </div>
@@ -838,37 +848,31 @@ export default function Home() {
                 icon={<span className="text-2xl">⚡</span>}
                 title="Edge-first (<50ms)"
                 desc="Cloudflare Workers at 300+ locations. Zero latency impact on your agent."
-                accent="cyan"
               />
               <FeatureCard 
                 icon={<span className="text-2xl">🔒</span>}
                 title="Privacy-preserving"
                 desc="Only SHA-256 hashes shared. Zero-knowledge architecture."
-                accent="purple"
               />
               <FeatureCard 
                 icon={<span className="text-2xl">🗳️</span>}
                 title="Consensus-validated"
                 desc="Distributed validation prevents false positives."
-                accent="cyan"
               />
               <FeatureCard 
                 icon={<span className="text-2xl">🌍</span>}
                 title="Multi-language"
                 desc="EN, KO, JA, ZH detection. Attacks in any language get caught."
-                accent="purple"
               />
               <FeatureCard 
                 icon={<span className="text-2xl">📊</span>}
                 title="OWASP-aligned"
                 desc="Covers LLM01-LLM09 attack categories from OWASP LLM Top 10."
-                accent="cyan"
               />
               <FeatureCard 
                 icon={<span className="text-2xl">💻</span>}
                 title="100% Open Source"
                 desc="MIT licensed. Audit the code. Fork it. Self-host if needed."
-                accent="purple"
               />
             </div>
           </div>
@@ -881,7 +885,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">
-                Explore <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">HiveFence</span>
+                Explore <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">HiveFence</span>
               </h2>
               <p className="text-zinc-400">Deep dive into our security features</p>
             </div>
@@ -901,26 +905,26 @@ export default function Home() {
                 <p className="text-sm text-zinc-400 mb-4">
                   Comprehensive reference of prompt injection attack types. Role override, jailbreaks, data exfiltration, and more.
                 </p>
-                <span className="text-purple-400 text-sm font-mono group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                <span className="text-amber-400 text-sm font-mono group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                   Explore Threats →
                 </span>
               </a>
 
               {/* Community Governance */}
-              <a href="/validation" className="group p-8 rounded-2xl bg-gradient-to-br from-purple-500/5 to-zinc-900/50 border border-purple-500/20 hover:border-purple-500/40 transition-all">
+              <a href="/validation" className="group p-8 rounded-2xl bg-gradient-to-br from-amber-500/5 to-zinc-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <span className="text-3xl">🗳️</span>
                   </div>
                   <div>
-                    <h3 className="font-bold text-xl group-hover:text-purple-400 transition-colors">Consensus Protocol</h3>
+                    <h3 className="font-bold text-xl group-hover:text-amber-400 transition-colors">Consensus Protocol</h3>
                     <p className="text-sm text-zinc-500">Vote on patterns, submit threats</p>
                   </div>
                 </div>
                 <p className="text-sm text-zinc-400 mb-4">
                   Democratic pattern validation. When you detect a new attack, report it. The community votes, everyone becomes immune.
                 </p>
-                <span className="text-cyan-400 text-sm font-mono group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                <span className="text-amber-400 text-sm font-mono group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                   Join Community →
                 </span>
               </a>
@@ -934,33 +938,33 @@ export default function Home() {
         <section className="py-20 px-4 sm:px-6 bg-zinc-900/30">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-purple-500/20 to-cyan-500/20 flex items-center justify-center">
-                <span className="text-purple-400">⬡</span>
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-amber-500/20 to-yellow-500/20 flex items-center justify-center">
+                <span className="text-amber-400">⬡</span>
               </div>
               <h2 className="text-sm font-mono text-zinc-500">API ENDPOINTS</h2>
             </div>
             
             <div className="space-y-3">
               {[
-                { m: 'POST', p: '/api/v1/threats/report', d: 'Submit new threat', icon: '🛡️' },
+                { m: 'POST', p: '/api/v1/threats/report', d: 'Submit new threat', icon: '🐝' },
                 { m: 'GET', p: '/api/v1/threats/pending', d: 'Get pending patterns', icon: '⏳' },
                 { m: 'POST', p: '/api/v1/threats/:id/vote', d: 'Vote on pattern', icon: '🗳️' },
                 { m: 'GET', p: '/api/v1/threats/latest', d: 'Fetch approved patterns', icon: '✅' },
                 { m: 'GET', p: '/api/v1/stats', d: 'Network statistics', icon: '📊' },
               ].map((e, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 font-mono text-sm hover:border-purple-500/30 transition-all group">
+                <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-zinc-900/50 border border-zinc-800 font-mono text-sm hover:border-amber-500/30 transition-all group">
                   <span className="text-lg opacity-50 group-hover:opacity-100 transition-opacity">{e.icon}</span>
                   <span className={`px-2 py-0.5 rounded text-xs font-bold ${e.m === 'POST' ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400'}`}>{e.m}</span>
-                  <code className="text-purple-400 flex-1">{e.p}</code>
+                  <code className="text-amber-400 flex-1">{e.p}</code>
                   <span className="text-zinc-500 text-xs hidden sm:block">{e.d}</span>
                 </div>
               ))}
             </div>
             
-            <div className="mt-8 p-4 rounded-xl bg-gradient-to-r from-purple-500/5 to-cyan-500/5 border border-purple-500/20 flex items-center gap-3">
-              <HiveLogo className="w-6 h-6" />
+            <div className="mt-8 p-4 rounded-xl bg-gradient-to-r from-amber-500/5 to-yellow-500/5 border border-amber-500/20 flex items-center gap-3">
+              <BeeIcon size={24} className="flex-shrink-0" />
               <p className="text-sm text-zinc-400">
-                <span className="text-purple-400 font-mono">Base URL:</span> https://hivefence-api.seojoon-kim.workers.dev
+                <span className="text-amber-400 font-mono">Base URL:</span> https://hivefence-api.seojoon-kim.workers.dev
               </p>
             </div>
           </div>
@@ -975,21 +979,21 @@ export default function Home() {
             Stop hoping your agent won't get attacked.
           </h2>
           <h3 className="text-2xl md:text-3xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">Know it won't.</span>
+            <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Know it won't.</span>
           </h3>
           <p className="text-zinc-400 mb-4 max-w-lg mx-auto">
             Open source. MIT licensed. OWASP-aligned. Add protection in under 5 minutes.
           </p>
-          <p className="text-xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent mb-8 font-mono">
-            One detects, all immune.
+          <p className="text-xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent mb-8 font-mono">
+            🐝 One detects, all immune.
           </p>
           
           <a 
             href="https://github.com/seojoonkim/hivefence" 
             target="_blank"
-            className="px-10 py-5 rounded-xl bg-gradient-to-r from-purple-500 to-cyan-500 text-white font-bold text-xl hover:from-purple-400 hover:to-cyan-400 transition-all inline-flex items-center justify-center gap-3 mb-8 shadow-lg shadow-purple-500/25"
+            className="px-10 py-5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-bold text-xl hover:from-amber-400 hover:to-yellow-400 transition-all inline-flex items-center justify-center gap-3 mb-8 shadow-lg shadow-amber-500/25"
           >
-            Get Started Free
+            🐝 Get Started Free
           </a>
           
           {/* Trust badges */}
@@ -1011,7 +1015,7 @@ export default function Home() {
               <span>HiveFence v0.1.0</span>
             </div>
             <div>
-              MIT License • <a href="https://github.com/seojoonkim" className="text-purple-400 hover:underline">@seojoonkim</a>
+              MIT License • <a href="https://github.com/seojoonkim" className="text-amber-400 hover:underline">@seojoonkim</a>
             </div>
           </div>
         </footer>
