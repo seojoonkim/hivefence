@@ -1078,11 +1078,14 @@ export default function Home() {
               <span className="font-display font-bold">HIVEFENCE</span>
             </div>
             <div className="flex items-center gap-4 sm:gap-6">
+              <a href="/threats" className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-1.5">
+                <span className="hidden sm:inline">🎭</span> Threats
+              </a>
+              <a href="/community" className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-1.5">
+                <span className="hidden sm:inline">🗳️</span> Community
+              </a>
               <a href="#pricing" className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-1.5">
                 <span className="hidden sm:inline">💎</span> Pricing
-              </a>
-              <a href="#community" className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-1.5">
-                <span className="hidden sm:inline">🗳️</span> Vote
               </a>
               <div className="flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full ${apiOnline ? 'bg-green-500' : apiOnline === false ? 'bg-red-500' : 'bg-zinc-500'}`} />
@@ -1364,36 +1367,65 @@ export default function Home() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            DEMO
+            EXPLORE - Link to detailed pages
             ═══════════════════════════════════════════════════════════════════ */}
-        <section id="demo" className="py-12 sm:py-24 px-4 sm:px-6 relative bg-zinc-900/20">
-          {/* Floating bees decoration - hidden on mobile */}
-          <div className="hidden sm:block absolute top-20 left-10 opacity-20 animate-bounce" style={{ animationDuration: '3s' }}>
-            <BeeIcon size={32} />
-          </div>
-          <div className="hidden sm:block absolute top-40 right-16 opacity-15 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
-            <BeeIcon size={24} />
-          </div>
-          <div className="hidden sm:block absolute bottom-20 left-20 opacity-10 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }}>
-            <BeeIcon size={20} />
-          </div>
-          
-          <div className="max-w-2xl mx-auto relative">
-            <div className="text-center mb-6 sm:mb-12">
-              <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-amber-500/10 border border-amber-500/30 mb-4 sm:mb-6">
-                <BeeIcon size={24} className="text-amber-500 sm:hidden" />
-                <BeeIcon size={32} className="text-amber-500 hidden sm:block" />
-              </div>
+        <section id="demo" className="py-12 sm:py-20 px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8 sm:mb-12">
               <h2 className="font-display font-bold text-2xl sm:text-3xl mb-3 sm:mb-4">
-                Test the <span className="text-amber-400">Defense</span>
+                Explore <span className="text-amber-400">HiveFence</span>
               </h2>
-              <p className="text-sm sm:text-base text-zinc-400">Try a prompt injection attack and see HiveFence in action.</p>
+              <p className="text-sm sm:text-base text-zinc-400">Deep dive into our security features</p>
             </div>
-            <AttackSimulator />
             
-            {/* Community Panel */}
-            <div id="community" className="mt-8 scroll-mt-20">
-              <CommunityPanel />
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Threat Database Card */}
+              <a href="/threats" className="group p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-red-500/5 to-zinc-900/50 border border-red-500/20 hover:border-red-500/40 transition-all">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-xl bg-red-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span className="text-3xl">🎭</span>
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold text-xl group-hover:text-red-400 transition-colors">Threat Database</h3>
+                    <p className="text-sm text-zinc-500">8 attack categories, 349+ patterns</p>
+                  </div>
+                </div>
+                <p className="text-sm text-zinc-400 mb-4">
+                  Comprehensive reference of prompt injection attack types. Role override, jailbreaks, data exfiltration, and more.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['🎭 Role Override', '📜 System Injection', '🔓 Jailbreak', '💾 Data Exfil'].map((tag, i) => (
+                    <span key={i} className="px-2 py-1 rounded bg-zinc-800/50 text-xs text-zinc-400">{tag}</span>
+                  ))}
+                </div>
+                <div className="mt-4 text-amber-400 text-sm font-mono group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                  Explore Threats →
+                </div>
+              </a>
+
+              {/* Community Governance Card */}
+              <a href="/community" id="community" className="group p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-amber-500/5 to-zinc-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span className="text-3xl">🗳️</span>
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold text-xl group-hover:text-amber-400 transition-colors">Community Governance</h3>
+                    <p className="text-sm text-zinc-500">Vote on patterns, submit new threats</p>
+                  </div>
+                </div>
+                <p className="text-sm text-zinc-400 mb-4">
+                  Democratic pattern validation. When you detect a new attack, report it. The community votes, everyone becomes immune.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['Vote on Patterns', 'Submit Threats', 'Earn Reputation'].map((tag, i) => (
+                    <span key={i} className="px-2 py-1 rounded bg-zinc-800/50 text-xs text-zinc-400">{tag}</span>
+                  ))}
+                </div>
+                <div className="mt-4 text-amber-400 text-sm font-mono group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                  Join Community →
+                </div>
+              </a>
             </div>
           </div>
         </section>
