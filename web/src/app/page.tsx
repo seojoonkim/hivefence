@@ -68,16 +68,28 @@ const HiveLogo = ({ className = '', glow = false }: { className?: string; glow?:
         fill="none"
       />
       <path 
-        d="M24 12L34 18V30L24 36L14 30V18L24 12Z" 
+        d="M24 10L36 17V31L24 38L12 31V17L24 10Z" 
         fill="url(#honeyGradient)" 
-        opacity="0.2"
+        opacity="0.15"
       />
+      {/* Wings - left */}
+      <ellipse cx="17" cy="22" rx="4" ry="6" fill="url(#honeyGradient)" opacity="0.4" />
+      {/* Wings - right */}
+      <ellipse cx="31" cy="22" rx="4" ry="6" fill="url(#honeyGradient)" opacity="0.4" />
       {/* Bee body */}
-      <ellipse cx="24" cy="26" rx="6" ry="8" fill="url(#honeyGradient)" />
+      <ellipse cx="24" cy="27" rx="6" ry="9" fill="url(#honeyGradient)" />
       {/* Bee head */}
-      <circle cx="24" cy="18" r="4" fill="url(#honeyGradient)" />
+      <circle cx="24" cy="17" r="5" fill="url(#honeyGradient)" />
       {/* Stripes */}
-      <path d="M18 24h12M18 28h12" stroke="#0a0a0b" strokeWidth="2" />
+      <path d="M18 25h12" stroke="#0a0a0b" strokeWidth="2.5" />
+      <path d="M18 29h12" stroke="#0a0a0b" strokeWidth="2.5" />
+      <path d="M19 33h10" stroke="#0a0a0b" strokeWidth="2" />
+      {/* Antennae */}
+      <path d="M21 13L18 8" stroke="url(#honeyGradient)" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M27 13L30 8" stroke="url(#honeyGradient)" strokeWidth="1.5" strokeLinecap="round" />
+      {/* Eyes */}
+      <circle cx="22" cy="16" r="1.5" fill="#0a0a0b" />
+      <circle cx="26" cy="16" r="1.5" fill="#0a0a0b" />
     </svg>
   </div>
 );
@@ -728,7 +740,7 @@ export default function Home() {
             ═══════════════════════════════════════════════════════════════════ */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50">
           <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <HiveLogo className="w-8 h-8" />
               <span className="font-bold text-lg bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">HiveFence</span>
             </div>
