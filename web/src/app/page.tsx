@@ -955,10 +955,10 @@ export default function Home() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            LIVE DEMO
+            TRY IT NOW + THREAT DATABASE
             ═══════════════════════════════════════════════════════════════════ */}
         <section id="demo" className="py-20 px-4 sm:px-6">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">
                 Try it <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Now</span>
@@ -966,7 +966,57 @@ export default function Home() {
               <p className="text-zinc-400">Test our defense against real attack patterns</p>
             </div>
             
-            <AttackSimulator />
+            <div className="grid lg:grid-cols-5 gap-8">
+              {/* Attack Simulator - takes 3 columns */}
+              <div className="lg:col-span-3">
+                <AttackSimulator />
+              </div>
+              
+              {/* Threat Database Card - takes 2 columns */}
+              <div className="lg:col-span-2">
+                <a href="/threats" className="group block h-full p-6 rounded-2xl bg-gradient-to-br from-red-500/5 to-zinc-900/50 border border-red-500/20 hover:border-red-500/40 transition-all">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <svg className="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-lg group-hover:text-red-400 transition-colors">Threat Database</h3>
+                      <p className="text-xs text-zinc-500">8 categories • 400+ patterns</p>
+                    </div>
+                  </div>
+                  
+                  <p className="text-sm text-zinc-400 mb-4">
+                    Comprehensive reference of prompt injection attack types.
+                  </p>
+                  
+                  <ul className="text-xs text-zinc-500 space-y-2 mb-6">
+                    <li className="flex items-center gap-2">
+                      <span className="text-red-400">•</span> Role override & jailbreaks
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-red-400">•</span> Data exfiltration attempts
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-red-400">•</span> System prompt injection
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-red-400">•</span> Multi-language attacks
+                    </li>
+                  </ul>
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-zinc-800">
+                    <span className="text-red-400 text-sm font-mono">Browse All →</span>
+                    <div className="w-8 h-8 rounded-full bg-red-500/10 flex items-center justify-center group-hover:bg-red-500/20 group-hover:translate-x-1 transition-all">
+                      <svg className="w-4 h-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1018,84 +1068,62 @@ export default function Home() {
         </section>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            EXPLORE CARDS
+            COMMUNITY GOVERNANCE
             ═══════════════════════════════════════════════════════════════════ */}
         <section className="py-20 px-4 sm:px-6">
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">
-                Explore <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">HiveFence</span>
+                Community <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Governance</span>
               </h2>
               <p className="text-zinc-400 max-w-lg mx-auto">
-                Two dedicated dashboards with full details. Browse attack patterns or participate in community governance.
+                Democratic pattern validation. When you detect a new attack, report it. The community votes, everyone becomes immune.
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Threat Database */}
-              <a href="/threats" className="group p-8 rounded-2xl bg-gradient-to-br from-red-500/5 to-zinc-900/50 border border-red-500/20 hover:border-red-500/40 transition-all">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <svg className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-xl group-hover:text-red-400 transition-colors">Threat Database</h3>
-                    <p className="text-sm text-zinc-500">8 categories, 400+ patterns</p>
-                  </div>
-                </div>
-                <p className="text-sm text-zinc-400 mb-4">
-                  Comprehensive reference of prompt injection attack types. Role override, jailbreaks, data exfiltration, and more.
-                </p>
-                <ul className="text-xs text-zinc-500 space-y-1 mb-6">
-                  <li>• Browse by category (OWASP aligned)</li>
-                  <li>• See real attack examples</li>
-                  <li>• Filter by severity level</li>
-                  <li>• Updated in real-time</li>
-                </ul>
-                <div className="flex items-center justify-between">
-                  <span className="text-red-400 text-sm font-mono">View Full Database →</span>
-                  <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center group-hover:bg-red-500/20 group-hover:translate-x-1 transition-all">
-                    <svg className="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
-
-              {/* Community Governance */}
-              <a href="/validation" className="group p-8 rounded-2xl bg-gradient-to-br from-amber-500/5 to-zinc-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <svg className="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <a href="/validation" className="group block p-8 rounded-2xl bg-gradient-to-br from-amber-500/5 to-zinc-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all">
+              <div className="flex flex-col md:flex-row md:items-center gap-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 rounded-2xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg className="w-8 h-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-bold text-xl group-hover:text-amber-400 transition-colors">Consensus Protocol</h3>
-                    <p className="text-sm text-zinc-500">Vote on patterns, submit threats</p>
+                    <h3 className="font-bold text-2xl group-hover:text-amber-400 transition-colors">Consensus Protocol</h3>
+                    <p className="text-sm text-zinc-500">Vote on patterns • Submit threats • Track status</p>
                   </div>
                 </div>
-                <p className="text-sm text-zinc-400 mb-4">
-                  Democratic pattern validation. When you detect a new attack, report it. The community votes, everyone becomes immune.
-                </p>
-                <ul className="text-xs text-zinc-500 space-y-1 mb-6">
-                  <li>• Vote on pending patterns</li>
-                  <li>• Submit new threat signatures</li>
-                  <li>• Track approval status</li>
-                  <li>• GitHub login for voting</li>
-                </ul>
-                <div className="flex items-center justify-between">
-                  <span className="text-amber-400 text-sm font-mono">Open Governance Dashboard →</span>
-                  <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 group-hover:translate-x-1 transition-all">
-                    <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
+                
+                <div className="flex-1 grid grid-cols-2 md:grid-cols-4 gap-4 md:ml-8">
+                  <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
+                    <div className="text-amber-400 font-bold text-lg">🗳️</div>
+                    <div className="text-xs text-zinc-500">Vote</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
+                    <div className="text-amber-400 font-bold text-lg">📝</div>
+                    <div className="text-xs text-zinc-500">Submit</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
+                    <div className="text-amber-400 font-bold text-lg">📊</div>
+                    <div className="text-xs text-zinc-500">Track</div>
+                  </div>
+                  <div className="p-3 rounded-lg bg-zinc-800/50 text-center">
+                    <div className="text-amber-400 font-bold text-lg">🔐</div>
+                    <div className="text-xs text-zinc-500">GitHub SSO</div>
                   </div>
                 </div>
-              </a>
-            </div>
+              </div>
+              
+              <div className="flex items-center justify-end mt-6 pt-6 border-t border-zinc-800">
+                <span className="text-amber-400 text-sm font-mono mr-3">Open Governance Dashboard</span>
+                <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 group-hover:translate-x-1 transition-all">
+                  <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </a>
           </div>
         </section>
 
