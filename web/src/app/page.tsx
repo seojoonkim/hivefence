@@ -818,7 +818,7 @@ export default function Home() {
                 target="_blank" 
                 className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-bold text-lg hover:from-amber-400 hover:to-yellow-400 transition-all inline-flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25"
               >
-                🐝 Get Started Free
+                Get Started Free
               </a>
               <a 
                 href="#demo" 
@@ -1332,7 +1332,7 @@ export default function Home() {
             target="_blank"
             className="px-10 py-5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-bold text-xl hover:from-amber-400 hover:to-yellow-400 transition-all inline-flex items-center justify-center gap-3 mb-8 shadow-lg shadow-amber-500/25"
           >
-            🐝 Get Started Free
+            Get Started Free
           </a>
           
           {/* Trust badges */}
