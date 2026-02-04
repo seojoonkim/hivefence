@@ -973,9 +973,9 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">
-                Try it <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Now</span>
+                Defense <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">Center</span>
               </h2>
-              <p className="text-zinc-400">Test our defense against real attack patterns</p>
+              <p className="text-zinc-400">Test attacks live and explore our threat intelligence database</p>
             </div>
             
             <div className="grid lg:grid-cols-5 gap-8">
