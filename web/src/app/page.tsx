@@ -636,13 +636,12 @@ export default function Home() {
             </a>
             
             {/* Main headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6">
-              <span className="text-zinc-300">Your AI agent is</span>
-              <br />
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4">
+              <span className="text-zinc-300">Your AI agent is </span>
               <span className="bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">vulnerable.</span>
             </h1>
             
-            <p className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent mb-8">
+            <p className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent mb-8">
               🐝 One detects, all immune.
             </p>
             
