@@ -104,21 +104,26 @@ const BeeIcon = ({ className = '', size = 24 }: { className?: string; size?: num
 // ─────────────────────────────────────────────────────────────────────────────
 
 const NetworkNodes = ({ className = '' }: { className?: string }) => {
+  // Nodes repositioned for better spacing - no overlaps
   const nodes = [
-    { x: 150, y: 100, label: 'Claude', delay: 0 },
-    { x: 350, y: 60, label: 'Cursor', delay: 200 },
-    { x: 550, y: 100, label: 'Windsurf', delay: 400 },
-    { x: 250, y: 180, label: 'Cline', delay: 600 },
-    { x: 450, y: 180, label: 'Copilot', delay: 800 },
+    { x: 120, y: 120, label: 'Claude', delay: 0 },
+    { x: 350, y: 50, label: 'Cursor', delay: 200 },
+    { x: 580, y: 120, label: 'Windsurf', delay: 400 },
+    { x: 200, y: 210, label: 'Cline', delay: 600 },
+    { x: 500, y: 210, label: 'Copilot', delay: 800 },
   ];
 
+  // Connections go through center hub
   const connections = [
-    [0, 1], [1, 2], [0, 3], [1, 3], [1, 4], [2, 4], [3, 4]
+    [0, 1], [1, 2], [0, 3], [1, 4], [2, 4], [3, 4]
   ];
+
+  // Node-to-center connections
+  const centerConnections = [0, 1, 2, 3, 4];
 
   return (
     <div className={`relative ${className}`}>
-      <svg className="w-full h-full" viewBox="0 0 700 260" fill="none">
+      <svg className="w-full h-full" viewBox="0 0 700 280" fill="none">
         <defs>
           {/* Node glow filter */}
           <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
@@ -137,80 +142,88 @@ const NetworkNodes = ({ className = '' }: { className?: string }) => {
           </linearGradient>
         </defs>
 
-        {/* Connection lines */}
-        {connections.map(([from, to], i) => {
-          const n1 = nodes[from];
-          const n2 = nodes[to];
-          return (
-            <g key={i}>
-              <line
-                x1={n1.x} y1={n1.y} x2={n2.x} y2={n2.y}
-                stroke="url(#lineGradient)"
-                strokeWidth="1"
-                opacity="0.5"
-              />
-              {/* Animated particle along line */}
-              <circle r="2" fill="#fbbf24" opacity="0.8">
-                <animateMotion
-                  dur={`${3 + i * 0.5}s`}
-                  repeatCount="indefinite"
-                  path={`M${n1.x},${n1.y} L${n2.x},${n2.y}`}
+        {/* Layer 1: Connection lines (behind everything) */}
+        <g opacity="0.4">
+          {/* Node-to-center connections */}
+          {centerConnections.map((nodeIdx, i) => {
+            const node = nodes[nodeIdx];
+            return (
+              <g key={`center-${i}`}>
+                <line
+                  x1={node.x} y1={node.y} x2={350} y2={140}
+                  stroke="url(#lineGradient)"
+                  strokeWidth="1"
                 />
-              </circle>
-            </g>
-          );
-        })}
-
-        {/* Central HiveFence hub */}
-        <g transform="translate(350, 130)">
-          <circle r="45" fill="rgba(245, 158, 11, 0.1)" filter="url(#nodeGlow)">
-            <animate attributeName="r" values="40;48;40" dur="3s" repeatCount="indefinite" />
-          </circle>
-          <circle r="30" fill="#0a0a0b" stroke="url(#honeyGradient)" strokeWidth="2" />
-          <text y="5" textAnchor="middle" fill="#f59e0b" fontSize="20">🐝</text>
+                <circle r="2" fill="#fbbf24" opacity="0.8">
+                  <animateMotion
+                    dur={`${2.5 + i * 0.3}s`}
+                    repeatCount="indefinite"
+                    path={`M${node.x},${node.y} L350,140`}
+                  />
+                </circle>
+              </g>
+            );
+          })}
         </g>
 
-        {/* Agent nodes */}
+        {/* Layer 2: Attack indicator (left side) */}
+        <g transform="translate(50, 100)">
+          <circle r="18" fill="rgba(239, 68, 68, 0.15)" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="4 4">
+            <animate attributeName="r" values="14;20;14" dur="1s" repeatCount="indefinite" />
+          </circle>
+          <text y="4" textAnchor="middle" fill="#ef4444" fontSize="14">⚠</text>
+          <text y="38" textAnchor="middle" fill="#ef4444" fontSize="8" fontFamily="monospace" fontWeight="bold">BLOCKED</text>
+          
+          {/* Attack path blocked - pointing to Claude */}
+          <line x1="22" y1="0" x2="50" y2="15" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="4 4" opacity="0.6" />
+        </g>
+
+        {/* Layer 3: Central HiveFence hub */}
+        <g transform="translate(350, 140)">
+          <circle r="42" fill="rgba(245, 158, 11, 0.08)" filter="url(#nodeGlow)">
+            <animate attributeName="r" values="38;45;38" dur="3s" repeatCount="indefinite" />
+          </circle>
+          <circle r="28" fill="#0a0a0b" stroke="#f59e0b" strokeWidth="2" />
+          <text y="6" textAnchor="middle" fill="#f59e0b" fontSize="20">🐝</text>
+        </g>
+
+        {/* Layer 4: Agent nodes (on top) */}
         {nodes.map((node, i) => (
           <g key={i} transform={`translate(${node.x}, ${node.y})`}>
-            <circle r="28" fill="rgba(251, 191, 36, 0.05)" filter="url(#nodeGlow)">
+            <circle r="26" fill="rgba(251, 191, 36, 0.05)" filter="url(#nodeGlow)">
               <animate 
                 attributeName="r" 
-                values="25;30;25" 
+                values="23;28;23" 
                 dur="2s" 
                 repeatCount="indefinite"
                 begin={`${node.delay}ms`}
               />
             </circle>
-            <circle r="20" fill="#0a0a0b" stroke="#f59e0b" strokeWidth="1.5" opacity="0.8" />
-            <text y="4" textAnchor="middle" fill="#fff" fontSize="9" fontFamily="monospace" opacity="0.9">
+            <circle r="22" fill="#0a0a0b" stroke="#f59e0b" strokeWidth="1.5" />
+            <text y="4" textAnchor="middle" fill="#fff" fontSize="10" fontFamily="monospace" fontWeight="500">
               {node.label}
             </text>
-            {/* Status dot */}
-            <circle cx="14" cy="-14" r="4" fill="#22c55e">
+            {/* Status dot - positioned outside node */}
+            <circle cx="16" cy="-16" r="5" fill="#22c55e">
               <animate attributeName="opacity" values="1;0.5;1" dur="1.5s" repeatCount="indefinite" />
             </circle>
           </g>
         ))}
 
-        {/* Attack indicator */}
-        <g transform="translate(80, 80)">
-          <circle r="20" fill="rgba(239, 68, 68, 0.2)" stroke="#ef4444" strokeWidth="2" strokeDasharray="4 4">
-            <animate attributeName="r" values="15;22;15" dur="1s" repeatCount="indefinite" />
-          </circle>
-          <text y="4" textAnchor="middle" fill="#ef4444" fontSize="14">⚠</text>
-          <text y="35" textAnchor="middle" fill="#ef4444" fontSize="8" fontFamily="monospace">BLOCKED</text>
-          
-          {/* Attack path blocked */}
-          <line x1="25" y1="0" x2="100" y2="20" stroke="#ef4444" strokeWidth="2" strokeDasharray="4 4" opacity="0.5" />
-        </g>
-
-        {/* Stats overlay */}
-        <g transform="translate(550, 20)">
-          <rect x="0" y="0" width="130" height="50" rx="8" fill="rgba(10,10,11,0.9)" stroke="rgba(245,158,11,0.3)" strokeWidth="1" />
-          <text x="10" y="18" fill="#f59e0b" fontSize="9" fontFamily="monospace" fontWeight="bold">HIVE STATUS</text>
-          <text x="10" y="35" fill="#22c55e" fontSize="10" fontFamily="monospace">● 5 Protected</text>
-          <text x="80" y="35" fill="#fbbf24" fontSize="10" fontFamily="monospace">● Live</text>
+        {/* Layer 5: Stats overlay (top right, properly sized) */}
+        <g transform="translate(540, 15)">
+          <rect x="0" y="0" width="145" height="55" rx="8" fill="rgba(10,10,11,0.95)" stroke="rgba(245,158,11,0.4)" strokeWidth="1" />
+          <text x="12" y="20" fill="#f59e0b" fontSize="10" fontFamily="monospace" fontWeight="bold">HIVE STATUS</text>
+          <g transform="translate(12, 38)">
+            <circle cx="4" cy="-3" r="4" fill="#22c55e" />
+            <text x="14" y="0" fill="#22c55e" fontSize="11" fontFamily="monospace">5 Protected</text>
+          </g>
+          <g transform="translate(100, 38)">
+            <circle cx="4" cy="-3" r="4" fill="#fbbf24">
+              <animate attributeName="opacity" values="1;0.5;1" dur="1s" repeatCount="indefinite" />
+            </circle>
+            <text x="14" y="0" fill="#fbbf24" fontSize="11" fontFamily="monospace">Live</text>
+          </g>
         </g>
       </svg>
     </div>
