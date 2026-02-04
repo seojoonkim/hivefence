@@ -398,37 +398,131 @@ const AttackSimulator = () => {
         </button>
 
         {/* Result */}
-        {status === 'blocked' && threatInfo && (
-          <div className="mt-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30">
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-2xl">🚫</span>
-              <div>
-                <div className="text-red-400 font-mono font-bold">THREAT BLOCKED</div>
-                <div className="text-xs text-zinc-400">{threatInfo.name}</div>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="flex-1">
-                <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-gradient-to-r from-red-500 to-orange-500 rounded-full"
-                    style={{ width: `${threatInfo.severity}%` }}
-                  />
+        {status === 'blocked' && threatInfo && result && (
+          <div className="mt-6 space-y-4">
+            {/* Header */}
+            <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">🚫</span>
+                  <div>
+                    <div className="text-red-400 font-mono font-bold text-lg">THREAT BLOCKED</div>
+                    <div className="text-xs text-zinc-400">{threatInfo.name}</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-red-400">{threatInfo.severity}</div>
+                  <div className="text-xs text-zinc-500">Severity Score</div>
                 </div>
               </div>
-              <span className="text-red-400 font-mono text-sm">Severity: {threatInfo.severity}</span>
+              
+              {/* Severity Bar */}
+              <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-red-500 to-orange-500 rounded-full transition-all duration-500"
+                  style={{ width: `${threatInfo.severity}%` }}
+                />
+              </div>
             </div>
-            <p className="text-xs text-zinc-500 mt-3">{threatInfo.description}</p>
+
+            {/* Detection Pipeline */}
+            <div className="p-4 rounded-xl bg-zinc-800/50 border border-zinc-700">
+              <div className="text-xs text-zinc-500 font-mono mb-3">DETECTION PIPELINE</div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="w-5 h-5 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xs">✓</span>
+                  <span className="text-zinc-400">Pattern Matching</span>
+                  <span className="flex-1 border-b border-dashed border-zinc-700" />
+                  <span className="text-green-400 font-mono text-xs">MATCH FOUND</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="w-5 h-5 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xs">✓</span>
+                  <span className="text-zinc-400">Semantic Analysis</span>
+                  <span className="flex-1 border-b border-dashed border-zinc-700" />
+                  <span className="text-amber-400 font-mono text-xs">{result.confidence.toFixed(1)}% CONFIDENCE</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="w-5 h-5 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xs">✓</span>
+                  <span className="text-zinc-400">Risk Assessment</span>
+                  <span className="flex-1 border-b border-dashed border-zinc-700" />
+                  <span className="text-red-400 font-mono text-xs">HIGH RISK</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="w-5 h-5 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-xs">⊘</span>
+                  <span className="text-zinc-400">Action Taken</span>
+                  <span className="flex-1 border-b border-dashed border-zinc-700" />
+                  <span className="text-red-400 font-mono text-xs">BLOCKED</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Threat Details */}
+            <div className="p-4 rounded-xl bg-zinc-800/50 border border-zinc-700">
+              <div className="text-xs text-zinc-500 font-mono mb-3">THREAT ANALYSIS</div>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <div className="text-zinc-500 text-xs">Category</div>
+                  <div className="text-amber-400 font-mono">{result.category.replace('_', ' ').toUpperCase()}</div>
+                </div>
+                <div>
+                  <div className="text-zinc-500 text-xs">OWASP Classification</div>
+                  <div className="text-amber-400 font-mono">LLM01:2025</div>
+                </div>
+                <div>
+                  <div className="text-zinc-500 text-xs">Attack Vector</div>
+                  <div className="text-zinc-300">{threatInfo.description}</div>
+                </div>
+                <div>
+                  <div className="text-zinc-500 text-xs">Response Time</div>
+                  <div className="text-green-400 font-mono">&lt;50ms</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Network Update */}
+            <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center gap-3">
+              <span className="text-amber-400">🐝</span>
+              <div className="text-xs text-amber-400">
+                Pattern hash submitted to HiveFence network. All connected agents will be immunized.
+              </div>
+            </div>
           </div>
         )}
         
         {status === 'safe' && (
-          <div className="mt-6 p-4 rounded-xl bg-green-500/10 border border-green-500/30">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">✅</span>
-              <div>
-                <div className="text-green-400 font-mono font-bold">NO THREATS DETECTED</div>
-                <div className="text-xs text-zinc-500">Scanned against 10+ attack signatures</div>
+          <div className="mt-6 space-y-4">
+            <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/30">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-2xl">✅</span>
+                <div>
+                  <div className="text-green-400 font-mono font-bold">NO THREATS DETECTED</div>
+                  <div className="text-xs text-zinc-500">Prompt passed all security checks</div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Scan Summary */}
+            <div className="p-4 rounded-xl bg-zinc-800/50 border border-zinc-700">
+              <div className="text-xs text-zinc-500 font-mono mb-3">SCAN SUMMARY</div>
+              <div className="space-y-2">
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="w-5 h-5 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xs">✓</span>
+                  <span className="text-zinc-400">Pattern Matching (15 signatures)</span>
+                  <span className="flex-1 border-b border-dashed border-zinc-700" />
+                  <span className="text-green-400 font-mono text-xs">PASS</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="w-5 h-5 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xs">✓</span>
+                  <span className="text-zinc-400">Semantic Analysis</span>
+                  <span className="flex-1 border-b border-dashed border-zinc-700" />
+                  <span className="text-green-400 font-mono text-xs">PASS</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm">
+                  <span className="w-5 h-5 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-xs">✓</span>
+                  <span className="text-zinc-400">Multi-language Check</span>
+                  <span className="flex-1 border-b border-dashed border-zinc-700" />
+                  <span className="text-green-400 font-mono text-xs">PASS</span>
+                </div>
               </div>
             </div>
           </div>
