@@ -1078,12 +1078,6 @@ export default function Home() {
               <span className="font-display font-bold">HIVEFENCE</span>
             </div>
             <div className="flex items-center gap-4 sm:gap-6">
-              <a href="/threats" className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-1.5">
-                <span className="hidden sm:inline">🎭</span> Threats
-              </a>
-              <a href="/community" className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-1.5">
-                <span className="hidden sm:inline">🗳️</span> Community
-              </a>
               <div className="flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full ${apiOnline ? 'bg-green-500' : apiOnline === false ? 'bg-red-500' : 'bg-zinc-500'}`} />
                 <span className="text-xs font-mono text-zinc-500">API</span>
