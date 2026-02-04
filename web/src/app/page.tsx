@@ -1002,39 +1002,53 @@ export default function Home() {
               {/* Threat Database */}
               <a href="/threats" className="group p-8 rounded-2xl bg-gradient-to-br from-red-500/5 to-zinc-900/50 border border-red-500/20 hover:border-red-500/40 transition-all">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-xl bg-red-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <span className="text-3xl">🎭</span>
+                  <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg className="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
                   </div>
                   <div>
                     <h3 className="font-bold text-xl group-hover:text-red-400 transition-colors">Threat Database</h3>
                     <p className="text-sm text-zinc-500">8 categories, 349+ patterns</p>
                   </div>
                 </div>
-                <p className="text-sm text-zinc-400 mb-4">
+                <p className="text-sm text-zinc-400 mb-6">
                   Comprehensive reference of prompt injection attack types. Role override, jailbreaks, data exfiltration, and more.
                 </p>
-                <span className="text-amber-400 text-sm font-mono group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                  Explore Threats →
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="text-red-400 text-sm font-mono">Explore Threats</span>
+                  <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center group-hover:bg-red-500/20 group-hover:translate-x-1 transition-all">
+                    <svg className="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
               </a>
 
               {/* Community Governance */}
               <a href="/validation" className="group p-8 rounded-2xl bg-gradient-to-br from-amber-500/5 to-zinc-900/50 border border-amber-500/20 hover:border-amber-500/40 transition-all">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <span className="text-3xl">🗳️</span>
+                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg className="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
                   </div>
                   <div>
                     <h3 className="font-bold text-xl group-hover:text-amber-400 transition-colors">Consensus Protocol</h3>
                     <p className="text-sm text-zinc-500">Vote on patterns, submit threats</p>
                   </div>
                 </div>
-                <p className="text-sm text-zinc-400 mb-4">
+                <p className="text-sm text-zinc-400 mb-6">
                   Democratic pattern validation. When you detect a new attack, report it. The community votes, everyone becomes immune.
                 </p>
-                <span className="text-amber-400 text-sm font-mono group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                  Join Community →
-                </span>
+                <div className="flex items-center justify-between">
+                  <span className="text-amber-400 text-sm font-mono">Join Community</span>
+                  <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 group-hover:translate-x-1 transition-all">
+                    <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
               </a>
             </div>
           </div>
