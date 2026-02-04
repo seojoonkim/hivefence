@@ -1021,7 +1021,9 @@ export default function Home() {
               <h2 className="text-3xl font-bold mb-4">
                 Explore <span className="bg-gradient-to-r from-yellow-400 to-amber-500 bg-clip-text text-transparent">HiveFence</span>
               </h2>
-              <p className="text-zinc-400">Deep dive into our security features</p>
+              <p className="text-zinc-400 max-w-lg mx-auto">
+                Two dedicated dashboards with full details. Browse attack patterns or participate in community governance.
+              </p>
             </div>
             
             <div className="grid md:grid-cols-2 gap-6">
@@ -1035,14 +1037,20 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="font-bold text-xl group-hover:text-red-400 transition-colors">Threat Database</h3>
-                    <p className="text-sm text-zinc-500">8 categories, 349+ patterns</p>
+                    <p className="text-sm text-zinc-500">8 categories, 400+ patterns</p>
                   </div>
                 </div>
-                <p className="text-sm text-zinc-400 mb-6">
+                <p className="text-sm text-zinc-400 mb-4">
                   Comprehensive reference of prompt injection attack types. Role override, jailbreaks, data exfiltration, and more.
                 </p>
+                <ul className="text-xs text-zinc-500 space-y-1 mb-6">
+                  <li>• Browse by category (OWASP aligned)</li>
+                  <li>• See real attack examples</li>
+                  <li>• Filter by severity level</li>
+                  <li>• Updated in real-time</li>
+                </ul>
                 <div className="flex items-center justify-between">
-                  <span className="text-red-400 text-sm font-mono">Explore Threats</span>
+                  <span className="text-red-400 text-sm font-mono">View Full Database →</span>
                   <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center group-hover:bg-red-500/20 group-hover:translate-x-1 transition-all">
                     <svg className="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -1064,11 +1072,17 @@ export default function Home() {
                     <p className="text-sm text-zinc-500">Vote on patterns, submit threats</p>
                   </div>
                 </div>
-                <p className="text-sm text-zinc-400 mb-6">
+                <p className="text-sm text-zinc-400 mb-4">
                   Democratic pattern validation. When you detect a new attack, report it. The community votes, everyone becomes immune.
                 </p>
+                <ul className="text-xs text-zinc-500 space-y-1 mb-6">
+                  <li>• Vote on pending patterns</li>
+                  <li>• Submit new threat signatures</li>
+                  <li>• Track approval status</li>
+                  <li>• GitHub login for voting</li>
+                </ul>
                 <div className="flex items-center justify-between">
-                  <span className="text-amber-400 text-sm font-mono">Join Community</span>
+                  <span className="text-amber-400 text-sm font-mono">Open Governance Dashboard →</span>
                   <div className="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 group-hover:translate-x-1 transition-all">
                     <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
