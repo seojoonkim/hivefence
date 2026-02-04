@@ -376,12 +376,12 @@ const AttackSimulator = () => {
         
         <div className="mb-6">
           <div className="text-xs text-zinc-500 mb-3">Try an example attack:</div>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {ATTACKS.map((a, i) => (
               <button 
                 key={i} 
                 onClick={() => { setInput(a.text); setStatus('idle'); setResult(null); }}
-                className="px-3 py-2 rounded-lg text-xs font-mono bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-amber-400 border border-zinc-700 hover:border-amber-500/50 transition-all"
+                className="px-3 py-2 rounded-lg text-xs font-mono bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-amber-400 border border-zinc-700 hover:border-amber-500/50 transition-all text-left"
               >
                 {a.label}
               </button>
