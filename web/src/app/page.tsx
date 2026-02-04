@@ -1114,7 +1114,7 @@ export default function Home() {
             </h1>
             
             <p className="text-sm sm:text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-4 sm:mb-6 leading-relaxed px-2">
-              Prompt injection is the #1 attack on AI agents. HiveFence blocks attacks in real-time — <span className="text-amber-400">when one detects, all become immune.</span>
+              Prompt injection is the #1 attack on AI agents. HiveFence blocks attacks in real-time.<br /><span className="text-amber-400 font-bold text-lg sm:text-xl">One detects, all immune.</span>
             </p>
             
             {/* Social Proof */}
@@ -1822,8 +1822,8 @@ export default function Home() {
           <p className="text-sm sm:text-base text-zinc-400 mb-3 sm:mb-4 max-w-lg mx-auto px-2">
             Open source. MIT licensed. OWASP-aligned. Add protection in under 5 minutes.
           </p>
-          <p className="text-xs sm:text-sm text-zinc-500 mb-6 sm:mb-8">
-            Join the hive. When one is attacked, all become immune.
+          <p className="text-lg sm:text-xl text-amber-400 font-bold mb-6 sm:mb-8 font-mono">
+            One detects, all immune.
           </p>
           
           {/* Single CTA */}
