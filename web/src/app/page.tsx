@@ -1000,23 +1000,58 @@ export default function Home() {
                   </div>
                   
                   <p className="text-sm text-zinc-400 mb-4">
-                    Comprehensive reference of prompt injection attack types.
+                    Comprehensive reference of prompt injection attack types. OWASP LLM Top 10 aligned.
                   </p>
                   
-                  <ul className="text-xs text-zinc-500 space-y-2 mb-6">
+                  {/* Stats Grid */}
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    <div className="p-2 rounded-lg bg-zinc-800/50 text-center">
+                      <div className="text-red-400 font-bold text-lg">8</div>
+                      <div className="text-[10px] text-zinc-500">Categories</div>
+                    </div>
+                    <div className="p-2 rounded-lg bg-zinc-800/50 text-center">
+                      <div className="text-red-400 font-bold text-lg">400+</div>
+                      <div className="text-[10px] text-zinc-500">Patterns</div>
+                    </div>
+                    <div className="p-2 rounded-lg bg-zinc-800/50 text-center">
+                      <div className="text-red-400 font-bold text-lg">4</div>
+                      <div className="text-[10px] text-zinc-500">Languages</div>
+                    </div>
+                    <div className="p-2 rounded-lg bg-zinc-800/50 text-center">
+                      <div className="text-green-400 font-bold text-lg">Live</div>
+                      <div className="text-[10px] text-zinc-500">Updates</div>
+                    </div>
+                  </div>
+                  
+                  {/* Attack Types */}
+                  <ul className="text-xs text-zinc-500 space-y-1.5 mb-4">
                     <li className="flex items-center gap-2">
-                      <span className="text-red-400">•</span> Role override & jailbreaks
+                      <span className="text-red-400">🎭</span> Role override & jailbreaks
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-red-400">•</span> Data exfiltration attempts
+                      <span className="text-red-400">💾</span> Data exfiltration attempts
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-red-400">•</span> System prompt injection
+                      <span className="text-red-400">📜</span> System prompt injection
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-red-400">•</span> Multi-language attacks
+                      <span className="text-red-400">🌐</span> Multi-language attacks
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-red-400">💻</span> Code execution attempts
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-red-400">🔗</span> Indirect injection
                     </li>
                   </ul>
+                  
+                  {/* OWASP Badges */}
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-red-500/10 text-red-400 border border-red-500/20">LLM01</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-red-500/10 text-red-400 border border-red-500/20">LLM06</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-red-500/10 text-red-400 border border-red-500/20">LLM07</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-red-500/10 text-red-400 border border-red-500/20">LLM08</span>
+                  </div>
                   
                   <div className="flex items-center justify-between pt-4 border-t border-zinc-800">
                     <span className="text-red-400 text-sm font-mono">Browse All →</span>
