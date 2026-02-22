@@ -1,22 +1,33 @@
 ---
 name: hivefence
-version: 1.0.0
-description: Collective immunity network for AI agents. When one agent detects a prompt injection attack, all connected agents become immune. Real-time pattern detection, community voting, and distributed threat intelligence. Built on top of prompt-guard.
+version: 1.2.0
+description: "Runtime security layer for autonomous AI agents. Covers 6 attack surfaces: prompt injection, supply chain injection, memory poisoning, action gate bypass, unicode steganography, and cascade amplification. Collective immunity network — when one agent detects an attack, all connected agents become immune. 600+ patterns, token splitting bypass defense with 6-pass normalization."
 ---
 
-# HiveFence v1.0.0
+# HiveFence v1.2.0
 
-🐝 **When one is attacked, all become immune.**
+🐝 **The Runtime Security Layer for Autonomous AI Agents**
 
-Collective prompt injection defense network for AI agents.
+> When one is attacked, all become immune. Defense-in-depth for agentic systems.
 
 ## What is HiveFence?
 
-HiveFence extends prompt-guard with a distributed immunity system:
+HiveFence is a comprehensive runtime security framework that protects AI agents across the full attack surface — not just prompt injection:
 
-1. **Detect** — Your agent scans incoming prompts against 15+ attack patterns
+1. **Detect** — Scan incoming prompts against 600+ patterns across 6 attack categories
 2. **Report** — New attack patterns are hashed and submitted to the network
 3. **Immunize** — Community validates the pattern, then every connected agent gets the update
+
+## Attack Surface Coverage
+
+| Category | Severity | Patterns |
+|----------|----------|----------|
+| Prompt Injection | CRITICAL-HIGH | Instruction override, jailbreak, impersonation, extraction |
+| Supply Chain Injection | CRITICAL | Malicious skills, lifecycle hooks, credential exfil |
+| Memory Poisoning | HIGH | Persistent write injection to agent config files |
+| Action Gate Bypass | HIGH | Unauthorized financial, credential, access, destructive actions |
+| Unicode Steganography | HIGH | Bidi overrides, zero-width chars, invisible instructions |
+| Cascade Amplification | MEDIUM | Infinite agent spawning, recursive loops, cost explosion |
 
 ## Features
 
@@ -51,16 +62,6 @@ if (result.blocked) {
 }
 ```
 
-## Security Stack Recommendation
-
-For maximum protection, use HiveFence with:
-
-1. **ACIP** — Advanced Cognitive Inoculation Prompt (behavioral boundaries)
-2. **HiveFence** — Pattern detection + collective immunity
-3. **SkillGuard** — Audit skills before installation
-
-As recommended in [@VittoStack's Security Guide](https://x.com/vittostack/status/2018326025373900881) (34K+ views)
-
 ## API Endpoints
 
 | Method | Endpoint | Description |
@@ -73,19 +74,13 @@ As recommended in [@VittoStack's Security Guide](https://x.com/vittostack/status
 
 **Base URL:** https://hivefence-api.seojoon-kim.workers.dev
 
-## Why HiveFence?
+## Security Stack Recommendation
 
-Without protection:
-- 91% injection attack success rate
-- 84% data extraction success rate
-- System prompts leaked on turn 1
+For maximum protection, use HiveFence with:
 
-(Source: [ZeroLeaks Security Assessment](https://x.com/NotLucknite/status/2017665998514475350))
-
-With HiveFence:
-- Real-time pattern blocking
-- Collective immunity from the network
-- Community-validated patterns (zero false positives)
+1. **ACIP** — Advanced Cognitive Inoculation Prompt (behavioral boundaries)
+2. **HiveFence** — Runtime security + collective immunity
+3. **SkillGuard** — Audit skills before installation
 
 ## Links
 
